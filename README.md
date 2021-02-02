@@ -26,6 +26,73 @@ The main objective is the same as **Level 1**. However,distractions should appea
 Distractions appear in the form of butterflies or car.
 
 ###	Level Three (*distractor* and *interaction* are included):
-The main objective is the same as **Level 2**. However,after the player hits a target, a small ball is popping up from the target's position to the player, and he should move away before hitting him because he will lose one of his three lives.
+The main objective is the same as **Level 2**. However,after the player hits a target, a small ball is popping up from the target's position to the player, and he should move away before hitting him because he will lose one of his  lives.
+
+To know more about the design of the gamified thepautic VR application, check our [GDD](https://drive.google.com/file/d/1od28M_qhC0D6l5wUmtykHoFs0XNPkWLz/view?usp=sharing) (Game Design Document)
+
+##  Statistics
+ In each session, we need collect data to measure the progress of the player. More information about the collected information could be found [here](https://drive.google.com/file/d/13o9tlypHxnBL0X3sSX34iIsZ0B88QBUv/view?usp=sharing).
+
+## Technologies Used
+
+ - [A-Frame](https://aframe.io/)
+	 - [Animation Mixer](https://www.8thwall.com/8thwall/animation-mixer-aframe)
+	 - [AABB Colider](https://github.com/supermedium/superframe/tree/master/components/aabb-collider/)
+	 - [SPE Particles](https://github.com/harlyq/aframe-spe-particles-component)
+ - HTML, CSS, JavaScript
+
+## Installation Guide
+
+### 1 | Install and run the project locally using NPM
+---
+
+> node v15.5.0
+> npm v7.3.0
+
+ 1. Clone the repository `git clone https://github.com/vrapeutic/Ellie-Tale.git`
+ 2. Go to the repo's directory `cd Archeeko-WebXR`
+ 3. Run `npm install` to install the required dependecies
+ 4. Run `npm run dev` command to start the WebXR app in your local envirotnment
+ 5. Go to the localhost URL specified in the terminal
+ 6. Congrats! You've got your local development environment ready!
+
+
+
+### 2 | Run the project on Glitch platform
+---
+ 1. Go to [Glitch](https://glitch.com/) platform
+ 2. Create an account if you don't already have one
+ 3. On your dashboard, then click **New project**, then choose the **Import from GitHub** option
+ 4. Paste the repo's full [url](https://github.com/vrapeutic/Archeeko-WebXR.git), then click **Ok**
+ 5. You're ready to go!
+ 
+ ### Preferred platform
+ ---
+ If you are going to be using a VR Headset, then we recommend trying the app (either the [hosted version](https://bit.ly/2LiIM22) or on [Glitch](https://glitch.com/)) on the [Oculus Browser](https://developer.oculus.com/webxr/).
+ 
+ For local development and testing, modern browsers could be used, where mouse and keyboard interactions will be the main source of interaction with the VR environment.
+
+## Code structures
+
+*  **Assets** directory
+
+	* All GLTF models could be found in [assets folder](https://glitch.com/edit/#!/truth-elated-ocicat?path=assets%3A1%3A0)
+
+* **index.html**
+
+	* Contains environment entities .
+
+* **index.js**
+
+	* Here we define most of our variables used for [statistics](#Statistics) computation
+
+
+* **js** directory
+	* Contains all logic and based on AFrame and JS code. 
+
+
+## Contributions
+
+Please note that this project is released with a Contributor Code of Conduct, which can be found [here](https://www.contributor-covenant.org/version/2/0/code_of_conduct/). By participating in this project you agree to abide by its terms.
 
 
