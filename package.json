@@ -1,0 +1,23 @@
+{
+  "name": "archeeko-webxr",
+  "version": "0.0.1",
+  "description": "VRapeutic's Archeeko - WebXR Version",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server",
+    "test": "echo\"Testing Archeeko-WebXr\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vrapeutic/Archeeko-WebXR.git"
+  },
+  "author": "hadeer gamal hadeer.gamal@myvrapeutic.com",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/vrapeutic/Archeeko-WebXR/issues"
+  },
+  "homepage": "https://github.com/vrapeutic/Archeeko-WebXR#readme",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
