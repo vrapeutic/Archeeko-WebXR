@@ -1,4 +1,4 @@
-# Archeeko- WebXR Version | [Try it out!](https://archeeko-f3fc01--pr3-dev-wuapvu4q.web.app/) 
+# Archeeko - WebXR Version | [Try it out!](https://archeeko-f3fc01--pr3-dev-wuapvu4q.web.app/) 
 
 
 
