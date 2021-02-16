@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/vrapeutic/Archeeko-WebXR#readme",
   "dependencies": {
-    "live-server": "^1.2.1"
+    "awesome-typescript-loader": "^5.2.1",
+    "live-server": "^1.2.1",
+    "source-map-loader": "^2.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.5"
   }
 }

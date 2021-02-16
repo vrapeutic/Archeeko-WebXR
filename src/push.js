@@ -25,7 +25,7 @@ AFRAME.registerComponent('push', {
         return;
       },
 init:function(){
-document.querySelector("a-scene").addEventListener("click",()=>{
+document.querySelector("#shooter").addEventListener("click",()=>{
     //this.el.addEventListener("Collide",
       //  this.el.setAttribute("Visible","true");
       var bullet=document.createElement('a-cylinder');
