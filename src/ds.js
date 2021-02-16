@@ -1,3 +1,5 @@
+
+console.log("hello");
 AFRAME.registerComponent("ds", {
   
     init: function()

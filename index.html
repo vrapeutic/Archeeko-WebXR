@@ -5,10 +5,12 @@
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <script src="http://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
-    <script src="../js/custom/aframe-spe-particles-component.js"></script>
+    <script src="src/custom/aframe-spe-particles-component.js"></script>
     <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
-    <script src="js/ds.js"></script>
-    <script src="js/push.js"></script>
+    <script src="src/test.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/test2.js"></script>
+    <script src="src/push.js"></script>
     
   </head>
   <body>
@@ -33,6 +35,7 @@
          <!--Camera-->
       <a-camera id="cam" movement-controls="speed: 0.15 constrainToNavMesh:true" position="0 1.6 10" look-controls="pointerLockeEnabled:true" >
         <a-entity cursor="rayOrigin: mouse"></a-entity>
+        <a-sphere id="shooter" position="0 0 -0.1" scale="0.002 0.002 0.002" visible="true" ></a-sphere>
        </a-camera>
 
        <!--Hands-->
