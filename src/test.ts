@@ -4,4 +4,4 @@ function greeter(person:string) {
 
 let user = 'Devglan';
 
-console.log(greeter(user));
+console.log(greeter(user)+"my");
