@@ -32,13 +32,15 @@ document.querySelector("#shooter").addEventListener("click",()=>{
       bullet.setAttribute("scale",{x:.2,y:.2,z:.2}) 
       bullet.setAttribute("id","bullet");
       bullet.setAttribute("aabb-collider","objects:a-box")
-      bullet.setAttribute("position",
-      document.getElementById("cam").getAttribute("position"));
-      document.querySelector("a-scene").appendChild(bullet);
+     // bullet.setAttribute("position",
+     // document.getElementById("shooter").getAttribute("position"));
+     // bullet.setAttribute("rotaion",
+     // document.getElementById("shooter").getAttribute("rotation"));
+      document.getElementById("shooter").appendChild(bullet);
       console.log(bullet);
       var self=document.getElementById("bullet");
       self.setAttribute("dynamic-body","mass :0.05");
-       var force = new CANNON.Vec3(0, 0,-1)
+       var force = new CANNON.Vec3(1,0,0)
        var local = new CANNON.Vec3(0, 0, 0)
        var worldVelocity = self.body.quaternion.vmult(force);
        self.body.applyImpulse(worldVelocity, local);
