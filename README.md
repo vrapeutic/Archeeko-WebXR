@@ -1,4 +1,4 @@
-# Archeeko - WebXR Version | [Try it out!](https://archeeko-f3fc01--pr3-dev-wuapvu4q.web.app/) 
+# Archeeko - WebXR Version | [Try it out!](https://archeeko-f3fc01.web.app/) 
 
 
 
@@ -73,7 +73,7 @@ To know more about the design of the gamified thepautic VR application, check ou
  
  ### Preferred platform
  ---
- If you are going to be using a VR Headset, then we recommend trying the app (either the [hosted version](https://archeeko-f3fc01--pr3-dev-wuapvu4q.web.app/) or on [Glitch](https://glitch.com/)) on the [Oculus Browser](https://developer.oculus.com/webxr/).
+ If you are going to be using a VR Headset, then we recommend trying the app (either the [hosted version](https://archeeko-f3fc01.web.app/) or on [Glitch](https://glitch.com/)) on the [Oculus Browser](https://developer.oculus.com/webxr/).
  
  For local development and testing, modern browsers could be used, where mouse and keyboard interactions will be the main source of interaction with the VR environment.
 
