@@ -1,151 +1,86 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
-    <script src="aframe-physics-system-master/dist/aframe-physics-system.min.js"></script>
-    <script src="src/custom/aframe-spe-particles-component.js"></script>
-    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
-    <script src="src/ds.js"></script>
-    <script src="src/gift.js"></script>
-    <script src="src/test2.js"></script>
-    <script src="src/push.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>jBow</title>
+  <meta name="description" content="jBow">
+
+  <script src="aframe-v0.5.0.min.js"></script>
+
+  <script src="components/aframe-motion-capture-components.v0.1.5.min.js"></script>
+
+  <script src="shaders/skyGradient.js"></script>
+  <script src="components/ground.js"></script>
+  <script src="components/aabb-collider.js"></script>
+  <script src="components/aframe-meshline-component.min.js"></script>
+  <script src="components/grab.js"></script>
+  <script src="components/bow-and-arrow.js"></script>
+  <script src="components/rotate-toward-velocity.js"></script>
+  <script src="components/poissondisc-forest.js"></script>
+
+  <script src="aframe-physics-system.v1.4.0.js"></script>
+</head>
+<body>
+
+  <a-scene id="scene" avatar-replayer="autoPlay: true; loop: true;" physics vr-mode-ui keyboard-shortcuts pool__arrow="mixin: arrowpool; size : 6;">
+
+  <!-- Asset Management System -->
+    <a-assets>
+      <a-asset-item id="bow-obj" src="assets/models/sg-bow-2-obj/sg-bow-2-rotated-nostring.obj"></a-asset-item>
+      <a-asset-item id="bow-mtl" src="assets/models/sg-bow-2-obj/sg-bow-2-rotated-nostring.mtl"></a-asset-item>
+      <a-asset-item id="arrow-obj" src="assets/models/low-poly-arrow-obj/low-poly-arrow-rotated.obj"></a-asset-item>
+      <a-asset-item id="arrow-mtl" src="assets/models/low-poly-arrow-obj/low-poly-arrow.mtl"></a-asset-item>
+      <a-asset-item id="target-obj" src="assets/models/target/target.obj"></a-asset-item>
+      <a-asset-item id="target-mtl" src="assets/models/target/target.mtl"></a-asset-item>
+      <a-mixin id="arrowpool" dynamic-body="shape:box" scale="0.005 0.005 0.005" obj-model="obj: #arrow-obj; mtl: #arrow-mtl"></a-mixin>
+      <audio id="arrow_release" src="assets/sounds/arrow_release.mp3">
+      <audio id="arrow_impact" src="assets/sounds/arrow_impact.mp3">
+      <audio id="draw_string" src="assets/sounds/draw_string.mp3" >
+    </a-assets>
+
+    <!-- Sounds -->
+    <a-sound id="arrow_release_sound" src="#arrow_release"  poolsize="4"></a-sound>
+    <a-sound id="arrow_impact_sound"  src="#arrow_impact" poolsize="4"></a-sound>
+    <a-sound id="draw_string_sound"  src="#draw_string" poolsize="4"></a-sound>
     
-  </head>
-  <body>
- 
-  <a-scene  stats physics="debug: false"  push restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
-     
-      <a-assets>
-        <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
+    <!-- Camera -->
+    <a-entity camera look-controls></a-entity>
+
+    <!-- Environment -->
+    <a-entity id="sky"  geometry="primitive: sphere; radius: 65;" material="shader: skyGradient; colorTop: #353449; colorBottom: #BC483E; side: back"></a-entity>
+    <a-entity ground position="4 0.1 5"></a-entity>
+    <a-plane color="#614126" static-body position="0 0 0" rotation="-90 0 0"  width="1000" height="1000"></a-plane>
+
+    <!-- Lights-->
+
+    <a-entity light="type: point; color: #f4f4f4; intensity: 0.2; distance: 0" position="8 30 18"></a-entity>
+
+    <a-entity light="type: point; color: #f4f4f4; intensity: 0.6; distance: 0" position="-8 30 -18"></a-entity>
+
+    <a-entity light="type: ambient; color: #f4f4f4; intensity: 0.4;" position="-8 10 -18"></a-entity>
+
+    <!-- Bow and Arrow -->
+
+    <a-entity id="preShotArrow" obj-model="obj: #arrow-obj; mtl: #arrow-mtl"position="0 0 0 " scale="0.05 0.05 0.05" visible="false"></a-entity>
+
+    <a-entity id="bowContainer" bow-and-arrow position="-0.5 1 -0.5"></a-entity>
     
-            <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FGarden_Tree01_v1.01.glb?v=1607334759579"
-             response-type="arraybuffer"></a-asset-item>
-     </a-assets>
-     
-     <a-entity id="updateMe"></a-entity>
+    <!-- Hands -->
 
-      <!--sky  <a-sky src="#starsky"></a-sky>
--->
-<a-plane static-body material="color: #dbb014"  width="80" height="80" rotation="-90 0 180" position="0 -1.71 0"></a-plane>   <!--lights-->
+    <a-entity id="leftHand" hand-controls="left" aabb-collider="objects:#bow;" grab></a-entity>
+    <a-entity id ="rightHand" hand-controls="right" aabb-collider="objects:#bow;" grab></a-entity>
 
-   <a-entity id="updateMe"></a-entity>
+     <!-- Targets-->
 
-         <!--Camera-->
-      <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 0" movement-controls="speed: 0.15 constrainToNavMesh:true" position="0 1.6 10" look-controls="pointerLockeEnabled:true" >
-        <a-entity cursor="rayOrigin: mouse" grab></a-entity>
-        <a-gltf-model id="shooter" rotation="15.656071751949744 92.12244613231428 2.8871343296642182" scale="0.2 0.2 0.2" position="0.04207 -0.31496 -0.8795" src="Assets/Sniper_Rifle.glb" visible="true" ></a-gltf-model>
-       </a-camera>
+    <a-entity class="target"  static-body scale="10 10 10" rotation="0 90 0" position = "0 2 -4" obj-model="obj: #target-obj; mtl: #target-mtl"></a-entity>
+    <a-entity class="target"  static-body scale="10 10 10" rotation="0 90 0" position = "-2 2 -4" obj-model="obj: #target-obj; mtl: #target-mtl"></a-entity>
+    <a-entity class="target"  static-body scale="10 10 10" rotation="0 90 0" position = "2 2 -4" obj-model="obj: #target-obj; mtl: #target-mtl"></a-entity>
 
-       <!--Hands-->
-       
-       <a-entity progressive-controls></a-entity>
+    <a-entity id="forest" poissondisc-forest></a-entity>
 
-       <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"  aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class = "hand"  static-body="shape: sphere; sphereRadius: 0.02;"    grab   ></a-entity>
-       <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;"grab 
-           class = "hand"></a-entity>
-       <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
- <!-- Ammo -->
- <a-sphere
- class="throwable"
- dynamic-body
- position="0 0 -0.5"
- radius="0.20"
- color="green"
-></a-sphere>
-<a-sphere
- class="throwable"
- dynamic-body
- position="0.25 0 -0.5"
- radius="0.20"
- color="green"
-></a-sphere>
-<a-sphere
- class="throwable"
- dynamic-body
- position="-0.25 0 -0.5"
- radius="0.20"
- color="green"
-></a-sphere>
-<a-box id="men"  timer scale="0.4 .4 .4"  position="-2.19846 0.05324 1"    color="#4CC3D9" lookat="#cam"  clickable 
-event-set__click="_event: mouseenter; _target:#TheTree; position:0 0 3" 
-
-></a-box>
-     <!--Menu-Buttons-->
-  
-<a-entity id= "TheTree" postion="0 0 0">
-      <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"  position="-2.19846 0.05324 -3"  aabb-collider="objects: a-sphere"  color="#4CC3D9" lookat="#cam"  clickable 
-      event-set__click="_event: click; _target:#selectenvironment; value:Beach " 
-
-      >
-   
-    </a-box>    
-  
-     <a-box  id="Library"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects: a-sphere" position="-1.88719 1.5 -3"     color="#4CC3D9" lookat="#cam"   
-      event-set__click="_event: mouseenter; _target:#selectenvironment; value:Library"
-
-      >
-    
-
-    </a-box>    
-
-      <a-box  id="Garden"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects: a-sphere"   position="-1.4 0.37967 -3"   color="#4CC3D9" lookat="#cam"   
-      event-set__click="_event: mouseenter; _target:#selectenvironment; value:Garden;" 
-     >
-     
-    </a-box>    
-          <a-entity id="targetone"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 -1 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
-    </a-entity> 
- 
-    <entity id="index" position="0 0 0"></entity>
-     <!----------butterfly target path-->
-     <a-box id="box" position="-3.08328 0.1 -3.41235"  visible="false" depth="0.4" width = "0.4" height = "0.4" position = "0 0.1 -0.1"  aabb-collider="objects: a-sphere,a-box" class = "bTarget"
-          
-     ></a-box>   
-       <a-box id="box1" position="0.55281 0.1 1.48203" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 1"  aabb-collider="objects: a-sphere,a-box" class = "bTarget"
-     
-     ></a-box> 
-  <a-box id="box2" position="0.56386 0.1 -3.66149" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 -1"  aabb-collider="objects: a-sphere,a-box"  class = "bTarget"
-     
-     ></a-box> 
-   <a-box id="box3" position="-1 0.1 3.73918" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 -1"  aabb-collider="objects: a-sphere,a-box" class = "bTarget"
-     
-     ></a-box>  
-  <a-box id="box4" position="-3.00254 0.1 1.15781" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 1"  aabb-collider="objects: a-sphere,a-box"  class = "bTarget"
-     
-     ></a-box>  
-     <a-gltf-model id="butterflymodel" src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer ds></a-gltf-model>
- </a-entity>
-</a-scene>
- 
-  </body>
+  </a-scene>
   <script>
-    const colorScale = d3.scaleSequential(d3.interpolatePlasma);
-    const dataset = [];
-  
-    for (let i = 10; i > 0; i--) {
-      dataset.push(i);
-    }
-  
-    let boxes = d3.select('#boxs');
-    boxes.selectAll('a-box')
-         .data(dataset)
-         .enter()
-         .append('a-box')
-         .attr('height', '0.1')
-         .attr('width', function(d, i) {
-           return String(0.1 * d);
-         })
-         .attr('depth', function(d, i) {
-           return String(0.1 * d);
-         })
-         .attr('color', function(d, i) {
-           return colorScale(i / 10);
-         })
-         .attr('position', function(d, i) {
-           return '2 ' + (i * 0.1 + 1.1) + ' 0';
-         })
-         .attr('dynamic-body', '');
+
   </script>
+</body>
 </html>
