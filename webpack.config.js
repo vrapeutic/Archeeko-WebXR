@@ -1,26 +1,86 @@
-module.exports = {
-  entry: "./src/index.ts",
+const webpack = require('webpack');
+const path = require('path');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProd = nodeEnv === 'production';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      // eslint-disable-line quote-props
+      NODE_ENV: JSON.stringify(nodeEnv),
+    },
+  }),
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      tslint: {
+        emitErrors: true,
+        failOnHint: true,
+      },
+    },
+  }),
+  new HtmlWebpackPlugin({
+    template: 'src/index.html',
+    inject: 'head'
+  }),
+];
+
+if (!isProd) {
+  plugins.push(new DashboardPlugin());
+}
+
+const config = {
+  devtool: isProd ? 'hidden-source-map' : 'source-map',
+  context: path.resolve('./'),
+  entry: {
+    app: './src/index.ts',
+  },
   output: {
-    filename: "./dist/bundle.js",
+    path: path.resolve('./dist'),
+    filename: 'index.js',
+    sourceMapFilename: 'index.map',
+    devtoolModuleFilenameTemplate: function (info) {
+      return 'file:///' + info.absoluteResourcePath;
+    },
   },
-
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
-
-  resolve: {
-    // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    library: 'WebXRBoilerPlate',
+    libraryTarget: 'umd',
   },
-
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-      { test: /\.tsx?$/, loader: "ts-loader" },
-
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { test: /\.js$/, loader: "source-map-loader" },
+      {
+        enforce: 'pre',
+        test: /\.ts?$/,
+        exclude: ['node_modules'],
+        use: ['awesome-typescript-loader', 'source-map-loader'],
+      },
+      {
+        test: /\.(js|ts)$/,
+        loader: 'babel-loader',
+        exclude: [/\/node_modules\//],
+      },
+      {
+        test: /\.html$/,
+        loader: ['raw-loader'], // loaders: ['raw-loader'] is also perfectly acceptable.
+      },
     ],
   },
-
-  // Other options...
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  plugins: plugins,
+  devServer: {
+    contentBase: path.join(__dirname, '/src'),
+    compress: true,
+    port: 3000,
+    hot: true,
+    disableHostCheck: true,
+    watchContentBase: true,
+  },
 };
+
+module.exports = config;
