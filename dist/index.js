@@ -302,7 +302,7 @@ var shoot = /** @class */function (_super) {
             bullet.setAttribute('id', 'bullet');
             bullet.setAttribute('class', 'bullets');
             bullet.setAttribute('aabb-collider', 'objects: .boxs');
-            var newforce = new CANNON.Vec3(5, 0, 0);
+            var newforce = new CANNON.Vec3(2, 0, 0);
             bullet.setAttribute('dynamic-body', 'mass:0.05');
             document.getElementById('shooter').appendChild(bullet);
             var shooter = _this.el;
