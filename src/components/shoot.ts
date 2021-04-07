@@ -39,7 +39,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
       bullet.setAttribute('aabb-collider', 'objects: .boxs');
 
       
-      const newforce = new CANNON.Vec3(5, 0, 0);
+      const newforce = new CANNON.Vec3(2, 0, 0);
       bullet.setAttribute('dynamic-body', 'mass:0.05');
       document.getElementById('shooter').appendChild(bullet);
       const shooter = this.el;
