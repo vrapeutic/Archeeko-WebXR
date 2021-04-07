@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+        <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+        <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+        <script src="../assets/custom/aframe-spe-particles-component.js"></script>
+        <script src="../aframe-physics-system-master/dist/aframe-physics-system.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
+      <script type="text/javascript" src="index.js"></script></head>
+<body>
+    <a-scene  stats physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
+     
+        <a-assets>
+          <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
+      
+              <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FGarden_Tree01_v1.01.glb?v=1607334759579"
+               response-type="arraybuffer"></a-asset-item>
+       </a-assets>
+       
+       <a-entity id="updateMe"></a-entity>
+  
+        <!--sky  <a-sky src="#starsky"></a-sky>
+  -->
+  <a-plane static-body material="color: #dbb014"  width="80" height="80" rotation="-90 0 180" position="0 -1.71 0"></a-plane>   <!--lights-->
+  
+     <a-entity id="updateMe"></a-entity>
+  
+           <!--Camera-->
+        <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 0" movement-controls="speed: 0.15 constrainToNavMesh:true" position="0 1.6 10" look-controls="pointerLockeEnabled:true" >
+          <a-entity cursor="rayOrigin: mouse" grab></a-entity>
+          <a-gltf-model id="shooter" push rotation="15.656071751949744 92.12244613231428 2.8871343296642182" scale="0.2 0.2 0.2" position="0.04207 -0.31496 -0.8795" src="../assets/Sniper_Rifle.glb" visible="true" ></a-gltf-model>
+         </a-camera>
+  
+         <!--Hands-->
+         
+         <a-entity progressive-controls></a-entity>
+  
+         <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"  aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class = "hand"  static-body="shape: sphere; sphereRadius: 0.02;"    grab   ></a-entity>
+         <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;"grab 
+             class = "hand"></a-entity>
+         <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
+ 
+  <a-box id="men"  timer scale="0.4 .4 .4"  position="-4.19846 0.05324 1"    color="#4CC3D9" lookat="#cam"  clickable 
+  event-set__click="_event: mouseenter; _target:#TheTree; position:0 0 8" 
+  
+  ></a-box>
+       <!--Menu-Buttons-->
+    
+  <a-entity id= "TheTree" postion="0 0 5">
+        <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"  position="-2.19846 0.05324 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable 
+        event-set__click="_event: click; _target:#selectenvironment; value:Beach " 
+  
+        >
+     
+      </a-box>    
+    
+       <a-box  id="Library"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet" position="-1.88719 1.5 -3"     color="#4CC3D9" lookat="#cam"   
+        event-set__click="_event: mouseenter; _target:#selectenvironment; value:Library"
+  
+        >
+      
+  
+      </a-box>    
+  
+        <a-box  id="Garden"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.37967 -3"    color="#4CC3D9" lookat="#cam"   
+        event-set__click="_event: mouseenter; _target:#selectenvironment; value:Garden;" 
+       >
+       
+      </a-box>    
+            <a-entity id="targetone"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 -1 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
+      </a-entity> 
+   
+      <entity id="index" position="0 0 0"></entity>
+       <!----------butterfly target path-->
+       <a-box id="box" position="-3.08328 0.1 -3.41235"  visible="false" depth="0.4" width = "0.4" height = "0.4" position = "0 0.1 -0.1"  aabb-collider="objects:a-cylinder, a-sphere,a-box" class = "bTarget"
+            
+       ></a-box>   
+         <a-box id="box1" position="0.55281 0.1 1.48203" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
+       
+       ></a-box> 
+    <a-box id="box2" position="0.56386 0.1 -3.66149" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
+       
+       ></a-box> 
+     <a-box id="box3" position="-1 0.1 3.73918" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
+       
+       ></a-box>  
+    <a-box id="box4" position="-3.00254 0.1 1.15781" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
+       
+       ></a-box>  
+       <a-gltf-model id="butterflymodel" src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer distractor ></a-gltf-model>
+   </a-entity>
+  </a-scene>
+   
+    </body>
+</html>
