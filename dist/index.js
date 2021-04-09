@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -192,288 +192,6 @@ exports.ComponentWrapper = ComponentWrapper;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
-            d.__proto__ = b;
-        } || function (d, b) {
-            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() {
-            this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-}();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.enemy = void 0;
-var aframe_wrapper_1 = __webpack_require__(0);
-//import type { Body } from 'cannon-es'
-//require("../../aframe-physics-system-master/dist/aframe-physics-system");
-//let el=this.el;
-// Use an origin point behind the head, not at the head, so
-// there's a useful vector between the origin and the projectile.
-var attachment = document.querySelector('#attachment');
-var enemy = /** @class */function (_super) {
-    __extends(enemy, _super);
-    function enemy() {
-        return _super.call(this, 'create-enemy', {}) || this;
-    }
-    enemy.prototype.init = function () {
-        var _this = this;
-        console.log(this.el.id);
-        var el = this.el;
-        console.log(el.id);
-        setTimeout(function () {
-            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
-        }, 5000);
-    };
-    enemy.prototype.update = function () {
-        console.log(this.el.id);
-    };
-    enemy.prototype.play = function () {};
-    enemy.prototype.pause = function () {};
-    enemy.prototype.tick = function () {};
-    enemy.prototype.remove = function () {};
-    enemy.prototype.destroy = function () {};
-    return enemy;
-}(aframe_wrapper_1.ComponentWrapper);
-exports.enemy = enemy;
-new enemy().register();
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
-            d.__proto__ = b;
-        } || function (d, b) {
-            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() {
-            this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-}();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoot = void 0;
-var aframe_wrapper_1 = __webpack_require__(0);
-var CANNON = __webpack_require__(5);
-//import type { Body } from 'cannon-es'
-//require("../../aframe-physics-system-master/dist/aframe-physics-system");
-var scene = document.querySelector('a-scene');
-var camera = document.querySelector('[camera]');
-// Use an origin point behind the head, not at the head, so
-// there's a useful vector between the origin and the projectile.
-var attachment = document.querySelector('#attachment');
-var shoot = /** @class */function (_super) {
-    __extends(shoot, _super);
-    function shoot() {
-        return _super.call(this, 'push', {
-            body: {
-                default: new CANNON.Body()
-            }
-        }) || this;
-    }
-    shoot.prototype.init = function () {
-        var _this = this;
-        document.querySelector('#shooter').addEventListener('click', function () {
-            var bullet = document.createElement('a-cylinder');
-            bullet.setAttribute('scale', { x: 0.9, y: 0.9, z: 0.9 });
-            bullet.setAttribute('id', 'bullet');
-            bullet.setAttribute('class', 'bullets');
-            bullet.setAttribute('aabb-collider', 'objects: .boxs');
-            var newforce = new CANNON.Vec3(2, 0, 0);
-            bullet.setAttribute('dynamic-body', 'mass:0.05');
-            document.getElementById('shooter').appendChild(bullet);
-            var shooter = _this.el;
-            bullet.addEventListener('body-loaded', function (e) {
-                // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
-                /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
-                let worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(force);
-                console.log((<any>e).detail.body.el.parentElement.id+"my body");
-                // (<any>e).detail.target.el.getAttribute("dynamic-body").applyImpulse(worldVelocity,local);
-                (<any>e).detail.target.el+  // Original entity (playerEl).
-                (<any>e).detail.body.el+   // Other entity, which playerEl touched.
-                (<any>e).detail.contact+   // Stats about the collision (CANNON.ContactEquation).
-                (<any>e).detail.contact.ni // Normal (direction) of the collision (CANNON.Vec3).
-                */
-                setTimeout(function () {
-                    var pStart = new CANNON.Vec3(0, 0, 0);
-                    //  console.log((<any>e).detail.contact.position.x)
-                    //  pStart.copy((<any>e).detail.contact);
-                    //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
-                    var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
-                    e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
-                }, 0);
-            });
-            setTimeout(function () {
-                document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
-            }, 3000);
-            bullet.addEventListener('hitstart', function (e) {
-                console.log(' collided with #' + e.target.components["aabb-collider"]["intersectedEls"][0].id);
-                var targetElement = e.target.components["aabb-collider"]["intersectedEls"][0];
-                console.log(targetElement.innerHTML);
-                if (e.target.components["aabb-collider"]["intersectedEls"][0].className == "boxs") {
-                    var id = document.getElementById(e.target.components["aabb-collider"]["intersectedEls"][0].id);
-                    console.log(":" + id);
-                    // id.setAttribute("dynamic-body","enabled:false");
-                    var currentPosition = document.getElementById(id.id).getAttribute("position");
-                    console.log(currentPosition);
-                    document.getElementById(id.id).setAttribute("dynamic-body", "mass :0.05");
-                    //this.el.setAttribute("aabb-collider","objects : a-sphere");
-                    document.getElementById("index").setAttribute("position", document.getElementById(id.id).getAttribute("position"));
-                    var partical = document.createElement('a-entity');
-                    partical.setAttribute("spe-particles", "texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ");
-                    partical.setAttribute("spe-particles", "randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;");
-                    //partical.setAttribute("position","1 3 1")
-                    document.getElementById(id.id).appendChild(partical);
-                    var ball = document.createElement('a-sphere');
-                    ball.setAttribute("scale", { x: .3, y: .3, z: .3 });
-                    ball.setAttribute("id", "enemy");
-                    ball.setAttribute("position", currentPosition);
-                    ball.setAttribute('create-enemy', "enabled");
-                    console.log(ball.getAttribute("position"));
-                    ball.setAttribute('aabb-collider', 'objects: #shooter');
-                    setTimeout(function () {
-                        document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
-                    }, 3000);
-                }
-                var ballForce = new CANNON.Vec3(0, 0, 1);
-                ball.setAttribute('dynamic-body', 'mass:0.05');
-                document.getElementById("TheTree").appendChild(ball);
-                console.log("Shof");
-                ball.addEventListener('body-loaded', function (e) {
-                    console.log(' shofbody #' + e.detail.body.el);
-                    setTimeout(function () {
-                        var newpStart = new CANNON.Vec3(0, 0, 0);
-                        var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
-                        e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
-                    }, 500);
-                });
-            });
-        });
-    };
-    shoot.prototype.update = function () {};
-    shoot.prototype.play = function () {};
-    shoot.prototype.pause = function () {};
-    shoot.prototype.tick = function () {};
-    shoot.prototype.remove = function () {};
-    shoot.prototype.destroy = function () {};
-    return shoot;
-}(aframe_wrapper_1.ComponentWrapper);
-exports.shoot = shoot;
-new shoot().register();
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
-            d.__proto__ = b;
-        } || function (d, b) {
-            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() {
-            this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-}();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.visualDistractorMovenment = void 0;
-var aframe_wrapper_1 = __webpack_require__(0);
-var visualDistractorMovenment = /** @class */function (_super) {
-    __extends(visualDistractorMovenment, _super);
-    function visualDistractorMovenment() {
-        return _super.call(this, 'distractor', {
-            color: {
-                type: 'string',
-                default: 'colorless'
-            }
-        }) || this;
-    }
-    visualDistractorMovenment.prototype.init = function () {
-        var newpos,
-            random = 0;
-        var box = document.querySelectorAll('.bTarget'); //Array of targets
-        var distractor = this.el;
-        var startDsMovement = function cycle() {
-            setTimeout(function () {
-                random++;
-                newpos = box[random].getAttribute('position'); // restor next target for distractor
-                distractor.setAttribute('animation', 'property:position; to:' + newpos.x + ' 1 ' + newpos.z + ' dur:5000');
-                if (random >= box.length - 1) {
-                    random = 0; // Set it back to `0` when it reaches `4`
-                }
-                cycle();
-            }, 2000);
-        };
-        startDsMovement();
-    };
-    visualDistractorMovenment.prototype.update = function () {};
-    visualDistractorMovenment.prototype.play = function () {};
-    visualDistractorMovenment.prototype.pause = function () {};
-    visualDistractorMovenment.prototype.tick = function () {};
-    visualDistractorMovenment.prototype.remove = function () {};
-    visualDistractorMovenment.prototype.destroy = function () {};
-    return visualDistractorMovenment;
-}(aframe_wrapper_1.ComponentWrapper);
-exports.visualDistractorMovenment = visualDistractorMovenment;
-new visualDistractorMovenment().register();
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
-var visualDistractorMovenment_1 = __webpack_require__(3);
-Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
-    return visualDistractorMovenment_1.visualDistractorMovenment;
-  } });
-var shoot_1 = __webpack_require__(2);
-Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
-    return shoot_1.shoot;
-  } });
-var enemy_1 = __webpack_require__(1);
-Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
-    return enemy_1.enemy;
-  } });
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12721,6 +12439,334 @@ World.prototype.emitContactEvents = (() => {
 })();
 
 
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.enemy = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var CANNON = __webpack_require__(1);
+var enemy = /** @class */function (_super) {
+    __extends(enemy, _super);
+    function enemy() {
+        return _super.call(this, 'create-enemy', {}) || this;
+    }
+    enemy.prototype.init = function () {
+        var _this = this;
+        var ball = this.el;
+        ball.setAttribute('aabb-collider', 'objects: #shooter');
+        var ballForce = new CANNON.Vec3(0, 0, 1);
+        //  ball.setAttribute('dynamic-body', 'mass:0.05');
+        ball.addEventListener('body-loaded', function (e) {
+            //console.log(' shofbody #' +(<any>e).detail.body.el);
+            setTimeout(function () {
+                var newpStart = new CANNON.Vec3(0, 0, 0);
+                var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
+                e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
+            }, 0);
+        });
+        setTimeout(function () {
+            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
+        }, 5000);
+    };
+    enemy.prototype.update = function () {
+        console.log(this.el.id);
+    };
+    enemy.prototype.play = function () {};
+    enemy.prototype.pause = function () {};
+    enemy.prototype.tick = function () {};
+    enemy.prototype.remove = function () {};
+    enemy.prototype.destroy = function () {};
+    return enemy;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.enemy = enemy;
+new enemy().register();
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.scoretrigger = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var scoretrigger = /** @class */function (_super) {
+    __extends(scoretrigger, _super);
+    function scoretrigger() {
+        return _super.call(this, 'score-trigger', {}) || this;
+    }
+    scoretrigger.prototype.init = function () {
+        var score = 0;
+        this.el.addEventListener('hitstart', function (e) {
+            if (e.target.components["aabb-collider"]["intersectedEls"] != null) {
+                console.log(' collided #' + e.target.components["aabb-collider"]["intersectedEls"][0].id);
+                if (e.target.components["aabb-collider"]["intersectedEls"][0].id == "enemy") {
+                    score++;
+                    console.log("score1: " + score);
+                } else console.log("currentscore" + score);
+            } else console.log("curscore" + score);
+        });
+    };
+    scoretrigger.prototype.update = function () {
+        // console.log(this.data.color);
+    };
+    scoretrigger.prototype.play = function () {};
+    scoretrigger.prototype.pause = function () {};
+    scoretrigger.prototype.tick = function () {
+        // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
+        //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
+    };
+    scoretrigger.prototype.remove = function () {};
+    scoretrigger.prototype.destroy = function () {};
+    return scoretrigger;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.scoretrigger = scoretrigger;
+new scoretrigger().register();
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shoot = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var CANNON = __webpack_require__(1);
+var shoot = /** @class */function (_super) {
+    __extends(shoot, _super);
+    function shoot() {
+        return _super.call(this, 'push', {}) || this;
+    }
+    shoot.prototype.init = function () {
+        document.querySelector('#shooter').addEventListener('click', function () {
+            var bullet = document.createElement('a-cylinder');
+            bullet.setAttribute('scale', { x: 0.9, y: 0.9, z: 0.9 });
+            bullet.setAttribute('id', 'bullet');
+            bullet.setAttribute('class', 'bullets');
+            bullet.setAttribute('aabb-collider', 'objects: .boxs');
+            var newforce = new CANNON.Vec3(1, 0, 0);
+            bullet.setAttribute('dynamic-body', 'mass:0.05');
+            document.getElementById('shooter').appendChild(bullet);
+            bullet.addEventListener('body-loaded', function (e) {
+                // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
+                /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
+                let worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(force);
+                console.log((<any>e).detail.body.el.parentElement.id+"my body");
+                // (<any>e).detail.target.el.getAttribute("dynamic-body").applyImpulse(worldVelocity,local);
+                (<any>e).detail.target.el+  // Original entity (playerEl).
+                (<any>e).detail.body.el+   // Other entity, which playerEl touched.
+                (<any>e).detail.contact+   // Stats about the collision (CANNON.ContactEquation).
+                (<any>e).detail.contact.ni // Normal (direction) of the collision (CANNON.Vec3).
+                */
+                setTimeout(function () {
+                    var pStart = new CANNON.Vec3(0, 0, 0);
+                    //  console.log((<any>e).detail.contact.position.x)
+                    //  pStart.copy((<any>e).detail.contact);
+                    //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
+                    var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
+                    e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
+                }, 0);
+            });
+            setTimeout(function () {
+                document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
+            }, 3000);
+            bullet.addEventListener('hitstart', function (e) {
+                // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
+                //  var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
+                // console.log(targetElement.innerHTML);
+                if (e.target.components["aabb-collider"]["intersectedEls"][0].className == "boxs") {
+                    var id = document.getElementById(e.target.components["aabb-collider"]["intersectedEls"][0].id);
+                    //console.log(":"+id);
+                    // id.setAttribute("dynamic-body","enabled:false");
+                    if (id != null) var currentPosition = document.getElementById(id.id).getAttribute("position");
+                    //console.log(currentPosition);
+                    document.getElementById(id.id).setAttribute("dynamic-body", "mass :0.05");
+                    //this.el.setAttribute("aabb-collider","objects : a-sphere");
+                    //   document.getElementById("index").setAttribute("position",
+                    //currentPosition);
+                    var partical = document.createElement('a-entity');
+                    partical.setAttribute("spe-particles", "texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ");
+                    partical.setAttribute("spe-particles", "randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;");
+                    //partical.setAttribute("position","1 3 1")
+                    document.getElementById(id.id).appendChild(partical);
+                    var ball = document.createElement('a-entity');
+                    ball.setAttribute("geometry", "primitive:sphere");
+                    ball.setAttribute("scale", { x: .3, y: .3, z: .3 });
+                    ball.setAttribute("id", "enemy");
+                    ball.setAttribute("position", currentPosition);
+                    //console.log(ball.getAttribute("position"));
+                    document.getElementById("TheTree").appendChild(ball);
+                    setTimeout(function () {
+                        ball.setAttribute('create-enemy', "enabled");
+                        ball.setAttribute('dynamic-body', 'mass:0.05');
+                        document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
+                    }, 3000);
+                } else console.log("goodck");
+            });
+        });
+    };
+    shoot.prototype.update = function () {};
+    shoot.prototype.play = function () {};
+    shoot.prototype.pause = function () {};
+    shoot.prototype.tick = function () {};
+    shoot.prototype.remove = function () {};
+    shoot.prototype.destroy = function () {};
+    return shoot;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.shoot = shoot;
+new shoot().register();
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.visualDistractorMovenment = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var visualDistractorMovenment = /** @class */function (_super) {
+    __extends(visualDistractorMovenment, _super);
+    function visualDistractorMovenment() {
+        return _super.call(this, 'distractor', {
+            color: {
+                type: 'string',
+                default: 'colorless'
+            }
+        }) || this;
+    }
+    visualDistractorMovenment.prototype.init = function () {
+        var newpos,
+            random = 0;
+        var box = document.querySelectorAll('.bTarget'); //Array of targets
+        var distractor = this.el;
+        var startDsMovement = function cycle() {
+            setTimeout(function () {
+                random++;
+                newpos = box[random].getAttribute('position'); // restor next target for distractor
+                distractor.setAttribute('animation', 'property:position; to:' + newpos.x + ' 1 ' + newpos.z + ' dur:5000');
+                if (random >= box.length - 1) {
+                    random = 0; // Set it back to `0` when it reaches `4`
+                }
+                cycle();
+            }, 2000);
+        };
+        startDsMovement();
+    };
+    visualDistractorMovenment.prototype.update = function () {};
+    visualDistractorMovenment.prototype.play = function () {};
+    visualDistractorMovenment.prototype.pause = function () {};
+    visualDistractorMovenment.prototype.tick = function () {};
+    visualDistractorMovenment.prototype.remove = function () {};
+    visualDistractorMovenment.prototype.destroy = function () {};
+    return visualDistractorMovenment;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.visualDistractorMovenment = visualDistractorMovenment;
+new visualDistractorMovenment().register();
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+var visualDistractorMovenment_1 = __webpack_require__(5);
+Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
+    return visualDistractorMovenment_1.visualDistractorMovenment;
+  } });
+var shoot_1 = __webpack_require__(4);
+Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
+    return shoot_1.shoot;
+  } });
+var enemy_1 = __webpack_require__(2);
+Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
+    return enemy_1.enemy;
+  } });
+var scoretrigger_1 = __webpack_require__(3);
+Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
+    return scoretrigger_1.scoretrigger;
+  } });
 
 /***/ })
 /******/ ]);
