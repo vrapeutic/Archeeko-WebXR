@@ -1,28 +1,21 @@
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
-import {Sphere} from 'shapes/Sphere';
-import {Box} from 'shapes/Box';
-import {Vec3} from 'math/Vec3';
-import type {Scene, Color} from 'three';
-import {components} from 'aframe';
+
 //import type { Body } from 'cannon-es'
 //require("../../aframe-physics-system-master/dist/aframe-physics-system");
-const scene = document.querySelector('a-scene');
-const camera = document.querySelector('[camera]');
+
 
 // Use an origin point behind the head, not at the head, so
 // there's a useful vector between the origin and the projectile.
-const attachment = document.querySelector('#attachment');
 interface shootSchema {
 }
 
 export class shoot extends ComponentWrapper<shootSchema> {
   constructor() {
     super('push', {
-      body: {
-        default: new CANNON.Body(),
-      },
+     
+     
     });
   }
 
@@ -39,10 +32,9 @@ export class shoot extends ComponentWrapper<shootSchema> {
       bullet.setAttribute('aabb-collider', 'objects: .boxs');
 
       
-      const newforce = new CANNON.Vec3(2, 0, 0);
+      const newforce = new CANNON.Vec3(1, 0, 0);
       bullet.setAttribute('dynamic-body', 'mass:0.05');
       document.getElementById('shooter').appendChild(bullet);
-      const shooter = this.el;
       bullet.addEventListener('body-loaded', e => {
         // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
         /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
@@ -71,23 +63,23 @@ export class shoot extends ComponentWrapper<shootSchema> {
 
       bullet.addEventListener('hitstart', function (e)
     {
-      console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
-      var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
-      console.log(targetElement.innerHTML);
+     // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
+    //  var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
+     // console.log(targetElement.innerHTML);
       if((<any>e).target.components["aabb-collider"]["intersectedEls"][0].className=="boxs"){
         var id = document.getElementById(
           (<any>e).target.components["aabb-collider"]["intersectedEls"][0].id
           );
-          console.log(":"+id);
+          //console.log(":"+id);
 
         // id.setAttribute("dynamic-body","enabled:false");
-
+if(id!=null)
           var currentPosition=document.getElementById(id.id).getAttribute("position");
-          console.log(currentPosition);
+          //console.log(currentPosition);
           document.getElementById(id.id).setAttribute("dynamic-body","mass :0.05");
          //this.el.setAttribute("aabb-collider","objects : a-sphere");
-        document.getElementById("index").setAttribute("position",
-   document.getElementById(id.id).getAttribute("position"));
+     //   document.getElementById("index").setAttribute("position",
+   //currentPosition);
         var partical=document.createElement('a-entity');
           partical.setAttribute("spe-particles","texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ")
 
@@ -95,47 +87,30 @@ export class shoot extends ComponentWrapper<shootSchema> {
           //partical.setAttribute("position","1 3 1")
         document.getElementById(id.id).appendChild(partical);
 
-          var ball=document.createElement('a-sphere');
-          ball.setAttribute("scale",{x:.3,y:.3,z:.3})
+          var ball=document.createElement('a-entity');
+          ball.setAttribute("geometry","primitive:sphere");
+          ball.setAttribute("scale",{x:.3,y:.3,z:.3});
           ball.setAttribute("id","enemy");
 
           ball.setAttribute("position",
          currentPosition);
-         ball.setAttribute('create-enemy',"enabled");
-         console.log(ball.getAttribute("position"));
-         ball.setAttribute('aabb-collider', 'objects: #shooter');
-
+         //console.log(ball.getAttribute("position"));
+document.getElementById("TheTree").appendChild(ball);
          setTimeout(() => {
 
+         ball.setAttribute('create-enemy',"enabled");
+         ball.setAttribute('dynamic-body', 'mass:0.05');
 
            document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
 
          }, 3000);
 }
- const ballForce = new CANNON.Vec3(0, 0, 1);
-      ball.setAttribute('dynamic-body', 'mass:0.05');
-
-           document.getElementById("TheTree").appendChild(ball);
+else console.log("goodck");
  
-console.log("Shof");
- ball.addEventListener('body-loaded', e => {
-  console.log(' shofbody #' +(<any>e).detail.body.el);
- 
-  setTimeout(() => {
-    const newpStart = new CANNON.Vec3(0, 0, 0);
-   
-    const worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(
-      ballForce
-    );
-    
-    (<any>e).detail.body.el.body.applyImpulse(worldVelocity, newpStart);
-
-  }, 500);
-}); 
-     
     })
   
     });
+ 
   }
 
   update() {}
