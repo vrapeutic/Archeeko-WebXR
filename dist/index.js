@@ -12475,8 +12475,9 @@ var enemy = /** @class */function (_super) {
     }
     enemy.prototype.init = function () {
         var _this = this;
+        var score = document.querySelector("#counter").getAttribute("value");
         var ball = this.el;
-        ball.setAttribute('aabb-collider', 'objects: #shooter');
+        // ball.setAttribute('aabb-collider', 'objects: #score,a-box;');
         var ballForce = new CANNON.Vec3(0, 0, 1);
         //  ball.setAttribute('dynamic-body', 'mass:0.05');
         ball.addEventListener('body-loaded', function (e) {
@@ -12484,12 +12485,25 @@ var enemy = /** @class */function (_super) {
             setTimeout(function () {
                 var newpStart = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
+                ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
+                ball.addEventListener('collide', function (e) {
+                    console.log(score);
+                    if (e.target.components["aabb-collider"]["intersectedEls"] != null) {
+                        console.log(e.target.components["aabb-collider"]["intersectedEls"]);
+                        if (e.target.components["aabb-collider"]["intersectedEls"][0].id != "CamTrigger") {
+                            console.log("curscore" + score);
+                        } else {
+                            score++;
+                            document.querySelector("#counter").setAttribute("value", score);
+                            console.log(score + "score: " + e.target.components["aabb-collider"]["intersectedEls"][0].id);
+                            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
+                        }
+                    } else "mfesh";
+                });
             }, 0);
         });
-        setTimeout(function () {
-            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
-        }, 5000);
+        setTimeout(function () {}, 8000);
     };
     enemy.prototype.update = function () {
         console.log(this.el.id);
@@ -12534,22 +12548,22 @@ var aframe_wrapper_1 = __webpack_require__(0);
 var scoretrigger = /** @class */function (_super) {
     __extends(scoretrigger, _super);
     function scoretrigger() {
-        return _super.call(this, 'score-trigger', {}) || this;
+        return _super.call(this, 'score-trigger', {
+            index: {
+                type: 'number',
+                default: 0
+            }
+        }) || this;
     }
     scoretrigger.prototype.init = function () {
-        var score = 0;
-        this.el.addEventListener('hitstart', function (e) {
-            if (e.target.components["aabb-collider"]["intersectedEls"] != null) {
-                console.log(' collided #' + e.target.components["aabb-collider"]["intersectedEls"][0].id);
-                if (e.target.components["aabb-collider"]["intersectedEls"][0].id == "enemy") {
-                    score++;
-                    console.log("score1: " + score);
-                } else console.log("currentscore" + score);
-            } else console.log("curscore" + score);
-        });
+        setTimeout(function () {
+            var score = document.querySelector("#score").getAttribute("value");
+            score++;
+            document.querySelector("#score").setAttribute("value", score);
+        }, 1000);
     };
     scoretrigger.prototype.update = function () {
-        // console.log(this.data.color);
+        console.log(this.data.index + this.el.id);
     };
     scoretrigger.prototype.play = function () {};
     scoretrigger.prototype.pause = function () {};
@@ -12638,29 +12652,33 @@ var shoot = /** @class */function (_super) {
                     var id = document.getElementById(e.target.components["aabb-collider"]["intersectedEls"][0].id);
                     //console.log(":"+id);
                     // id.setAttribute("dynamic-body","enabled:false");
-                    if (id != null) var currentPosition = document.getElementById(id.id).getAttribute("position");
-                    //console.log(currentPosition);
-                    document.getElementById(id.id).setAttribute("dynamic-body", "mass :0.05");
-                    //this.el.setAttribute("aabb-collider","objects : a-sphere");
-                    //   document.getElementById("index").setAttribute("position",
-                    //currentPosition);
-                    var partical = document.createElement('a-entity');
-                    partical.setAttribute("spe-particles", "texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ");
-                    partical.setAttribute("spe-particles", "randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;");
-                    //partical.setAttribute("position","1 3 1")
-                    document.getElementById(id.id).appendChild(partical);
-                    var ball = document.createElement('a-entity');
-                    ball.setAttribute("geometry", "primitive:sphere");
-                    ball.setAttribute("scale", { x: .3, y: .3, z: .3 });
-                    ball.setAttribute("id", "enemy");
-                    ball.setAttribute("position", currentPosition);
-                    //console.log(ball.getAttribute("position"));
-                    document.getElementById("TheTree").appendChild(ball);
-                    setTimeout(function () {
-                        ball.setAttribute('create-enemy', "enabled");
-                        ball.setAttribute('dynamic-body', 'mass:0.05');
-                        document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
-                    }, 3000);
+                    if (id != null) {
+                        var currentPosition = document.getElementById(id.id).getAttribute("position");
+                        //console.log(currentPosition);
+                        document.getElementById(id.id).setAttribute("dynamic-body", "mass :0.05");
+                        document.getElementById(id.id).setAttribute("score-trigger", "enabled:true");
+                        //this.el.setAttribute("aabb-collider","objects : a-sphere");
+                        //   document.getElementById("index").setAttribute("position",
+                        //currentPosition);
+                        var partical = document.createElement('a-entity');
+                        partical.setAttribute("spe-particles", "texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ");
+                        partical.setAttribute("spe-particles", "randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;");
+                        //partical.setAttribute("position","1 3 1")
+                        document.getElementById(id.id).appendChild(partical);
+                        var ball = document.createElement('a-sphere');
+                        // ball.setAttribute("geometry","primitive:sphere");
+                        ball.setAttribute("scale", { x: .3, y: .3, z: .3 });
+                        ball.setAttribute("id", "enemy");
+                        ball.setAttribute("position", currentPosition);
+                        //console.log(ball.getAttribute("position"));
+                        document.getElementById("TheTree").appendChild(ball);
+                        setTimeout(function () {
+                            ball.setAttribute('create-enemy', "enabled");
+                            ball.setAttribute('dynamic-body', 'mass:0.05');
+                            ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
+                            document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
+                        }, 3000);
+                    }
                 } else console.log("goodck");
             });
         });

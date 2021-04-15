@@ -2,36 +2,32 @@ import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 
 interface ScoreSchema {
-  readonly color: string;
+  readonly index: number;
 }
 
 export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   constructor() {
     super('score-trigger', {
-     
+      index: {
+        type: 'number',
+        default: 0,
+      }
     });
   }
 
   init() {
-    var score=0;
-    this.el.addEventListener('hitstart', function (e)
-    {
-      if((<any>e).target.components["aabb-collider"]["intersectedEls"]!=null){
-     console.log(' collided #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
-    if((<any>e).target.components["aabb-collider"]["intersectedEls"][0].id=="enemy"){
-     score++;
-      console.log("score1: "+score)
-    } 
-     
-    else console.log("currentscore"+ score);
-    }
-    else console.log("curscore"+ score);
+    
+  setTimeout(() => {
+     var score= document.querySelector("#score").getAttribute("value");
+          score++;
+    document.querySelector("#score").setAttribute("value",score);
+  }, 1000);
 
-    });
+
   }
 
   update() {
-   // console.log(this.data.color);
+   console.log(this.data.index+this.el.id);
   }
 
   play() {}
@@ -44,9 +40,11 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
 
   }
 
-  remove() {}
+  remove() {  
+   }
 
-  destroy() {}
+  destroy() { }
+  
 }
 
 new scoretrigger().register();
