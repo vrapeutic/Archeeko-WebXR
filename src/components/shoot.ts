@@ -9,13 +9,14 @@ import * as CANNON from 'cannon-es';
 // Use an origin point behind the head, not at the head, so
 // there's a useful vector between the origin and the projectile.
 interface shootSchema {
+  readonly score:number;
+
 }
 
 export class shoot extends ComponentWrapper<shootSchema> {
   constructor() {
     super('push', {
-     
-     
+    
     });
   }
 
@@ -73,11 +74,13 @@ export class shoot extends ComponentWrapper<shootSchema> {
           //console.log(":"+id);
 
         // id.setAttribute("dynamic-body","enabled:false");
-if(id!=null)
+if(id!=null){
           var currentPosition=document.getElementById(id.id).getAttribute("position");
           //console.log(currentPosition);
           document.getElementById(id.id).setAttribute("dynamic-body","mass :0.05");
-         //this.el.setAttribute("aabb-collider","objects : a-sphere");
+          document.getElementById(id.id).setAttribute("score-trigger","enabled:true");
+
+          //this.el.setAttribute("aabb-collider","objects : a-sphere");
      //   document.getElementById("index").setAttribute("position",
    //currentPosition);
         var partical=document.createElement('a-entity');
@@ -87,8 +90,8 @@ if(id!=null)
           //partical.setAttribute("position","1 3 1")
         document.getElementById(id.id).appendChild(partical);
 
-          var ball=document.createElement('a-entity');
-          ball.setAttribute("geometry","primitive:sphere");
+          var ball=document.createElement('a-sphere');
+         // ball.setAttribute("geometry","primitive:sphere");
           ball.setAttribute("scale",{x:.3,y:.3,z:.3});
           ball.setAttribute("id","enemy");
 
@@ -98,12 +101,15 @@ if(id!=null)
 document.getElementById("TheTree").appendChild(ball);
          setTimeout(() => {
 
-         ball.setAttribute('create-enemy',"enabled");
+         ball.setAttribute('create-enemy',"enabled"); 
+
          ball.setAttribute('dynamic-body', 'mass:0.05');
+         ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
 
            document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
 
          }, 3000);
+        }
 }
 else console.log("goodck");
  

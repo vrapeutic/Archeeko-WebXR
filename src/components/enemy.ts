@@ -1,6 +1,7 @@
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
+import { scoretrigger } from './scoretrigger';
 
 //import type { Body } from 'cannon-es'
 //require("../../aframe-physics-system-master/dist/aframe-physics-system");
@@ -9,7 +10,6 @@ import * as CANNON from 'cannon-es';
 // Use an origin point behind the head, not at the head, so
 // there's a useful vector between the origin and the projectile.
 interface enemySchema {
-  readonly color: string;
 }
 
 export class enemy extends ComponentWrapper<enemySchema> {
@@ -21,9 +21,10 @@ export class enemy extends ComponentWrapper<enemySchema> {
 
 
   init() {
+var score= document.querySelector("#counter").getAttribute("value");
 
   var ball=this.el;
-    ball.setAttribute('aabb-collider', 'objects: #shooter');
+   // ball.setAttribute('aabb-collider', 'objects: #score,a-box;');
 
     const ballForce = new CANNON.Vec3(0, 0, 1);
   //  ball.setAttribute('dynamic-body', 'mass:0.05');
@@ -38,18 +39,38 @@ setTimeout(() => {
   const worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(
     ballForce
   );
-  
-  (<any>e).detail.body.el.body.applyImpulse(worldVelocity, newpStart);
+ ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
 
+  (<any>e).detail.body.el.body.applyImpulse(worldVelocity, newpStart);
+ ball.addEventListener('collide', e => {
+  console.log( score);
+
+if((<any>e).target.components["aabb-collider"]["intersectedEls"]!=null){
+  console.log((<any>e).target.components["aabb-collider"]["intersectedEls"])
+ if((<any>e).target.components["aabb-collider"]["intersectedEls"][0].id!="CamTrigger")
+    {  
+console.log("curscore"+ score);
+
+    }
+  else    { 
+   score++;  
+    document.querySelector("#counter").setAttribute("value",score);
+    console.log(score+"score: "+(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id)
+       document
+    .getElementById(this.el.id)
+    .parentNode.removeChild(document.getElementById(this.el.id));
+ }  }
+  else("mfesh");
+})
 }, 0);
+
+
 }); 
 
 
   setTimeout(() => {
-  document
-    .getElementById(this.el.id)
-    .parentNode.removeChild(document.getElementById(this.el.id));
-}, 5000);
+
+}, 8000);
 
 
   }

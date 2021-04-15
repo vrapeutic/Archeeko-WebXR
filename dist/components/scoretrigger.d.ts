@@ -1,6 +1,6 @@
 import { ComponentWrapper } from '../essential/aframe-wrapper';
 interface ScoreSchema {
-    readonly color: string;
+    readonly index: number;
 }
 export declare class scoretrigger extends ComponentWrapper<ScoreSchema> {
     constructor();

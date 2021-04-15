@@ -1,5 +1,6 @@
 import { ComponentWrapper } from '../essential/aframe-wrapper';
 interface shootSchema {
+    readonly score: number;
 }
 export declare class shoot extends ComponentWrapper<shootSchema> {
     constructor();
