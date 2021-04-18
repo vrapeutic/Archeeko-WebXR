@@ -12612,6 +12612,9 @@ var shoot = /** @class */function (_super) {
         return _super.call(this, 'push', {}) || this;
     }
     shoot.prototype.init = function () {
+        var bulletCounter = document.querySelector("#bulletCounter").getAttribute("value");
+        ;
+        if (bulletCounter > 0) {}
         document.querySelector('#shooter').addEventListener('click', function () {
             var bullet = document.createElement('a-cylinder');
             bullet.setAttribute('scale', { x: 0.9, y: 0.9, z: 0.9 });
@@ -12620,7 +12623,11 @@ var shoot = /** @class */function (_super) {
             bullet.setAttribute('aabb-collider', 'objects: .boxs');
             var newforce = new CANNON.Vec3(1, 0, 0);
             bullet.setAttribute('dynamic-body', 'mass:0.05');
-            document.getElementById('shooter').appendChild(bullet);
+            if (bulletCounter > 0) {
+                document.getElementById('shooter').appendChild(bullet);
+                bulletCounter--;
+                document.querySelector("#bulletCounter").setAttribute("value", bulletCounter);
+            }
             bullet.addEventListener('body-loaded', function (e) {
                 // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
                 /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
@@ -12642,7 +12649,9 @@ var shoot = /** @class */function (_super) {
                 }, 0);
             });
             setTimeout(function () {
-                document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
+                if (document.getElementById('bullet') != null) {
+                    document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
+                }
             }, 3000);
             bullet.addEventListener('hitstart', function (e) {
                 // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);

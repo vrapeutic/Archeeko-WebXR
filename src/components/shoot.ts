@@ -23,6 +23,8 @@ export class shoot extends ComponentWrapper<shootSchema> {
  
 
   init() {
+    var bulletCounter=document.querySelector("#bulletCounter").getAttribute("value");;
+  if(bulletCounter>0){}
     document.querySelector('#shooter').addEventListener('click', () => {
       
       const bullet = document.createElement('a-cylinder');
@@ -35,8 +37,13 @@ export class shoot extends ComponentWrapper<shootSchema> {
       
       const newforce = new CANNON.Vec3(1, 0, 0);
       bullet.setAttribute('dynamic-body', 'mass:0.05');
+      if(bulletCounter>0)
+{
       document.getElementById('shooter').appendChild(bullet);
-      bullet.addEventListener('body-loaded', e => {
+      bulletCounter--;
+      document.querySelector("#bulletCounter").setAttribute("value",bulletCounter);
+   }  
+    bullet.addEventListener('body-loaded', e => {
         // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
         /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
      let worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(force);
@@ -57,10 +64,12 @@ export class shoot extends ComponentWrapper<shootSchema> {
         }, 0);
       });
       setTimeout(() => {
+        if ( document
+          .getElementById('bullet')!=null){
         document
           .getElementById('bullet')
           .parentNode.removeChild(document.getElementById('bullet'));
-      }, 3000);
+     } }, 3000);
 
       bullet.addEventListener('hitstart', function (e)
     {

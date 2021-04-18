@@ -28,7 +28,7 @@
      <a-entity id="updateMe"></a-entity>
   
            <!--Camera-->
-        <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 0" movement-controls="speed: 0.15 constrainToNavMesh:true" position="0 1.6 5" look-controls="pointerLockeEnabled:true" >
+        <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="0 1.6 5" look-controls="pointerLockeEnabled:true" >
           <a-entity cursor="rayOrigin: mouse" grab></a-entity>
           <a-gltf-model   id="shooter" push  rotation="15.656071751949744 92.12244613231428 2.8871343296642182"  scale="0.2 0.2 0.2" position="0.04207 -0.31496 -0.8795" src="../assets/Sniper_Rifle.glb" scale="2 2 2" visible="true" >
           </a-gltf-model> 
@@ -52,9 +52,10 @@
 
        <!--Menu-Buttons-->
            <a-text id="counter" value="0" geometry="primitive:plane"visible="true" position="-4.19846 0.5 1" ></a-text>
-           <a-text id="score" value="0" geometry="primitive:plane"visible="true" position="-4.19846 1.2 1" ></a-text>
+           <a-text id="score" value="0" geometry="primitive:plane"visible="true" position="-4.19846 1.5 1" ></a-text>
+           <a-text id="bulletCounter" value="25" geometry="primitive:plane"visible="true" position="-4.19846 2 1" ></a-text>
 
-  <a-entity id= "TheTree" postion="0 0 5">
+  <a-entity id= "TheTree" postion="0 0 6">
         <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 0.05324 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable 
         event-set__click="_event: click; _target:#selectenvironment; value:Beach " 
   
