@@ -38,8 +38,12 @@ export class visualDistractorMovenment extends ComponentWrapper<visualDistractor
         cycle();
       }, 2000);
     };
-
-    startDsMovement();
+    if (document.getElementById('level').getAttribute('value') != '1')
+      startDsMovement();
+    else
+      document
+        .getElementById('butterflymodel')
+        .parentNode.removeChild(document.getElementById('butterflymodel'));
   }
 
   update() {}
