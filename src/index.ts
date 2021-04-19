@@ -6,3 +6,5 @@ import {enemy} from './components/enemy';
 export {enemy};
 import {scoretrigger} from './components/scoretrigger';
 export {scoretrigger};
+import {timecounter} from './components/timecounter';
+export {timecounter};
