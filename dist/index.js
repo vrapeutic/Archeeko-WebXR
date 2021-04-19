@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -12475,7 +12475,7 @@ var enemy = /** @class */function (_super) {
     }
     enemy.prototype.init = function () {
         var _this = this;
-        var score = document.querySelector("#counter").getAttribute("value");
+        var score = document.querySelector('#counter').getAttribute('value');
         var ball = this.el;
         // ball.setAttribute('aabb-collider', 'objects: #score,a-box;');
         var ballForce = new CANNON.Vec3(0, 0, 1);
@@ -12488,18 +12488,17 @@ var enemy = /** @class */function (_super) {
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
                 ball.addEventListener('collide', function (e) {
-                    console.log(score);
-                    if (e.target.components["aabb-collider"]["intersectedEls"] != null) {
-                        console.log(e.target.components["aabb-collider"]["intersectedEls"]);
-                        if (e.target.components["aabb-collider"]["intersectedEls"][0].id != "CamTrigger") {
-                            console.log("curscore" + score);
+                    if (e.target.components['aabb-collider']['intersectedEls'] != null) {
+                        console.log(e.target.components['aabb-collider']['intersectedEls']);
+                        if (e.target.components['aabb-collider']['intersectedEls'][0].id != 'CamTrigger') {
+                            console.log('curscore' + score);
                         } else {
                             score++;
-                            document.querySelector("#counter").setAttribute("value", score);
-                            console.log(score + "score: " + e.target.components["aabb-collider"]["intersectedEls"][0].id);
+                            document.querySelector('#counter').setAttribute('value', score);
+                            console.log(score + 'score: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
                             document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
                         }
-                    } else "mfesh";
+                    } else 'mfesh';
                 });
             }, 0);
         });
@@ -12557,9 +12556,9 @@ var scoretrigger = /** @class */function (_super) {
     }
     scoretrigger.prototype.init = function () {
         setTimeout(function () {
-            var score = document.querySelector("#score").getAttribute("value");
+            var score = document.querySelector('#score').getAttribute('value');
             score++;
-            document.querySelector("#score").setAttribute("value", score);
+            document.querySelector('#score').setAttribute('value', score);
         }, 1000);
     };
     scoretrigger.prototype.update = function () {
@@ -12612,9 +12611,7 @@ var shoot = /** @class */function (_super) {
         return _super.call(this, 'push', {}) || this;
     }
     shoot.prototype.init = function () {
-        var bulletCounter = document.querySelector("#bulletCounter").getAttribute("value");
-        ;
-        if (bulletCounter > 0) {}
+        var bulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         document.querySelector('#shooter').addEventListener('click', function () {
             var bullet = document.createElement('a-cylinder');
             bullet.setAttribute('scale', { x: 0.9, y: 0.9, z: 0.9 });
@@ -12626,7 +12623,7 @@ var shoot = /** @class */function (_super) {
             if (bulletCounter > 0) {
                 document.getElementById('shooter').appendChild(bullet);
                 bulletCounter--;
-                document.querySelector("#bulletCounter").setAttribute("value", bulletCounter);
+                document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
             }
             bullet.addEventListener('body-loaded', function (e) {
                 // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
@@ -12652,43 +12649,47 @@ var shoot = /** @class */function (_super) {
                 if (document.getElementById('bullet') != null) {
                     document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
                 }
-            }, 3000);
+            }, 5000);
             bullet.addEventListener('hitstart', function (e) {
                 // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
                 //  var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
                 // console.log(targetElement.innerHTML);
-                if (e.target.components["aabb-collider"]["intersectedEls"][0].className == "boxs") {
-                    var id = document.getElementById(e.target.components["aabb-collider"]["intersectedEls"][0].id);
+                if (e.target.components['aabb-collider']['intersectedEls'][0].className == 'boxs') {
+                    var id_1 = document.getElementById(e.target.components['aabb-collider']['intersectedEls'][0].id);
                     //console.log(":"+id);
                     // id.setAttribute("dynamic-body","enabled:false");
-                    if (id != null) {
-                        var currentPosition = document.getElementById(id.id).getAttribute("position");
+                    if (id_1 != null) {
+                        var currentPosition = document.getElementById(id_1.id).getAttribute('position');
                         //console.log(currentPosition);
-                        document.getElementById(id.id).setAttribute("dynamic-body", "mass :0.05");
-                        document.getElementById(id.id).setAttribute("score-trigger", "enabled:true");
+                        document.getElementById(id_1.id).setAttribute('dynamic-body', 'mass :0.05');
+                        document.getElementById(id_1.id).setAttribute('score-trigger', 'enabled:true');
                         //this.el.setAttribute("aabb-collider","objects : a-sphere");
                         //   document.getElementById("index").setAttribute("position",
                         //currentPosition);
                         var partical = document.createElement('a-entity');
-                        partical.setAttribute("spe-particles", "texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ");
-                        partical.setAttribute("spe-particles", "randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;");
+                        partical.setAttribute('spe-particles', 'texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
+                        partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
                         //partical.setAttribute("position","1 3 1")
-                        document.getElementById(id.id).appendChild(partical);
-                        var ball = document.createElement('a-sphere');
-                        // ball.setAttribute("geometry","primitive:sphere");
-                        ball.setAttribute("scale", { x: .3, y: .3, z: .3 });
-                        ball.setAttribute("id", "enemy");
-                        ball.setAttribute("position", currentPosition);
-                        //console.log(ball.getAttribute("position"));
-                        document.getElementById("TheTree").appendChild(ball);
+                        document.getElementById(id_1.id).appendChild(partical);
+                        if (document.getElementById('level').getAttribute('value') == '3') {
+                            var ball_1 = document.createElement('a-sphere');
+                            // ball.setAttribute("geometry","primitive:sphere");
+                            ball_1.setAttribute('scale', { x: 0.3, y: 0.3, z: 0.3 });
+                            ball_1.setAttribute('id', 'enemy');
+                            ball_1.setAttribute('position', currentPosition);
+                            //console.log(ball.getAttribute("position"));
+                            document.getElementById('TheTree').appendChild(ball_1);
+                            setTimeout(function () {
+                                ball_1.setAttribute('create-enemy', 'enabled');
+                                ball_1.setAttribute('dynamic-body', 'mass:0.05');
+                                ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
+                            }, 3000);
+                        }
                         setTimeout(function () {
-                            ball.setAttribute('create-enemy', "enabled");
-                            ball.setAttribute('dynamic-body', 'mass:0.05');
-                            ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
-                            document.getElementById(id.id).parentNode.removeChild(document.getElementById(id.id));
-                        }, 3000);
+                            document.getElementById(id_1.id).parentNode.removeChild(document.getElementById(id_1.id));
+                        }, 2000);
                     }
-                } else console.log("goodck");
+                } else console.log('goodck');
             });
         });
     };
@@ -12705,6 +12706,67 @@ new shoot().register();
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.timecounter = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var timecounter = /** @class */function (_super) {
+    __extends(timecounter, _super);
+    function timecounter() {
+        return _super.call(this, 'time-manger', {}) || this;
+    }
+    timecounter.prototype.init = function () {};
+    timecounter.prototype.update = function () {};
+    timecounter.prototype.play = function () {
+        var time = document.getElementById('timer').getAttribute('value');
+        var timeleft = parseInt(time, 10);
+        var countDown = setInterval(function () {
+            if (timeleft <= 0) {
+                clearInterval(countDown);
+            }
+            document.getElementById('timer').setAttribute('value', '' + timeleft);
+            timeleft--;
+            console.log(timeleft);
+            if (timeleft == 0) {
+                window.location.href = '../dist';
+            }
+        }, 1000);
+    };
+    timecounter.prototype.pause = function () {};
+    timecounter.prototype.tick = function () {
+        // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
+        //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
+    };
+    timecounter.prototype.remove = function () {};
+    timecounter.prototype.destroy = function () {};
+    return timecounter;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.timecounter = timecounter;
+new timecounter().register();
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12756,7 +12818,7 @@ var visualDistractorMovenment = /** @class */function (_super) {
                 cycle();
             }, 2000);
         };
-        startDsMovement();
+        if (document.getElementById('level').getAttribute('value') != '1') startDsMovement();else document.getElementById('butterflymodel').parentNode.removeChild(document.getElementById('butterflymodel'));
     };
     visualDistractorMovenment.prototype.update = function () {};
     visualDistractorMovenment.prototype.play = function () {};
@@ -12770,15 +12832,15 @@ exports.visualDistractorMovenment = visualDistractorMovenment;
 new visualDistractorMovenment().register();
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
-var visualDistractorMovenment_1 = __webpack_require__(5);
+exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+var visualDistractorMovenment_1 = __webpack_require__(6);
 Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
     return visualDistractorMovenment_1.visualDistractorMovenment;
   } });
@@ -12793,6 +12855,10 @@ Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
 var scoretrigger_1 = __webpack_require__(3);
 Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
     return scoretrigger_1.scoretrigger;
+  } });
+var timecounter_1 = __webpack_require__(5);
+Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
+    return timecounter_1.timecounter;
   } });
 
 /***/ })

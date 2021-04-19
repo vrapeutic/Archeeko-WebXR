@@ -11,23 +11,20 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
       index: {
         type: 'number',
         default: 0,
-      }
+      },
     });
   }
 
   init() {
-    
-  setTimeout(() => {
-     var score= document.querySelector("#score").getAttribute("value");
-          score++;
-    document.querySelector("#score").setAttribute("value",score);
-  }, 1000);
-
-
+    setTimeout(() => {
+      let score = document.querySelector('#score').getAttribute('value');
+      score++;
+      document.querySelector('#score').setAttribute('value', score);
+    }, 1000);
   }
 
   update() {
-   console.log(this.data.index+this.el.id);
+    console.log(this.data.index + this.el.id);
   }
 
   play() {}
@@ -35,16 +32,13 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   pause() {}
 
   tick() {
-   // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
+    // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
     //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
-
   }
 
-  remove() {  
-   }
+  remove() {}
 
-  destroy() { }
-  
+  destroy() {}
 }
 
 new scoretrigger().register();
