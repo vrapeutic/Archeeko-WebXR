@@ -12839,27 +12839,108 @@ new visualDistractorMovenment().register();
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+exports.start_game = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
 var visualDistractorMovenment_1 = __webpack_require__(6);
 Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
-    return visualDistractorMovenment_1.visualDistractorMovenment;
-  } });
+        return visualDistractorMovenment_1.visualDistractorMovenment;
+    } });
 var shoot_1 = __webpack_require__(4);
 Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
-    return shoot_1.shoot;
-  } });
+        return shoot_1.shoot;
+    } });
 var enemy_1 = __webpack_require__(2);
 Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
-    return enemy_1.enemy;
-  } });
+        return enemy_1.enemy;
+    } });
 var scoretrigger_1 = __webpack_require__(3);
 Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
-    return scoretrigger_1.scoretrigger;
-  } });
+        return scoretrigger_1.scoretrigger;
+    } });
 var timecounter_1 = __webpack_require__(5);
 Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
-    return timecounter_1.timecounter;
-  } });
+        return timecounter_1.timecounter;
+    } });
+function set_language(lang) {
+    sessionStorage.setItem('langauage', lang);
+    var data = {
+        funcName: 'set_language',
+        params: [lang]
+    };
+}
+exports.set_language = set_language;
+function set_npc(npc) {
+    if (sessionStorage.getItem('langauage') == 'A') {
+        if (npc == 'male') {
+            sessionStorage.setItem('npc', 'H');
+            //    alert(sessionStorage.getItem('npc'));
+        } else {
+            sessionStorage.setItem('npc', 'Re');
+            //    alert(sessionStorage.getItem('npc'));
+        }
+    } else {
+        if (npc == 'male') {
+            sessionStorage.setItem('npc', 'Ri');
+            //alert(sessionStorage.getItem('npc'));
+        } else {
+            sessionStorage.setItem('npc', 'L');
+            // alert(sessionStorage.getItem('npc'));
+        }
+    }
+}
+exports.set_npc = set_npc;
+function set_level(level) {
+    sessionStorage.setItem('level', level);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_level',
+        params: [level]
+    };
+    document.getElementById('level').setAttribute('value', level);
+}
+exports.set_level = set_level;
+function set_z(z) {
+    sessionStorage.setItem('z', z);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_z',
+        params: [z]
+    };
+    document.getElementById('TheTree').setAttribute("position", "0 0 " + z);
+}
+exports.set_z = set_z;
+function set_arrows(arrow) {
+    sessionStorage.setItem('arrow', arrow);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_arrows',
+        params: [arrow]
+    };
+    document.getElementById('bulletCounter').setAttribute('value', arrow);
+}
+exports.set_arrows = set_arrows;
+function set_timer(time) {
+    sessionStorage.setItem('timer', time);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_timer',
+        params: [time]
+    };
+    document.getElementById('timer').setAttribute('value', time);
+}
+function start_game() {
+    var gameDiv = document.getElementById('game');
+    // window.open('game.html',"_self");
+    var data = {
+        funcName: 'start_game',
+        params: [""]
+    };
+    var drMenuDiv = document.getElementById('dr-menu');
+    drMenuDiv.style.visibility = 'hidden';
+    gameDiv.style.visibility = 'visible';
+    document.querySelector("a-scene").setAttribute("time-manger", "enable", true);
+    document.getElementById("butterflymodel").setAttribute("distractor", "enable:true");
+}
+exports.start_game = start_game;
 
 /***/ })
 /******/ ]);

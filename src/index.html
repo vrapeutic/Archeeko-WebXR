@@ -98,8 +98,7 @@
   </div>
   <div id="game" style="visibility: hidden;">
 
-    <a-scene  embedded physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
-      <canvas id="cam2"></canvas>
+    <a-scene   physics="iterations: 40"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
 
         <a-assets>
           <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>

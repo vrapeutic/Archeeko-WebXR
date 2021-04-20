@@ -1,4 +1,8 @@
-/*function set_language(lang){
+import {ComponentWrapper} from '../essential/aframe-wrapper';
+
+//export class menu extends ComponentWrapper<>{}
+
+function set_language(lang:string){
     sessionStorage.setItem('langauage',lang);
   
       var data = {
@@ -6,38 +10,11 @@
         params: [
           lang
         ]
-      
-    }
+      }
+  
   }
-  */
-  function set_level(level: string){
-    sessionStorage.setItem('level',level);  
-   //  alert(sessionStorage.getItem('level'));
-      var data = {
-        funcName: 'set_level',
-        params: [
-          level
-        ]
-      }
-      document.getElementById('level').setAttribute('value',level);
-       var drMenuDiv = document.getElementById('dr-menu');
-  
-      drMenuDiv.style.visibility = 'hidden';
-    }
-  
-  
-  /*function set_growth_time(animationSpeed){
-    sessionStorage.setItem('animationSpeed',animationSpeed);
-      var data = {
-        funcName: 'set_growth_time',
-        params: [
-          animationSpeed
-        ]
-      }
-    }
-  
-  
-  function set_npc(npc){
+
+ function set_npc(npc:string){
     if(sessionStorage.getItem('langauage') =='A') {
       if(npc =='male') {
         sessionStorage.setItem('npc','H');  
@@ -58,23 +35,68 @@
           // alert(sessionStorage.getItem('npc'));
       } 
     }
-  
-      var data = {
-        funcName: 'set_npc',
-        params: [
-          npc
-        ]
-          }
   }
-  
-  function start_game() {
-    var gameDiv = document.getElementById('game');
-    // window.open('game.html',"_self");
-  
+  function set_level(level:string){
+    sessionStorage.setItem('level',level);  
+   //  alert(sessionStorage.getItem('level'));
       var data = {
-        funcName: 'start_game',
-        params: []
+        funcName: 'set_level',
+        params: [
+          level
+        ]
       }
-  
+      document.getElementById('level').setAttribute('value',level);
      
-    }*/
+    }
+    function set_z(z:string){
+    sessionStorage.setItem('z',z);  
+   //  alert(sessionStorage.getItem('level'));
+      var data = {
+        funcName: 'set_z',
+        params: [
+          z
+        ]
+      }
+      document.getElementById('TheTree').setAttribute("position","0 0 "+z);
+     
+    }
+    function set_arrows(arrow:string){
+    sessionStorage.setItem('arrow',arrow);  
+   //  alert(sessionStorage.getItem('level'));
+      var data = {
+        funcName: 'set_arrows',
+        params: [
+          arrow
+        ]
+      }
+      document.getElementById('bulletCounter').setAttribute('value',arrow);
+     
+    }
+    function set_timer(time:string){
+    sessionStorage.setItem('timer',time);  
+   //  alert(sessionStorage.getItem('level'));
+      var data = {
+        funcName: 'set_timer',
+        params: [
+          time
+        ]
+      }
+      document.getElementById('timer').setAttribute('value',time);
+     
+    }
+   function start_game() {
+  var gameDiv = document.getElementById('game');
+  // window.open('game.html',"_self");
+
+    var data = {
+      funcName: 'start_game',
+      params: [""]
+    }
+      var drMenuDiv = document.getElementById('dr-menu');
+  
+      drMenuDiv.style.visibility = 'hidden';
+      gameDiv.style.visibility = 'visible';
+document.querySelector("a-scene").setAttribute("time-manger","enable",true);
+document.getElementById("butterflymodel").setAttribute("distractor","enable:true");
+  
+}
