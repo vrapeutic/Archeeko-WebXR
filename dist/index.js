@@ -12498,6 +12498,12 @@ var enemy = /** @class */function (_super) {
                             console.log(score + 'score: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
                             document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
                         }
+                        if (score == 3) {
+                            setTimeout(function () {
+                                console.log("enemy");
+                                window.location.href = '../dist';
+                            }, 3000);
+                        }
                     } else 'mfesh';
                 });
             }, 0);
@@ -12555,10 +12561,15 @@ var scoretrigger = /** @class */function (_super) {
         }) || this;
     }
     scoretrigger.prototype.init = function () {
+        var giftCounter = document.querySelectorAll('.boxs').length;
         setTimeout(function () {
             var score = document.querySelector('#score').getAttribute('value');
             score++;
             document.querySelector('#score').setAttribute('value', score);
+            if (score > giftCounter) {
+                console.log("gift");
+                window.location.href = '../dist';
+            }
         }, 1000);
     };
     scoretrigger.prototype.update = function () {
@@ -12624,6 +12635,10 @@ var shoot = /** @class */function (_super) {
                 document.getElementById('shooter').appendChild(bullet);
                 bulletCounter--;
                 document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
+            }
+            if (bulletCounter == 0) {
+                console.log("bullet");
+                window.location.href = '../dist';
             }
             bullet.addEventListener('body-loaded', function (e) {
                 // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
@@ -12749,6 +12764,7 @@ var timecounter = /** @class */function (_super) {
             timeleft--;
             console.log(timeleft);
             if (timeleft == 0) {
+                console.log("time");
                 window.location.href = '../dist';
             }
         }, 1000);
@@ -12905,7 +12921,7 @@ function set_z(z) {
         funcName: 'set_z',
         params: [z]
     };
-    document.getElementById('TheTree').setAttribute("position", "0 0 " + z);
+    document.getElementById('TheTree').setAttribute('position', '0 0 ' + z);
 }
 exports.set_z = set_z;
 function set_arrows(arrow) {
@@ -12932,13 +12948,13 @@ function start_game() {
     // window.open('game.html',"_self");
     var data = {
         funcName: 'start_game',
-        params: [""]
+        params: ['']
     };
     var drMenuDiv = document.getElementById('dr-menu');
     drMenuDiv.style.visibility = 'hidden';
     gameDiv.style.visibility = 'visible';
-    document.querySelector("a-scene").setAttribute("time-manger", "enable", true);
-    document.getElementById("butterflymodel").setAttribute("distractor", "enable:true");
+    document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
+    document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
 }
 exports.start_game = start_game;
 
