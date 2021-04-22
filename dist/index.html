@@ -56,7 +56,7 @@
 </style>     
 <script type="text/javascript" src="index.js"></script></head>
 <body>
-  <div id="dr-menu"  class="center">
+<!---->  <div id="dr-menu"  class="center">
   
     <h>Select langauge</h>
     <br>
@@ -139,8 +139,9 @@
            <a-text id="score" value="0" geometry="primitive:plane"visible="true" position="-4.19846 2 1" ></a-text>
            <a-text id="bulletCounter" value="55" geometry="primitive:plane"visible="true" position="-4.19846 3 1" ></a-text>
            <a-text id="level" value="3" geometry="primitive:plane"visible="true" position="-4.19846 4 1" ></a-text>
-           <a-text id="timer" value="30" geometry="primitive:plane"visible="true" position="4 1 1"  ></a-text>
-      
+           <a-text id="timer" value="0" geometry="primitive:plane"visible="true" position="4 1 1"  ></a-text>
+           <a-text id="inps" value="0" geometry="primitive:plane"visible="true" position="-3 1 1" inps-counter ></a-text>
+
 
 
 
@@ -167,7 +168,7 @@
       </a-box>    
             <a-entity id="targetone"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
       </a-entity> 
-
+  </a-entity>
        <!----------butterfly target path-->
        <a-box id="box" position="-3.08328 0.1 -3.41235"  visible="false" depth="0.4" width = "0.4" height = "0.4" position = "0 0.1 -0.1"  aabb-collider="objects:a-cylinder, a-sphere,a-box" class = "bTarget"
             
@@ -185,13 +186,12 @@
        
        ></a-box>  
        <a-gltf-model id="butterflymodel" src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer  ></a-gltf-model>
-  </a-entity>
   </a-scene> </div>
 
    
     </body>
     <script> 
-    function set_language(lang){
+ function set_language(lang){
   sessionStorage.setItem('langauage',lang);
 
     var data = {

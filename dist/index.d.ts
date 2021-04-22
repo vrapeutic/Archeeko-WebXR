@@ -8,6 +8,8 @@ import { scoretrigger } from './components/scoretrigger';
 export { scoretrigger };
 import { timecounter } from './components/timecounter';
 export { timecounter };
+import { inpsCounter } from './components/inpsCounter';
+export { inpsCounter };
 export declare function set_language(lang: string): void;
 export declare function set_npc(npc: string): void;
 export declare function set_level(level: string): void;
