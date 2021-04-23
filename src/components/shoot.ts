@@ -1,6 +1,7 @@
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
+import { responseTime } from './responseTime';
 
 //import type { Body } from 'cannon-es'
 //require("../../aframe-physics-system-master/dist/aframe-physics-system");
@@ -17,10 +18,13 @@ export class shoot extends ComponentWrapper<shootSchema> {
   }
 
   init() {
+    var time=0;
+ var count=-1;
     let bulletCounter = document
       .querySelector('#bulletCounter')
       .getAttribute('value');
     document.querySelector('#shooter').addEventListener('click', () => {
+      
       const bullet = document.createElement('a-cylinder');
       bullet.setAttribute('scale', {x: 0.9, y: 0.9, z: 0.9});
       bullet.setAttribute('id', 'bullet');
@@ -28,10 +32,12 @@ export class shoot extends ComponentWrapper<shootSchema> {
 
       bullet.setAttribute('aabb-collider', 'objects: .boxs');
 
-      const newforce = new CANNON.Vec3(1, 0, 0);
+      const newforce = new CANNON.Vec3(5, 0, 0);
       bullet.setAttribute('dynamic-body', 'mass:0.05');
       if (bulletCounter > 0) {
+        if (document.getElementById('bullet') == null)
         document.getElementById('shooter').appendChild(bullet);
+
         bulletCounter--;
         document
           .querySelector('#bulletCounter')
@@ -57,15 +63,18 @@ export class shoot extends ComponentWrapper<shootSchema> {
             newforce
           );
           (<any>e).detail.body.el.body.applyImpulse(worldVelocity, pStart);
+        document.querySelector('#shooter').setAttribute("response-time","enabled","true");
         }, 0);
-      });
+      }); 
+  
       setTimeout(() => {
         if (document.getElementById('bullet') != null) {
           document
             .getElementById('bullet')
             .parentNode.removeChild(document.getElementById('bullet'));
-        }
-      }, 5000);
+        }      
+
+      }, 2000);
 
       bullet.addEventListener('hitstart', e => {
         // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
@@ -108,6 +117,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
             );
             //partical.setAttribute("position","1 3 1")
             document.getElementById(id.id).appendChild(partical);
+
             if (document.getElementById('level').getAttribute('value') == '3') {
               const ball = document.createElement('a-sphere');
               // ball.setAttribute("geometry","primitive:sphere");
