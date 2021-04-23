@@ -25,6 +25,8 @@ export class timecounter extends ComponentWrapper<timecounter> {
       console.log(timeleft);
 
       if (timeleft == 0) {
+
+
         window.location.href = '../dist';
       }
     }, 1000);

@@ -1,80 +1,75 @@
-/*function set_language(lang){
-    sessionStorage.setItem('langauage',lang);
-  
-      var data = {
-        funcName: 'set_language',
-        params: [
-          lang
-        ]
-      
-    }
-  }
-  */
-  function set_level(level: string){
-    sessionStorage.setItem('level',level);  
-   //  alert(sessionStorage.getItem('level'));
-      var data = {
-        funcName: 'set_level',
-        params: [
-          level
-        ]
-      }
-      document.getElementById('level').setAttribute('value',level);
-       var drMenuDiv = document.getElementById('dr-menu');
-  
-      drMenuDiv.style.visibility = 'hidden';
-    }
-  
-  
-  /*function set_growth_time(animationSpeed){
-    sessionStorage.setItem('animationSpeed',animationSpeed);
-      var data = {
-        funcName: 'set_growth_time',
-        params: [
-          animationSpeed
-        ]
-      }
-    }
-  
-  
-  function set_npc(npc){
-    if(sessionStorage.getItem('langauage') =='A') {
-      if(npc =='male') {
-        sessionStorage.setItem('npc','H');  
-    //    alert(sessionStorage.getItem('npc'));
-      }
-      else {
-        sessionStorage.setItem('npc','Re');  
-      //    alert(sessionStorage.getItem('npc'));
-      }
-    }
-    else {
-      if(npc =='male') {
-        sessionStorage.setItem('npc','Ri');  
-        //alert(sessionStorage.getItem('npc'));
-      }
-      else {
-        sessionStorage.setItem('npc','L');  
-          // alert(sessionStorage.getItem('npc'));
-      } 
-    }
-  
-      var data = {
-        funcName: 'set_npc',
-        params: [
-          npc
-        ]
-          }
-  }
-  
-  function start_game() {
-    var gameDiv = document.getElementById('game');
-    // window.open('game.html',"_self");
-  
-      var data = {
-        funcName: 'start_game',
-        params: []
-      }
-  
-     
-    }*/
+
+/*
+var start_session_time=new Date().toLocaleString();
+var tpicalTime;
+var Tas=7.5;
+var implusivityScore ;
+var omissionScore;
+var Ds;
+var responseTime;
+var levelType;
+var Tir,end_session_time,AAS,TFD,timeTaken,Tar,AimingScore;  
+var issent=false;
+var score=parseInt(document.getElementById("score").getAttribute("value"),10);
+Tar=score/document.querySelectorAll('.boxs').length;
+var lostLives=parseInt(document.getElementById("counter").getAttribute("value"),10);
+var bullets=parseInt(document.getElementById("bulletCounter").getAttribute("value"),10);
+AimingScore=score/bullets;
+var inps=parseInt(document.getElementById("inps").getAttribute("value"),10);
+var startSession=0;
+var session=parseInt(document.getElementById("session").getAttribute("value"),10);
+var mysession=setInterval(function()  {
+ 
+
+ document.getElementById("session").setAttribute("value", startSession.toString()); 
+
+ startSession++;
+
+}, 1000);
+mysession;
+  // console.log(this.el.id)//"1PASH9A5579282 "
+
+timeTaken=convertHMS(document.getElementById("session").getAttribute("value"));
+console.log("timeTaken"+timeTaken);
+AAS=(session-inps)/score;
+if (AAS != 0)
+{ 
+omissionScore = Tas /Math.pow(10,-5);
+}
+TFD = AAS - Tas;
+if (document.getElementById("level").getAttribute("value")==1)
+{
+  Ds = 0;
+}
+else
+{
+  Ds = (1 - (TFD / Tas));
+}
+if(document.getElementById("level").getAttribute("value")==2 || document.getElementById("level").getAttribute("value")==1)
+{
+responseTime= AAS;
+}
+else if (document.getElementById("level").getAttribute("value")==3)
+{
+responseTime=(document.getElementById("tasktime").getAttribute("value")/document.getElementById("taskcounter").getAttribute("value")+
+document.getElementById("dstime").getAttribute("value")/document.getElementById("dscounter").getAttribute("value"))/2;
+}
+
+if (document.getElementById("levelTybe").getAttribute("value")!="Open")
+{
+   levelType = "Closed"; 
+  Tir=timeTaken/document.getElementById("counter").getAttribute("value");
+
+}
+else
+{
+  levelType = "Opend";   
+  Tir= timeTaken/tpicalTime;
+} 
+if (Tar == 0)
+{
+implusivityScore = 1;}
+else
+{
+ implusivityScore =(1*(-Tar))*((Math.log10(Tir)-1)+Math.pow(10,-5));
+}*/
