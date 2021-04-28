@@ -71,9 +71,9 @@
     <br> <br> 
     <h>Select timer</h>
     <br>
-    <button class="button button-cls" onclick="set_timer(30)"> 30</button>
-    <button class="button button-cls" onclick="set_timer(60)"> 60</button>
-    <button class="button button-cls" onclick="set_timer(90)"> 90</button>
+    <button class="button button-cls" onclick="set_timer(90)"> 30</button>
+    <button class="button button-cls" onclick="set_timer(120)"> 60</button>
+    <button class="button button-cls" onclick="set_timer(150)"> 90</button>
     <button class="button button-cls" onclick="set_timer(0)"> open </button>
     <br> <br>
     <h>Select Arrows</h>
@@ -98,8 +98,7 @@
   </div>
   <div id="game" style="visibility: hidden;">
 
-    <a-scene  embedded physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
-      <canvas id="cam2"></canvas>
+    <a-scene   physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
 
         <a-assets>
           <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
@@ -124,7 +123,9 @@
 <a-box id="CamTrigger" static-body
   scale="10 10 1" position="0 0 1" aabb-collider="objects:#enemy"></a-box>
          </a-camera>
-  
+         <a-box id="wall" static-body 
+         scale="100 10 10" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
+        
          <!--Hands-->
          
          <a-entity progressive-controls></a-entity>
@@ -140,24 +141,19 @@
            <a-text id="score" value="0" geometry="primitive:plane"visible="true" position="-4.19846 2 1" ></a-text>
            <a-text id="bulletCounter" value="55" geometry="primitive:plane"visible="true" position="-4.19846 3 1" ></a-text>
            <a-text id="level" value="3" geometry="primitive:plane"visible="true" position="-4.19846 4 1" ></a-text>
-<<<<<<< Updated upstream
-           <a-text id="timer" value="30" geometry="primitive:plane"visible="true" position="4 1 1"  ></a-text>
-      
-
-=======
-           <a-text id="timer" value="0" geometry="primitive:plane"visible="true" position="4 1 1"  ></a-text>
+           <a-text id="session" value="0" geometry="primitive:plane"visible="true" position="4 1 1"  ></a-text>
            <a-text id="inps" value="0" geometry="primitive:plane"visible="true" position="-3 1 1" inps-counter ></a-text>
-           <a-text id="session" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
+           <a-text id="timer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
            <a-text id="taskcounter" value="1" geometry="primitive:circle" visible="false" position="-30 1 3" ></a-text>
-           <a-text id="tasktime" value="0" geometry="primitive:circle" position="-3 2 1" visible="true" ></a-text>
-           <a-text id="dscounter" value="1" geometry="primitive:circle"visible="false" position="-40 1 4" ></a-text>
-           <a-text id="dstime" stats-time value="0" geometry="primitive:circle" position="-45 1 4" visible="false"></a-text>
-           
->>>>>>> Stashed changes
+           <a-text id="dstime" value="0" geometry="primitive:circle" position="-3 2 1" visible="true" ></a-text>
+           <a-text id="tasktime" stats-time value="0" geometry="primitive:circle" position="-45 1 4" visible="false"></a-text>
+           <a-text id="levelTybe" value="open" geometry="primitive:circle" visible="false" position="-15 1 1"></a-text>
+           <a-text id="closedtimer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
 
 
 
-  <a-entity id= "TheTree" postion="-4 0 0">
+
+  <a-entity id= "TheTree"   postion="-4 0 0">
         <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 0.05324 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable 
         event-set__click="_event: click; _target:#selectenvironment; value:Beach " 
   
@@ -177,7 +173,7 @@
        >
 
       </a-box>    
-            <a-entity id="targetone"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
+            <a-entity id="targetone"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
       </a-entity> 
 
        <!----------butterfly target path-->

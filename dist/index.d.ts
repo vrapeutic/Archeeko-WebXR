@@ -8,8 +8,6 @@ import { scoretrigger } from './components/scoretrigger';
 export { scoretrigger };
 import { timecounter } from './components/timecounter';
 export { timecounter };
-<<<<<<< Updated upstream
-=======
 import { inpsCounter } from './components/inpsCounter';
 export { inpsCounter };
 import { responseTime } from './components/responseTime';
@@ -22,5 +20,5 @@ export declare function set_npc(npc: string): void;
 export declare function set_level(level: string): void;
 export declare function set_z(z: string): void;
 export declare function set_arrows(arrow: string): void;
+export declare function set_timer(time: string): void;
 export declare function start_game(): void;
->>>>>>> Stashed changes

@@ -1,53 +1,85 @@
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 
-interface responseTimeSchema {}
+interface responseTimeSchema {
+  isCount: boolean;
+}
 
-export class responseTime extends ComponentWrapper<responseTime> {
+export class responseTime extends ComponentWrapper<responseTimeSchema> {
   constructor() {
-    super('response-time', {});
+    super('response-time', {
+      isCount: {
+        type: 'boolean',
+        default: true,
+      },
+    });
   }
 
   init() {
-      console.log(this.el)
-      var count=-1;
-    var timer=parseInt(document.getElementById("tasktime").getAttribute("value"),10);
-    var isCounting=true;
-      var taskTimer=()=>{
-          if(isCounting==true){
+    console.log(this.el);
+    let count = -1;
+    let timer = parseInt(
+      document.getElementById('tasktime').getAttribute('value'),
+      10
+    );
+    // var isCounting=true;
+    const taskTimer = () => {
+      this.data.isCount = true;
+      if (this.data.isCount == true) {
+        count = window.setInterval(() => {
+          timer++;
 
-        count=  window.setInterval(function() {
-           timer++;
+          document
+            .getElementById('tasktime')
+            .setAttribute('value', timer.toString());
+        }, 1000);
+      }
+    };
+    taskTimer();
 
-      document.getElementById("tasktime").setAttribute("value",timer.toString()); 
-     }, 1000);}
-    } 
-     taskTimer();
+    /*
+   document.getElementById('ground').addEventListener('collide', e => {
+      if ((<any>e).detail.body.el.id == 'bullet') {
+        console.log('response' + (<any>e).detail.body.el.id);
+        //    clearInterval(count);
+ // this.data.isCount = false;
+      //  this.destroy();
+taskTimer();
+        //delete AFRAME.components['response-time'];
+        // isCounting=false;
+     // document.querySelector('#shooter').removeAttribute("response-time");
 
-     document.getElementById("ground").addEventListener('collide', e => {
-  if( (<any>e).detail.body.el.id=="bullet"){
-      console.log("response"+(<any>e).detail.body.el.id)
-   clearInterval(count);
-   this.destroy();
+        // console.log(isCounting);
+        //delete AFRAME.AComponent['response-time'];
+      }
+    });
+    document.querySelector('#shooter').addEventListener('click', () => {
+        clearInterval(count);
+      this.data.isCount = false;
+    })
+    document.getElementById('wall').addEventListener('collide', e => {
+      if ((<any>e).detail.body.el.id == 'bullet') {
+        console.log('response' + (<any>e).detail.target.el.id);
+     //   (<any>e).detail.target.el.removeAttribute("static-body");
+     //  this.data.isCount = false;
+       //clearInterval(count);
+setTimeout(() => {
+//    (<any>e).detail.target.el.setAttribute("static-body",'enabled',true);
 
- //delete AFRAME.components['response-time']; 
-     // isCounting=false;
-document.querySelector('#shooter').removeAttribute("response-time");
-
- // console.log(isCounting);
-//delete AFRAME.AComponent['response-time'];
-    } })
-
+}, 1000);
+        //delete AFRAME.components['response-time'];
+        // isCounting=false;
+   //  document.querySelector('#shooter').removeAttribute("response-time");
+taskTimer();
+        // console.log(isCounting);
+        //delete AFRAME.AComponent['response-time'];
+      }
+    });*/
   }
-  
-  
 
   update() {}
 
-  play() {
-    
-}
-
+  play() {}
 
   pause() {}
 
@@ -59,9 +91,6 @@ document.querySelector('#shooter').removeAttribute("response-time");
   remove() {}
 
   destroy() {}
-  task(){
-      console.log(this.name)
-  }
 }
 
 new responseTime().register();

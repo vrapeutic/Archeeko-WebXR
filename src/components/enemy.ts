@@ -18,7 +18,24 @@ export class enemy extends ComponentWrapper<enemySchema> {
 
   init() {
     let score = document.querySelector('#counter').getAttribute('value');
+    let count = -1;
+    let timer = parseInt(
+      document.getElementById('dstime').getAttribute('value'),
+      10
+    );
+    // var isCounting=true;
+    const taskTimer = () => {
+      count = window.setInterval(() => {
+        timer++;
 
+        document
+          .getElementById('dstime')
+          .setAttribute('value', timer.toString());
+      }, 1000);
+
+      console.log(timer);
+    };
+    taskTimer();
     const ball = this.el;
     // ball.setAttribute('aabb-collider', 'objects: #score,a-box;');
 
@@ -37,6 +54,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
         ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
 
         (<any>e).detail.body.el.body.applyImpulse(worldVelocity, newpStart);
+        clearInterval(count);
         ball.addEventListener('collide', e => {
           if (
             (<any>e).target.components['aabb-collider']['intersectedEls'] !=

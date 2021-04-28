@@ -1,4 +1,3 @@
-
 /*
 var start_session_time=new Date().toLocaleString();
 var tpicalTime;
@@ -8,7 +7,7 @@ var omissionScore;
 var Ds;
 var responseTime;
 var levelType;
-var Tir,end_session_time,AAS,TFD,timeTaken,Tar,AimingScore;  
+var Tir,end_session_time,AAS,TFD,timeTaken,Tar,AimingScore;
 var issent=false;
 var score=parseInt(document.getElementById("score").getAttribute("value"),10);
 Tar=score/document.querySelectorAll('.boxs').length;
@@ -19,9 +18,9 @@ var inps=parseInt(document.getElementById("inps").getAttribute("value"),10);
 var startSession=0;
 var session=parseInt(document.getElementById("session").getAttribute("value"),10);
 var mysession=setInterval(function()  {
- 
 
- document.getElementById("session").setAttribute("value", startSession.toString()); 
+
+ document.getElementById("session").setAttribute("value", startSession.toString());
 
  startSession++;
 
@@ -33,7 +32,7 @@ timeTaken=convertHMS(document.getElementById("session").getAttribute("value"));
 console.log("timeTaken"+timeTaken);
 AAS=(session-inps)/score;
 if (AAS != 0)
-{ 
+{
 omissionScore = Tas /Math.pow(10,-5);
 }
 TFD = AAS - Tas;
@@ -57,15 +56,15 @@ document.getElementById("dstime").getAttribute("value")/document.getElementById(
 
 if (document.getElementById("levelTybe").getAttribute("value")!="Open")
 {
-   levelType = "Closed"; 
+   levelType = "Closed";
   Tir=timeTaken/document.getElementById("counter").getAttribute("value");
 
 }
 else
 {
-  levelType = "Opend";   
+  levelType = "Opend";
   Tir= timeTaken/tpicalTime;
-} 
+}
 if (Tar == 0)
 {
 implusivityScore = 1;}

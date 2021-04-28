@@ -1,7 +1,7 @@
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
-import { responseTime } from './responseTime';
+import {responseTime} from './responseTime';
 
 //import type { Body } from 'cannon-es'
 //require("../../aframe-physics-system-master/dist/aframe-physics-system");
@@ -18,30 +18,31 @@ export class shoot extends ComponentWrapper<shootSchema> {
   }
 
   init() {
-    var time=0;
- var count=-1;
+    const time = 0;
+    const count = -1;
     let bulletCounter = document
       .querySelector('#bulletCounter')
       .getAttribute('value');
     document.querySelector('#shooter').addEventListener('click', () => {
-      
       const bullet = document.createElement('a-cylinder');
       bullet.setAttribute('scale', {x: 0.9, y: 0.9, z: 0.9});
       bullet.setAttribute('id', 'bullet');
       bullet.setAttribute('class', 'bullets');
 
       bullet.setAttribute('aabb-collider', 'objects: .boxs');
-
       const newforce = new CANNON.Vec3(5, 0, 0);
       bullet.setAttribute('dynamic-body', 'mass:0.05');
       if (bulletCounter > 0) {
-        if (document.getElementById('bullet') == null)
-        document.getElementById('shooter').appendChild(bullet);
-
-        bulletCounter--;
-        document
-          .querySelector('#bulletCounter')
-          .setAttribute('value', bulletCounter);
+        if (document.getElementById('bullet') == null) {
+          document.getElementById('shooter').appendChild(bullet);
+          document.querySelector('#wall').removeAttribute('response-time');
+          console.log(document.querySelector('#wall'));
+          document.getElementById('tasktime').setAttribute('value', '0');
+          bulletCounter--;
+          document
+            .querySelector('#bulletCounter')
+            .setAttribute('value', bulletCounter);
+        }
       }
       bullet.addEventListener('body-loaded', e => {
         // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
@@ -63,18 +64,35 @@ export class shoot extends ComponentWrapper<shootSchema> {
             newforce
           );
           (<any>e).detail.body.el.body.applyImpulse(worldVelocity, pStart);
-        document.querySelector('#shooter').setAttribute("response-time","enabled","true");
         }, 0);
-      }); 
-  
+      });
+
       setTimeout(() => {
         if (document.getElementById('bullet') != null) {
           document
             .getElementById('bullet')
             .parentNode.removeChild(document.getElementById('bullet'));
-        }      
-
+          document.querySelector('#wall').removeAttribute('response-time');
+          document.getElementById('tasktime').setAttribute('value', '0');
+        }
       }, 2000);
+      document.getElementById('wall').addEventListener('collide', e => {
+        if ((<any>e).detail.body.el.id == 'bullet') {
+          console.log('response' + (<any>e).detail.body.el.id);
+          //    clearInterval(count);
+          // this.data.isCount = false;
+          //  this.destroy();
+          //delete AFRAME.components['response-time'];
+          // isCounting=false;
+          // document.querySelector('#shooter').removeAttribute("response-time");
+          document
+            .querySelector('#wall')
+            .setAttribute('response-time', 'enabled:true');
+
+          // console.log(isCounting);
+          //delete AFRAME.AComponent['response-time'];
+        }
+      });
 
       bullet.addEventListener('hitstart', e => {
         // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
@@ -117,6 +135,10 @@ export class shoot extends ComponentWrapper<shootSchema> {
             );
             //partical.setAttribute("position","1 3 1")
             document.getElementById(id.id).appendChild(partical);
+            document
+              .querySelector('#wall')
+              .setAttribute('response-time', 'enabled:true');
+              console.log(document.getElementById("levelTybe").getAttribute('value'));
 
             if (document.getElementById('level').getAttribute('value') == '3') {
               const ball = document.createElement('a-sphere');
@@ -128,12 +150,12 @@ export class shoot extends ComponentWrapper<shootSchema> {
               //console.log(ball.getAttribute("position"));
 
               document.getElementById('TheTree').appendChild(ball);
-              setTimeout(() => {
-                ball.setAttribute('create-enemy', 'enabled');
+              ball.setAttribute('create-enemy', 'enabled');
 
+              setTimeout(() => {
                 ball.setAttribute('dynamic-body', 'mass:0.05');
                 ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
-              }, 3000);
+              }, 5000);
             }
             setTimeout(() => {
               document
