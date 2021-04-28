@@ -16,17 +16,10 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   }
 
   init() {
-    var giftCounter=document.querySelectorAll('.boxs').length;
     setTimeout(() => {
       let score = document.querySelector('#score').getAttribute('value');
       score++;
       document.querySelector('#score').setAttribute('value', score);
-      if (score > giftCounter)
-      {
-        console.log("gift");
-                window.location.href = '../dist';
- 
-      }
     }, 1000);
   }
 

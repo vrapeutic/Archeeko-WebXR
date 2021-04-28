@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -192,6 +192,153 @@ exports.ComponentWrapper = ComponentWrapper;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.convertHMS = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+var visualDistractorMovenment_1 = __webpack_require__(10);
+Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
+        return visualDistractorMovenment_1.visualDistractorMovenment;
+    } });
+var shoot_1 = __webpack_require__(7);
+Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
+        return shoot_1.shoot;
+    } });
+var enemy_1 = __webpack_require__(3);
+Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
+        return enemy_1.enemy;
+    } });
+var scoretrigger_1 = __webpack_require__(6);
+Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
+        return scoretrigger_1.scoretrigger;
+    } });
+var timecounter_1 = __webpack_require__(9);
+Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
+        return timecounter_1.timecounter;
+    } });
+var inpsCounter_1 = __webpack_require__(4);
+Object.defineProperty(exports, "inpsCounter", { enumerable: true, get: function () {
+        return inpsCounter_1.inpsCounter;
+    } });
+var responseTime_1 = __webpack_require__(5);
+Object.defineProperty(exports, "responseTime", { enumerable: true, get: function () {
+        return responseTime_1.responseTime;
+    } });
+var stats_1 = __webpack_require__(8);
+Object.defineProperty(exports, "stats", { enumerable: true, get: function () {
+        return stats_1.stats;
+    } });
+function convertHMS(value) {
+    var sec = parseInt(value, 10); // convert value to number if it's string
+    var hours = Math.floor(sec / 3600); // get hours
+    var minutes = Math.floor((sec - hours * 3600) / 60); // get minutes
+    var seconds = sec - hours * 3600 - minutes * 60; //  get seconds
+    // add 0 if value < 10; Example: 2 => 02
+    if (hours < 10) {
+        hours = 0 + hours;
+    }
+    if (minutes < 10) {
+        minutes = 0 + minutes;
+    }
+    if (seconds < 10) {
+        seconds = 0 + seconds;
+    }
+    return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
+}
+exports.convertHMS = convertHMS;
+function set_language(lang) {
+    sessionStorage.setItem('langauage', lang);
+    var data = {
+        funcName: 'set_language',
+        params: [lang]
+    };
+}
+exports.set_language = set_language;
+function set_npc(npc) {
+    if (sessionStorage.getItem('langauage') == 'A') {
+        if (npc == 'male') {
+            sessionStorage.setItem('npc', 'H');
+            //    alert(sessionStorage.getItem('npc'));
+        } else {
+            sessionStorage.setItem('npc', 'Re');
+            //    alert(sessionStorage.getItem('npc'));
+        }
+    } else {
+        if (npc == 'male') {
+            sessionStorage.setItem('npc', 'Ri');
+            //alert(sessionStorage.getItem('npc'));
+        } else {
+            sessionStorage.setItem('npc', 'L');
+            // alert(sessionStorage.getItem('npc'));
+        }
+    }
+}
+exports.set_npc = set_npc;
+function set_level(level) {
+    sessionStorage.setItem('level', level);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_level',
+        params: [level]
+    };
+    document.getElementById('level').setAttribute('value', level);
+}
+exports.set_level = set_level;
+function set_z(z) {
+    sessionStorage.setItem('z', z);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_z',
+        params: [z]
+    };
+    document.getElementById('TheTree').setAttribute('position', '0 0 ' + z);
+}
+exports.set_z = set_z;
+function set_arrows(arrow) {
+    sessionStorage.setItem('arrow', arrow);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_arrows',
+        params: [arrow]
+    };
+    document.getElementById('bulletCounter').setAttribute('value', arrow);
+}
+exports.set_arrows = set_arrows;
+function set_timer(time) {
+    sessionStorage.setItem('timer', time);
+    //  alert(sessionStorage.getItem('level'));
+    var data = {
+        funcName: 'set_timer',
+        params: [time]
+    };
+    document.getElementById('timer').setAttribute('value', time);
+    //console.log(time);
+    //console.log(  document.getElementById('session').getAttribute('value')
+    if (parseInt(sessionStorage.getItem('timer')) != 0) {
+        document.getElementById("levelTybe").setAttribute("value", "closed");
+    }
+}
+exports.set_timer = set_timer;
+function start_game() {
+    var gameDiv = document.getElementById('game');
+    // window.open('game.html',"_self");
+    var data = {
+        funcName: 'start_game',
+        params: ['']
+    };
+    var drMenuDiv = document.getElementById('dr-menu');
+    drMenuDiv.style.visibility = 'hidden';
+    gameDiv.style.visibility = 'visible';
+    document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
+    document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
+}
+exports.start_game = start_game;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12441,7 +12588,7 @@ World.prototype.emitContactEvents = (() => {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12467,7 +12614,7 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enemy = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var CANNON = __webpack_require__(1);
+var CANNON = __webpack_require__(2);
 var enemy = /** @class */function (_super) {
     __extends(enemy, _super);
     function enemy() {
@@ -12476,6 +12623,17 @@ var enemy = /** @class */function (_super) {
     enemy.prototype.init = function () {
         var _this = this;
         var score = document.querySelector('#counter').getAttribute('value');
+        var count = -1;
+        var timer = parseInt(document.getElementById('dstime').getAttribute('value'), 10);
+        // var isCounting=true;
+        var taskTimer = function () {
+            count = window.setInterval(function () {
+                timer++;
+                document.getElementById('dstime').setAttribute('value', timer.toString());
+            }, 1000);
+            console.log(timer);
+        };
+        taskTimer();
         var ball = this.el;
         // ball.setAttribute('aabb-collider', 'objects: #score,a-box;');
         var ballForce = new CANNON.Vec3(0, 0, 1);
@@ -12487,6 +12645,7 @@ var enemy = /** @class */function (_super) {
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
+                clearInterval(count);
                 ball.addEventListener('collide', function (e) {
                     if (e.target.components['aabb-collider']['intersectedEls'] != null) {
                         console.log(e.target.components['aabb-collider']['intersectedEls']);
@@ -12497,12 +12656,6 @@ var enemy = /** @class */function (_super) {
                             document.querySelector('#counter').setAttribute('value', score);
                             console.log(score + 'score: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
                             document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
-                        }
-                        if (score == 3) {
-                            setTimeout(function () {
-                                console.log("enemy");
-                                window.location.href = '../dist';
-                            }, 3000);
                         }
                     } else 'mfesh';
                 });
@@ -12524,7 +12677,7 @@ exports.enemy = enemy;
 new enemy().register();
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12550,7 +12703,7 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inpsCounter = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var THREE = __webpack_require__(9);
+var THREE = __webpack_require__(11);
 var inpsCounter = /** @class */function (_super) {
     __extends(inpsCounter, _super);
     function inpsCounter() {
@@ -12576,15 +12729,9 @@ var inpsCounter = /** @class */function (_super) {
                 var fairyPosition = new THREE.Vector3(-1.78878, 0, -3.6332);
                 console.log(_this.data.index);
                 if (!frustum.containsPoint(fairyPosition)) {
-                    _this.data.counter++;
-                    console.log(_this.data.counter);
-                    if (_this.data.counter == 3) {
-                        _this.data.counter = 0;
-                        _this.data.index++;
-                        //inpusCount=0;
-                        console.log(_this.data.index);
-                        document.querySelector("#inps").setAttribute("value", _this.data.index);
-                    }
+                    _this.data.index++;
+                    //inpusCount=0;
+                    document.querySelector('#inps').setAttribute('value', _this.data.index);
                 }
             }
         }, 1000);
@@ -12602,7 +12749,111 @@ exports.inpsCounter = inpsCounter;
 new inpsCounter().register();
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.responseTime = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var responseTime = /** @class */function (_super) {
+    __extends(responseTime, _super);
+    function responseTime() {
+        return _super.call(this, 'response-time', {
+            isCount: {
+                type: 'boolean',
+                default: true
+            }
+        }) || this;
+    }
+    responseTime.prototype.init = function () {
+        var _this = this;
+        console.log(this.el);
+        var count = -1;
+        var timer = parseInt(document.getElementById('tasktime').getAttribute('value'), 10);
+        // var isCounting=true;
+        var taskTimer = function () {
+            _this.data.isCount = true;
+            if (_this.data.isCount == true) {
+                count = window.setInterval(function () {
+                    timer++;
+                    document.getElementById('tasktime').setAttribute('value', timer.toString());
+                }, 1000);
+            }
+        };
+        taskTimer();
+        /*
+        document.getElementById('ground').addEventListener('collide', e => {
+          if ((<any>e).detail.body.el.id == 'bullet') {
+            console.log('response' + (<any>e).detail.body.el.id);
+            //    clearInterval(count);
+        // this.data.isCount = false;
+          //  this.destroy();
+        taskTimer();
+            //delete AFRAME.components['response-time'];
+            // isCounting=false;
+         // document.querySelector('#shooter').removeAttribute("response-time");
+                  // console.log(isCounting);
+            //delete AFRAME.AComponent['response-time'];
+          }
+        });
+        document.querySelector('#shooter').addEventListener('click', () => {
+            clearInterval(count);
+          this.data.isCount = false;
+        })
+        document.getElementById('wall').addEventListener('collide', e => {
+          if ((<any>e).detail.body.el.id == 'bullet') {
+            console.log('response' + (<any>e).detail.target.el.id);
+         //   (<any>e).detail.target.el.removeAttribute("static-body");
+         //  this.data.isCount = false;
+           //clearInterval(count);
+        setTimeout(() => {
+        //    (<any>e).detail.target.el.setAttribute("static-body",'enabled',true);
+          }, 1000);
+            //delete AFRAME.components['response-time'];
+            // isCounting=false;
+        //  document.querySelector('#shooter').removeAttribute("response-time");
+        taskTimer();
+            // console.log(isCounting);
+            //delete AFRAME.AComponent['response-time'];
+          }
+        });*/
+    };
+    responseTime.prototype.update = function () {};
+    responseTime.prototype.play = function () {};
+    responseTime.prototype.pause = function () {};
+    responseTime.prototype.tick = function () {
+        // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
+        //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
+    };
+    responseTime.prototype.remove = function () {};
+    responseTime.prototype.destroy = function () {};
+    return responseTime;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.responseTime = responseTime;
+new responseTime().register();
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12639,15 +12890,10 @@ var scoretrigger = /** @class */function (_super) {
         }) || this;
     }
     scoretrigger.prototype.init = function () {
-        var giftCounter = document.querySelectorAll('.boxs').length;
         setTimeout(function () {
             var score = document.querySelector('#score').getAttribute('value');
             score++;
             document.querySelector('#score').setAttribute('value', score);
-            if (score > giftCounter) {
-                console.log("gift");
-                window.location.href = '../dist';
-            }
         }, 1000);
     };
     scoretrigger.prototype.update = function () {
@@ -12667,7 +12913,7 @@ exports.scoretrigger = scoretrigger;
 new scoretrigger().register();
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12693,13 +12939,15 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.shoot = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var CANNON = __webpack_require__(1);
+var CANNON = __webpack_require__(2);
 var shoot = /** @class */function (_super) {
     __extends(shoot, _super);
     function shoot() {
         return _super.call(this, 'push', {}) || this;
     }
     shoot.prototype.init = function () {
+        var time = 0;
+        var count = -1;
         var bulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         document.querySelector('#shooter').addEventListener('click', function () {
             var bullet = document.createElement('a-cylinder');
@@ -12707,16 +12955,17 @@ var shoot = /** @class */function (_super) {
             bullet.setAttribute('id', 'bullet');
             bullet.setAttribute('class', 'bullets');
             bullet.setAttribute('aabb-collider', 'objects: .boxs');
-            var newforce = new CANNON.Vec3(1, 0, 0);
+            var newforce = new CANNON.Vec3(5, 0, 0);
             bullet.setAttribute('dynamic-body', 'mass:0.05');
             if (bulletCounter > 0) {
-                document.getElementById('shooter').appendChild(bullet);
-                bulletCounter--;
-                document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
-            }
-            if (bulletCounter == 0) {
-                console.log("bullet");
-                window.location.href = '../dist';
+                if (document.getElementById('bullet') == null) {
+                    document.getElementById('shooter').appendChild(bullet);
+                    document.querySelector('#wall').removeAttribute('response-time');
+                    console.log(document.querySelector('#wall'));
+                    document.getElementById('tasktime').setAttribute('value', '0');
+                    bulletCounter--;
+                    document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
+                }
             }
             bullet.addEventListener('body-loaded', function (e) {
                 // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
@@ -12741,8 +12990,24 @@ var shoot = /** @class */function (_super) {
             setTimeout(function () {
                 if (document.getElementById('bullet') != null) {
                     document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
+                    document.querySelector('#wall').removeAttribute('response-time');
+                    document.getElementById('tasktime').setAttribute('value', '0');
                 }
-            }, 5000);
+            }, 2000);
+            document.getElementById('wall').addEventListener('collide', function (e) {
+                if (e.detail.body.el.id == 'bullet') {
+                    console.log('response' + e.detail.body.el.id);
+                    //    clearInterval(count);
+                    // this.data.isCount = false;
+                    //  this.destroy();
+                    //delete AFRAME.components['response-time'];
+                    // isCounting=false;
+                    // document.querySelector('#shooter').removeAttribute("response-time");
+                    document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
+                    // console.log(isCounting);
+                    //delete AFRAME.AComponent['response-time'];
+                }
+            });
             bullet.addEventListener('hitstart', function (e) {
                 // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
                 //  var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
@@ -12764,6 +13029,8 @@ var shoot = /** @class */function (_super) {
                         partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
                         //partical.setAttribute("position","1 3 1")
                         document.getElementById(id_1.id).appendChild(partical);
+                        document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
+                        console.log(document.getElementById("levelTybe").getAttribute('value'));
                         if (document.getElementById('level').getAttribute('value') == '3') {
                             var ball_1 = document.createElement('a-sphere');
                             // ball.setAttribute("geometry","primitive:sphere");
@@ -12772,11 +13039,11 @@ var shoot = /** @class */function (_super) {
                             ball_1.setAttribute('position', currentPosition);
                             //console.log(ball.getAttribute("position"));
                             document.getElementById('TheTree').appendChild(ball_1);
+                            ball_1.setAttribute('create-enemy', 'enabled');
                             setTimeout(function () {
-                                ball_1.setAttribute('create-enemy', 'enabled');
                                 ball_1.setAttribute('dynamic-body', 'mass:0.05');
                                 ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
-                            }, 3000);
+                            }, 5000);
                         }
                         setTimeout(function () {
                             document.getElementById(id_1.id).parentNode.removeChild(document.getElementById(id_1.id));
@@ -12798,7 +13065,136 @@ exports.shoot = shoot;
 new shoot().register();
 
 /***/ }),
-/* 6 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.stats = void 0;
+var aframe_wrapper_1 = __webpack_require__(0);
+var index_1 = __webpack_require__(1);
+var stats = /** @class */function (_super) {
+    __extends(stats, _super);
+    function stats() {
+        return _super.call(this, 'stats-time', {}) || this;
+    }
+    stats.prototype.init = function () {
+        var start_session_time = new Date().toLocaleString();
+        var Tas = 20;
+        var tpicalTime = 40;
+        var implusivityScore;
+        var omissionScore;
+        var Ds;
+        var responseTime;
+        var levelType;
+        var Tir = 0,
+            end_session_time,
+            AAS = 0,
+            TFD = 0,
+            timeTaken,
+            Tar = 0,
+            AimingScore = 0;
+        var statString;
+        var ClosedTime = document.getElementById('closedtimer').getAttribute('value');
+        var issent = false;
+        var score = parseInt(document.getElementById('score').getAttribute('value'), 10);
+        var lostLives = parseInt(document.getElementById('counter').getAttribute('value'), 10);
+        var inps = parseInt(document.getElementById('inps').getAttribute('value'), 10);
+        var session = parseInt(document.getElementById('session').getAttribute('value'), 10);
+        var startSession = 0;
+        var mysession = setInterval(function () {
+            startSession++;
+            document.getElementById('session').setAttribute('value', startSession.toString());
+            timeTaken = index_1.convertHMS(document.getElementById('session').getAttribute('value'));
+        }, 1000);
+        mysession;
+        // console.log(this.el.id)//"1PASH9A5579282 "
+        var attentionSpan;
+        var calculate = function () {
+            var response = parseInt(document.getElementById('tasktime').getAttribute('value'), 10);
+            AimingScore = parseInt(document.getElementById('score').getAttribute('value'), 10) / parseInt(document.getElementById('bulletCounter').getAttribute('value'), 10);
+            Tar = parseInt(document.getElementById('score').getAttribute('value'), 10) / document.querySelectorAll('.boxs').length;
+            responseTime = parseInt(document.getElementById('tasktime').getAttribute('value'), 10) / parseInt(document.getElementById('session').getAttribute('value'), 10);
+            AAS = parseInt(document.getElementById('tasktime').getAttribute('value'), 10) / parseInt(document.getElementById('score').getAttribute('value'), 10);
+            attentionSpan = parseInt(document.getElementById('session').getAttribute('value'), 10) - parseInt(document.getElementById('inps').getAttribute('value'), 10);
+            if (AAS != 0) {
+                omissionScore = Tas / (AAS + Math.pow(10, -5));
+            }
+            TFD = AAS - Tas;
+            if (document.getElementById('level').getAttribute('value') == '1') {
+                Ds = 0;
+            } else {
+                Ds = 1 - TFD / Tas;
+            }
+            if (document.getElementById('level').getAttribute('value') == '2' || document.getElementById('level').getAttribute('value') == '1') {
+                responseTime = AAS;
+            } else if (document.getElementById('level').getAttribute('value') == '3') {
+                responseTime = (parseInt(document.getElementById('tasktime').getAttribute('value'), 10) / parseInt(document.getElementById('score').getAttribute('value'), 10) + parseInt(document.getElementById('dstime').getAttribute('value'), 10) / parseInt(document.getElementById('score').getAttribute('value'), 10)) / 2;
+            }
+            if (document.getElementById("levelTybe").getAttribute("value") != "open") {
+                console.log(document.getElementById("closedtimer").getAttribute("value") + "hello" + sessionStorage.getItem('timer'));
+                levelType = "closed";
+                Tir = parseInt(document.getElementById('session').getAttribute('value'), 10) / parseInt(document.getElementById('closedtimer').getAttribute('value'), 10);
+            } else {
+                levelType = "open";
+                Tir = parseInt(document.getElementById('session').getAttribute('value'), 10) / tpicalTime;
+            }
+            if (Tar == 0 || AimingScore == 0) {
+                implusivityScore = 1;
+            } else {
+                implusivityScore = 1 * -Tar * (Math.log10(Tir) - 1 + Math.pow(10, -5));
+            }
+            end_session_time = new Date().toLocaleString();
+            statString = "Tas:" + Tas + " responese " + response + " duration " + document.getElementById('closedtimer').getAttribute('value') + " levelType: " + levelType + " end : " + end_session_time + " AAS " + AAS + " aminingscore" + AimingScore + " response " + responseTime + " Start" + start_session_time + " Ds " + Ds + " timeTaken " + timeTaken + " tar" + Tar + " Tir" + Tir + " omission " + omissionScore + " imps " + implusivityScore + " attention" + attentionSpan;
+        };
+        document.getElementById('counter').addEventListener("click", function (e) {
+            if (document.querySelector('a-scene').getAttribute('time-manger') != null) console.log(document.getElementById('closedtimer').getAttribute("value"));
+            calculate();
+            var statsTex = document.createElement("a-text");
+            statsTex.setAttribute("position", "-2 1 -2");
+            statsTex.setAttribute("value", statString);
+            document.querySelector("a-camera").appendChild(statsTex);
+            console.log(statsTex);
+            setTimeout(function () {
+                window.location.href = "../dist";
+            }, 10000);
+        });
+    };
+    stats.prototype.update = function () {};
+    stats.prototype.play = function () {};
+    stats.prototype.pause = function () {};
+    stats.prototype.tick = function () {
+        // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
+        //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
+    };
+    stats.prototype.remove = function () {};
+    stats.prototype.destroy = function () {};
+    return stats;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.stats = stats;
+new stats().register();
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12833,7 +13229,9 @@ var timecounter = /** @class */function (_super) {
     timecounter.prototype.update = function () {};
     timecounter.prototype.play = function () {
         var time = document.getElementById('timer').getAttribute('value');
+        document.getElementById("closedtimer").setAttribute("value", time);
         var timeleft = parseInt(time, 10);
+        if (timeleft != 0) document.getElementById("levelTybe").setAttribute("value", "closed");
         var countDown = setInterval(function () {
             if (timeleft <= 0) {
                 clearInterval(countDown);
@@ -12842,7 +13240,6 @@ var timecounter = /** @class */function (_super) {
             timeleft--;
             console.log(timeleft);
             if (timeleft == 0) {
-                console.log("time");
                 window.location.href = '../dist';
             }
         }, 1000);
@@ -12860,7 +13257,7 @@ exports.timecounter = timecounter;
 new timecounter().register();
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12926,122 +13323,7 @@ exports.visualDistractorMovenment = visualDistractorMovenment;
 new visualDistractorMovenment().register();
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.start_game = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
-var visualDistractorMovenment_1 = __webpack_require__(7);
-Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
-        return visualDistractorMovenment_1.visualDistractorMovenment;
-    } });
-var shoot_1 = __webpack_require__(5);
-Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
-        return shoot_1.shoot;
-    } });
-var enemy_1 = __webpack_require__(2);
-Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
-        return enemy_1.enemy;
-    } });
-var scoretrigger_1 = __webpack_require__(4);
-Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
-        return scoretrigger_1.scoretrigger;
-    } });
-var timecounter_1 = __webpack_require__(6);
-Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
-        return timecounter_1.timecounter;
-    } });
-var inpsCounter_1 = __webpack_require__(3);
-Object.defineProperty(exports, "inpsCounter", { enumerable: true, get: function () {
-        return inpsCounter_1.inpsCounter;
-    } });
-function set_language(lang) {
-    sessionStorage.setItem('langauage', lang);
-    var data = {
-        funcName: 'set_language',
-        params: [lang]
-    };
-}
-exports.set_language = set_language;
-function set_npc(npc) {
-    if (sessionStorage.getItem('langauage') == 'A') {
-        if (npc == 'male') {
-            sessionStorage.setItem('npc', 'H');
-            //    alert(sessionStorage.getItem('npc'));
-        } else {
-            sessionStorage.setItem('npc', 'Re');
-            //    alert(sessionStorage.getItem('npc'));
-        }
-    } else {
-        if (npc == 'male') {
-            sessionStorage.setItem('npc', 'Ri');
-            //alert(sessionStorage.getItem('npc'));
-        } else {
-            sessionStorage.setItem('npc', 'L');
-            // alert(sessionStorage.getItem('npc'));
-        }
-    }
-}
-exports.set_npc = set_npc;
-function set_level(level) {
-    sessionStorage.setItem('level', level);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_level',
-        params: [level]
-    };
-    document.getElementById('level').setAttribute('value', level);
-}
-exports.set_level = set_level;
-function set_z(z) {
-    sessionStorage.setItem('z', z);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_z',
-        params: [z]
-    };
-    document.getElementById('TheTree').setAttribute('position', '0 0 ' + z);
-}
-exports.set_z = set_z;
-function set_arrows(arrow) {
-    sessionStorage.setItem('arrow', arrow);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_arrows',
-        params: [arrow]
-    };
-    document.getElementById('bulletCounter').setAttribute('value', arrow);
-}
-exports.set_arrows = set_arrows;
-function set_timer(time) {
-    sessionStorage.setItem('timer', time);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_timer',
-        params: [time]
-    };
-    document.getElementById('timer').setAttribute('value', time);
-}
-function start_game() {
-    var gameDiv = document.getElementById('game');
-    // window.open('game.html',"_self");
-    var data = {
-        funcName: 'start_game',
-        params: ['']
-    };
-    var drMenuDiv = document.getElementById('dr-menu');
-    drMenuDiv.style.visibility = 'hidden';
-    gameDiv.style.visibility = 'visible';
-    document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
-    document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
-}
-exports.start_game = start_game;
-
-/***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

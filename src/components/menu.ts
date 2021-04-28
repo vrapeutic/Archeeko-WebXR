@@ -1,85 +1,74 @@
-import {ComponentWrapper} from '../essential/aframe-wrapper';
+/*
+var start_session_time=new Date().toLocaleString();
+var tpicalTime;
+var Tas=7.5;
+var implusivityScore ;
+var omissionScore;
+var Ds;
+var responseTime;
+var levelType;
+var Tir,end_session_time,AAS,TFD,timeTaken,Tar,AimingScore;
+var issent=false;
+var score=parseInt(document.getElementById("score").getAttribute("value"),10);
+Tar=score/document.querySelectorAll('.boxs').length;
+var lostLives=parseInt(document.getElementById("counter").getAttribute("value"),10);
+var bullets=parseInt(document.getElementById("bulletCounter").getAttribute("value"),10);
+AimingScore=score/bullets;
+var inps=parseInt(document.getElementById("inps").getAttribute("value"),10);
+var startSession=0;
+var session=parseInt(document.getElementById("session").getAttribute("value"),10);
+var mysession=setInterval(function()  {
 
-//export class menu extends ComponentWrapper<>{}
 
-function set_language(lang: string) {
-  sessionStorage.setItem('langauage', lang);
+ document.getElementById("session").setAttribute("value", startSession.toString());
 
-  const data = {
-    funcName: 'set_language',
-    params: [lang],
-  };
+ startSession++;
+
+}, 1000);
+mysession;
+  // console.log(this.el.id)//"1PASH9A5579282 "
+
+timeTaken=convertHMS(document.getElementById("session").getAttribute("value"));
+console.log("timeTaken"+timeTaken);
+AAS=(session-inps)/score;
+if (AAS != 0)
+{
+omissionScore = Tas /Math.pow(10,-5);
+}
+TFD = AAS - Tas;
+if (document.getElementById("level").getAttribute("value")==1)
+{
+  Ds = 0;
+}
+else
+{
+  Ds = (1 - (TFD / Tas));
+}
+if(document.getElementById("level").getAttribute("value")==2 || document.getElementById("level").getAttribute("value")==1)
+{
+responseTime= AAS;
+}
+else if (document.getElementById("level").getAttribute("value")==3)
+{
+responseTime=(document.getElementById("tasktime").getAttribute("value")/document.getElementById("taskcounter").getAttribute("value")+
+document.getElementById("dstime").getAttribute("value")/document.getElementById("dscounter").getAttribute("value"))/2;
 }
 
-function set_npc(npc: string) {
-  if (sessionStorage.getItem('langauage') == 'A') {
-    if (npc == 'male') {
-      sessionStorage.setItem('npc', 'H');
-      //    alert(sessionStorage.getItem('npc'));
-    } else {
-      sessionStorage.setItem('npc', 'Re');
-      //    alert(sessionStorage.getItem('npc'));
-    }
-  } else {
-    if (npc == 'male') {
-      sessionStorage.setItem('npc', 'Ri');
-      //alert(sessionStorage.getItem('npc'));
-    } else {
-      sessionStorage.setItem('npc', 'L');
-      // alert(sessionStorage.getItem('npc'));
-    }
-  }
-}
-function set_level(level: string) {
-  sessionStorage.setItem('level', level);
-  //  alert(sessionStorage.getItem('level'));
-  const data = {
-    funcName: 'set_level',
-    params: [level],
-  };
-  document.getElementById('level').setAttribute('value', level);
-}
-function set_z(z: string) {
-  sessionStorage.setItem('z', z);
-  //  alert(sessionStorage.getItem('level'));
-  const data = {
-    funcName: 'set_z',
-    params: [z],
-  };
-  document.getElementById('TheTree').setAttribute('position', '0 0 ' + z);
-}
-function set_arrows(arrow: string) {
-  sessionStorage.setItem('arrow', arrow);
-  //  alert(sessionStorage.getItem('level'));
-  const data = {
-    funcName: 'set_arrows',
-    params: [arrow],
-  };
-  document.getElementById('bulletCounter').setAttribute('value', arrow);
-}
-function set_timer(time: string) {
-  sessionStorage.setItem('timer', time);
-  //  alert(sessionStorage.getItem('level'));
-  const data = {
-    funcName: 'set_timer',
-    params: [time],
-  };
-  document.getElementById('timer').setAttribute('value', time);
-}
-function start_game() {
-  const gameDiv = document.getElementById('game');
-  // window.open('game.html',"_self");
+if (document.getElementById("levelTybe").getAttribute("value")!="Open")
+{
+   levelType = "Closed";
+  Tir=timeTaken/document.getElementById("counter").getAttribute("value");
 
-  const data = {
-    funcName: 'start_game',
-    params: [''],
-  };
-  const drMenuDiv = document.getElementById('dr-menu');
-
-  drMenuDiv.style.visibility = 'hidden';
-  gameDiv.style.visibility = 'visible';
-  document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
-  document
-    .getElementById('butterflymodel')
-    .setAttribute('distractor', 'enable:true');
 }
+else
+{
+  levelType = "Opend";
+  Tir= timeTaken/tpicalTime;
+}
+if (Tar == 0)
+{
+implusivityScore = 1;}
+else
+{
+ implusivityScore =(1*(-Tar))*((Math.log10(Tir)-1)+Math.pow(10,-5));
+}*/
