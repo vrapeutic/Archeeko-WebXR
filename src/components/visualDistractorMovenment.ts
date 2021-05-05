@@ -16,6 +16,7 @@ export class visualDistractorMovenment extends ComponentWrapper<visualDistractor
   }
 
   init() {
+  
     let newpos,
       random = 0;
     const box = document.querySelectorAll('.bTarget'); //Array of targets
