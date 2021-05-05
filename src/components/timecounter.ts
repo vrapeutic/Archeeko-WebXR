@@ -8,22 +8,21 @@ export class timecounter extends ComponentWrapper<timecounter> {
     super('time-manger', {});
   }
 
-  init() {
-   
-  }
+  init() {   
+  
+}
 
   update() {}
 
   play() {
-   
     const time = document.getElementById('timer').getAttribute('value');
-    document.getElementById('closedtimer').setAttribute('value', time);
+    document.getElementById("closedtimer").setAttribute("value",time);
 
     let timeleft = parseInt(time, 10);
-    if (timeleft != 0)
-      document.getElementById('levelTybe').setAttribute('value', 'closed');
+    if(timeleft!=0)
+document.getElementById("levelTybe").setAttribute("value","closed");
 
-    var countDown = setInterval(() => {
+var countDown = setInterval(() => {
       if (timeleft <= 0) {
         clearInterval(countDown);
       }

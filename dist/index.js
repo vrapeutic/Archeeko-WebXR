@@ -198,42 +198,38 @@ exports.ComponentWrapper = ComponentWrapper;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.convertHMS = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
-var visualDistractorMovenment_1 = __webpack_require__(11);
+exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.convertHMS = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+var visualDistractorMovenment_1 = __webpack_require__(10);
 Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
         return visualDistractorMovenment_1.visualDistractorMovenment;
     } });
-var shoot_1 = __webpack_require__(8);
+var shoot_1 = __webpack_require__(7);
 Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
         return shoot_1.shoot;
     } });
-var enemy_1 = __webpack_require__(4);
+var enemy_1 = __webpack_require__(3);
 Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
         return enemy_1.enemy;
     } });
-var scoretrigger_1 = __webpack_require__(7);
+var scoretrigger_1 = __webpack_require__(6);
 Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
         return scoretrigger_1.scoretrigger;
     } });
-var timecounter_1 = __webpack_require__(10);
+var timecounter_1 = __webpack_require__(9);
 Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
         return timecounter_1.timecounter;
     } });
-var inpsCounter_1 = __webpack_require__(5);
+var inpsCounter_1 = __webpack_require__(4);
 Object.defineProperty(exports, "inpsCounter", { enumerable: true, get: function () {
         return inpsCounter_1.inpsCounter;
     } });
-var responseTime_1 = __webpack_require__(6);
+var responseTime_1 = __webpack_require__(5);
 Object.defineProperty(exports, "responseTime", { enumerable: true, get: function () {
         return responseTime_1.responseTime;
     } });
-var stats_1 = __webpack_require__(9);
+var stats_1 = __webpack_require__(8);
 Object.defineProperty(exports, "stats", { enumerable: true, get: function () {
         return stats_1.stats;
-    } });
-var Selectnpc_1 = __webpack_require__(3);
-Object.defineProperty(exports, "selectnpc", { enumerable: true, get: function () {
-        return Selectnpc_1.selectnpc;
     } });
 function convertHMS(value) {
     var sec = parseInt(value, 10); // convert value to number if it's string
@@ -262,11 +258,23 @@ function set_language(lang) {
 }
 exports.set_language = set_language;
 function set_npc(npc) {
-    sessionStorage.setItem('npc', npc);
-    var data = {
-        funcName: 'set_npc',
-        params: [npc]
-    };
+    if (sessionStorage.getItem('langauage') == 'A') {
+        if (npc == 'male') {
+            sessionStorage.setItem('npc', 'H');
+            //    alert(sessionStorage.getItem('npc'));
+        } else {
+            sessionStorage.setItem('npc', 'Re');
+            //    alert(sessionStorage.getItem('npc'));
+        }
+    } else {
+        if (npc == 'male') {
+            sessionStorage.setItem('npc', 'Ri');
+            //alert(sessionStorage.getItem('npc'));
+        } else {
+            sessionStorage.setItem('npc', 'L');
+            // alert(sessionStorage.getItem('npc'));
+        }
+    }
 }
 exports.set_npc = set_npc;
 function set_level(level) {
@@ -309,6 +317,9 @@ function set_timer(time) {
     document.getElementById('timer').setAttribute('value', time);
     //console.log(time);
     //console.log(  document.getElementById('session').getAttribute('value')
+    if (parseInt(sessionStorage.getItem('timer')) != 0) {
+        document.getElementById("levelTybe").setAttribute("value", "closed");
+    }
 }
 exports.set_timer = set_timer;
 function start_game() {
@@ -318,14 +329,11 @@ function start_game() {
         funcName: 'start_game',
         params: ['']
     };
-    if (sessionStorage.getItem('npc') == null) sessionStorage.setItem('npc', 'male');
-    document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
-    document.querySelector('a-scene').setAttribute('npc', 'enable', true);
-    document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
-    console.log(sessionStorage.getItem('npc'));
     var drMenuDiv = document.getElementById('dr-menu');
     drMenuDiv.style.visibility = 'hidden';
     gameDiv.style.visibility = 'visible';
+    document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
+    document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
 }
 exports.start_game = start_game;
 
@@ -12604,72 +12612,6 @@ var __extends = this && this.__extends || function () {
     };
 }();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectnpc = void 0;
-var aframe_wrapper_1 = __webpack_require__(0);
-var selectnpc = /** @class */function (_super) {
-    __extends(selectnpc, _super);
-    function selectnpc() {
-        return _super.call(this, 'npc', {}) || this;
-    }
-    selectnpc.prototype.init = function () {
-        console.log("npc" + sessionStorage.getItem('npc'));
-    };
-    selectnpc.prototype.update = function () {};
-    selectnpc.prototype.play = function () {
-        console.log("npc" + sessionStorage.getItem('npc'));
-        if (document.getElementById(sessionStorage.getItem('npc')) != null) {
-            document;
-            var npc = document.createElement('a-gltf-model');
-            npc.setAttribute('position', { x: 2, y: 0, z: -3 });
-            npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
-            npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-            document.querySelector('a-scene').appendChild(npc);
-        } else if (sessionStorage.getItem('npc') == null) {
-            sessionStorage.setItem('npc', 'male');
-            var npc = document.createElement('a-gltf-model');
-            npc.setAttribute('position', { x: 2, y: 0, z: -3 });
-            npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
-            npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-            document.querySelector('a-scene').appendChild(npc);
-        }
-    };
-    selectnpc.prototype.pause = function () {};
-    selectnpc.prototype.tick = function () {
-        // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
-        //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
-    };
-    selectnpc.prototype.remove = function () {};
-    selectnpc.prototype.destroy = function () {};
-    return selectnpc;
-}(aframe_wrapper_1.ComponentWrapper);
-exports.selectnpc = selectnpc;
-new selectnpc().register();
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
-            d.__proto__ = b;
-        } || function (d, b) {
-            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() {
-            this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-}();
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.enemy = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
 var CANNON = __webpack_require__(2);
@@ -12735,7 +12677,7 @@ exports.enemy = enemy;
 new enemy().register();
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12761,7 +12703,7 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inpsCounter = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var THREE = __webpack_require__(12);
+var THREE = __webpack_require__(11);
 var inpsCounter = /** @class */function (_super) {
     __extends(inpsCounter, _super);
     function inpsCounter() {
@@ -12807,7 +12749,7 @@ exports.inpsCounter = inpsCounter;
 new inpsCounter().register();
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12911,7 +12853,7 @@ exports.responseTime = responseTime;
 new responseTime().register();
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12971,7 +12913,7 @@ exports.scoretrigger = scoretrigger;
 new scoretrigger().register();
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13088,7 +13030,7 @@ var shoot = /** @class */function (_super) {
                         //partical.setAttribute("position","1 3 1")
                         document.getElementById(id_1.id).appendChild(partical);
                         document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
-                        console.log(document.getElementById('levelTybe').getAttribute('value'));
+                        console.log(document.getElementById("levelTybe").getAttribute('value'));
                         if (document.getElementById('level').getAttribute('value') == '3') {
                             var ball_1 = document.createElement('a-sphere');
                             // ball.setAttribute("geometry","primitive:sphere");
@@ -13123,7 +13065,7 @@ exports.shoot = shoot;
 new shoot().register();
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13172,8 +13114,6 @@ var stats = /** @class */function (_super) {
             Tar = 0,
             AimingScore = 0;
         var statString;
-        var statsArray = [];
-        var statsDict = {};
         var ClosedTime = document.getElementById('closedtimer').getAttribute('value');
         var issent = false;
         var score = parseInt(document.getElementById('score').getAttribute('value'), 10);
@@ -13188,7 +13128,6 @@ var stats = /** @class */function (_super) {
         }, 1000);
         mysession;
         // console.log(this.el.id)//"1PASH9A5579282 "
-        if (sessionStorage.getItem("statsArray")) statsArray = JSON.parse(sessionStorage.getItem("statsArray"));
         var attentionSpan;
         var calculate = function () {
             var response = parseInt(document.getElementById('tasktime').getAttribute('value'), 10);
@@ -13227,39 +13166,16 @@ var stats = /** @class */function (_super) {
             end_session_time = new Date().toLocaleString();
             statString = "Tas:" + Tas + " responese " + response + " duration " + document.getElementById('closedtimer').getAttribute('value') + " levelType: " + levelType + " end : " + end_session_time + " AAS " + AAS + " aminingscore" + AimingScore + " response " + responseTime + " Start" + start_session_time + " Ds " + Ds + " timeTaken " + timeTaken + " tar" + Tar + " Tir" + Tir + " omission " + omissionScore + " imps " + implusivityScore + " attention" + attentionSpan;
         };
-        function StatsDictionery() {
-            statsDict = {
-                Tar: Tar,
-                Tir: Tir,
-                implusivityScore: implusivityScore,
-                AAS: AAS,
-                responseTime: responseTime,
-                omissionScore: omissionScore
-            };
-            statsArray.push(statsDict);
-            sessionStorage.setItem('statsArray', JSON.stringify(statsArray));
-            sessionStorage.setItem('stats', JSON.stringify(statsDict));
-            // finalStats_text.setAttribute('text','value',statString);
-            var statsTex = document.createElement("a-text");
-            statsTex.setAttribute("position", "-2 1 -2");
-            statsTex.setAttribute("value", statString);
-            document.querySelector("a-camera").appendChild(statsTex);
-            console.log(statsTex);
-            setTimeout(function () {
-                window.location.reload();
-            }, 10000);
-        }
         document.getElementById('counter').addEventListener("click", function (e) {
             if (document.querySelector('a-scene').getAttribute('time-manger') != null) console.log(document.getElementById('closedtimer').getAttribute("value"));
             calculate();
-            StatsDictionery();
             var statsTex = document.createElement("a-text");
             statsTex.setAttribute("position", "-2 1 -2");
             statsTex.setAttribute("value", statString);
             document.querySelector("a-camera").appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.location.reload();
+                window.location.href = "../dist";
             }, 10000);
         });
     };
@@ -13278,7 +13194,7 @@ exports.stats = stats;
 new stats().register();
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13313,9 +13229,9 @@ var timecounter = /** @class */function (_super) {
     timecounter.prototype.update = function () {};
     timecounter.prototype.play = function () {
         var time = document.getElementById('timer').getAttribute('value');
-        document.getElementById('closedtimer').setAttribute('value', time);
+        document.getElementById("closedtimer").setAttribute("value", time);
         var timeleft = parseInt(time, 10);
-        if (timeleft != 0) document.getElementById('levelTybe').setAttribute('value', 'closed');
+        if (timeleft != 0) document.getElementById("levelTybe").setAttribute("value", "closed");
         var countDown = setInterval(function () {
             if (timeleft <= 0) {
                 clearInterval(countDown);
@@ -13341,7 +13257,7 @@ exports.timecounter = timecounter;
 new timecounter().register();
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13407,7 +13323,7 @@ exports.visualDistractorMovenment = visualDistractorMovenment;
 new visualDistractorMovenment().register();
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

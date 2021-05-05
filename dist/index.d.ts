@@ -14,8 +14,6 @@ import { responseTime } from './components/responseTime';
 export { responseTime };
 import { stats } from './components/stats';
 export { stats };
-import { selectnpc } from './components/Selectnpc';
-export { selectnpc };
 export declare function convertHMS(value: string): string;
 export declare function set_language(lang: string): void;
 export declare function set_npc(npc: string): void;
