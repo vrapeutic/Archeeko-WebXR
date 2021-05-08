@@ -198,8 +198,8 @@ exports.ComponentWrapper = ComponentWrapper;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.convertHMS = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
-var visualDistractorMovenment_1 = __webpack_require__(11);
+exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+var visualDistractorMovenment_1 = __webpack_require__(12);
 Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
         return visualDistractorMovenment_1.visualDistractorMovenment;
     } });
@@ -215,7 +215,7 @@ var scoretrigger_1 = __webpack_require__(7);
 Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
         return scoretrigger_1.scoretrigger;
     } });
-var timecounter_1 = __webpack_require__(10);
+var timecounter_1 = __webpack_require__(11);
 Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
         return timecounter_1.timecounter;
     } });
@@ -227,13 +227,17 @@ var responseTime_1 = __webpack_require__(6);
 Object.defineProperty(exports, "responseTime", { enumerable: true, get: function () {
         return responseTime_1.responseTime;
     } });
-var stats_1 = __webpack_require__(9);
+var stats_1 = __webpack_require__(10);
 Object.defineProperty(exports, "stats", { enumerable: true, get: function () {
         return stats_1.stats;
     } });
 var Selectnpc_1 = __webpack_require__(3);
 Object.defineProperty(exports, "selectnpc", { enumerable: true, get: function () {
         return Selectnpc_1.selectnpc;
+    } });
+var soundmanger_1 = __webpack_require__(9);
+Object.defineProperty(exports, "soundmanger", { enumerable: true, get: function () {
+        return soundmanger_1.soundmanger;
     } });
 function convertHMS(value) {
     var sec = parseInt(value, 10); // convert value to number if it's string
@@ -321,6 +325,7 @@ function start_game() {
     if (sessionStorage.getItem('npc') == null) sessionStorage.setItem('npc', 'male');
     document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
     document.querySelector('a-scene').setAttribute('npc', 'enable', true);
+    document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
     document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
     console.log(sessionStorage.getItem('npc'));
     var drMenuDiv = document.getElementById('dr-menu');
@@ -12704,19 +12709,24 @@ var enemy = /** @class */function (_super) {
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
                 clearInterval(count);
-                ball.addEventListener('collide', function (e) {
-                    if (e.target.components['aabb-collider']['intersectedEls'] != null) {
-                        console.log(e.target.components['aabb-collider']['intersectedEls']);
-                        if (e.target.components['aabb-collider']['intersectedEls'][0].id != 'CamTrigger') {
-                            console.log('curscore' + score);
-                        } else {
-                            score++;
-                            document.querySelector('#counter').setAttribute('value', score);
-                            console.log(score + 'score: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
-                            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
-                        }
-                    } else 'mfesh';
-                });
+                if (document.querySelector('#counter').getAttribute('value') < 4) {
+                    ball.addEventListener('collide', function (e) {
+                        if (e.target.components['aabb-collider']['intersectedEls'] != null) {
+                            console.log(e.target.components['aabb-collider']['intersectedEls']);
+                            if (e.target.components['aabb-collider']['intersectedEls'][0].id != 'CamTrigger') {
+                                console.log('curscore' + score);
+                            } else {
+                                score++;
+                                document.querySelector('#counter').setAttribute('value', score);
+                                console.log(score + 'score: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
+                                document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
+                            }
+                        } else 'mfesh';
+                    });
+                } else {
+                    document.getElementById("7lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                    document.getElementById("7lisa").components.sound.playSound();
+                }
             }, 0);
         });
         setTimeout(function () {}, 8000);
@@ -12761,7 +12771,7 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inpsCounter = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var THREE = __webpack_require__(12);
+var THREE = __webpack_require__(13);
 var inpsCounter = /** @class */function (_super) {
     __extends(inpsCounter, _super);
     function inpsCounter() {
@@ -12952,6 +12962,10 @@ var scoretrigger = /** @class */function (_super) {
             var score = document.querySelector('#score').getAttribute('value');
             score++;
             document.querySelector('#score').setAttribute('value', score);
+            if (document.querySelector('#score').getAttribute("value") == 3) {
+                document.getElementById("8lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                document.getElementById("8lisa").components.sound.playSound();
+            }
         }, 1000);
     };
     scoretrigger.prototype.update = function () {
@@ -13024,6 +13038,9 @@ var shoot = /** @class */function (_super) {
                     bulletCounter--;
                     document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
                 }
+            } else {
+                document.getElementById("7lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                document.getElementById("7lisa").components.sound.playSound();
             }
             bullet.addEventListener('body-loaded', function (e) {
                 // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
@@ -13043,6 +13060,8 @@ var shoot = /** @class */function (_super) {
                     //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
                     var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
                     e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
+                    document.getElementById("5lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                    document.getElementById("5lisa").components.sound.playSound();
                 }, 0);
             });
             setTimeout(function () {
@@ -13082,6 +13101,8 @@ var shoot = /** @class */function (_super) {
                         //this.el.setAttribute("aabb-collider","objects : a-sphere");
                         //   document.getElementById("index").setAttribute("position",
                         //currentPosition);
+                        document.getElementById("4lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                        document.getElementById("4lisa").components.sound.playSound();
                         var partical = document.createElement('a-entity');
                         partical.setAttribute('spe-particles', 'texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
                         partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
@@ -13101,6 +13122,8 @@ var shoot = /** @class */function (_super) {
                             setTimeout(function () {
                                 ball_1.setAttribute('dynamic-body', 'mass:0.05');
                                 ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
+                                document.getElementById("9reem").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                                document.getElementById("9reem").components.sound.playSound();
                             }, 5000);
                         }
                         setTimeout(function () {
@@ -13124,6 +13147,138 @@ new shoot().register();
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.soundmanger = void 0;
+/*
+var start_session_time=new Date().toLocaleString();
+var tpicalTime;
+var Tas=7.5;
+var implusivityScore ;
+var omissionScore;
+var Ds;
+var responseTime;
+var levelType;
+var Tir,end_session_time,AAS,TFD,timeTaken,Tar,AimingScore;
+var issent=false;
+var score=parseInt(document.getElementById("score").getAttribute("value"),10);
+Tar=score/document.querySelectorAll('.boxs').length;
+var lostLives=parseInt(document.getElementById("counter").getAttribute("value"),10);
+var bullets=parseInt(document.getElementById("bulletCounter").getAttribute("value"),10);
+AimingScore=score/bullets;
+var inps=parseInt(document.getElementById("inps").getAttribute("value"),10);
+var startSession=0;
+var session=parseInt(document.getElementById("session").getAttribute("value"),10);
+var mysession=setInterval(function()  {
+
+
+ document.getElementById("session").setAttribute("value", startSession.toString());
+
+ startSession++;
+
+}, 1000);
+mysession;
+  // console.log(this.el.id)//"1PASH9A5579282 "
+
+timeTaken=convertHMS(document.getElementById("session").getAttribute("value"));
+console.log("timeTaken"+timeTaken);
+AAS=(session-inps)/score;
+if (AAS != 0)
+{
+omissionScore = Tas /Math.pow(10,-5);
+}
+TFD = AAS - Tas;
+if (document.getElementById("level").getAttribute("value")==1)
+{
+  Ds = 0;
+}
+else
+{
+  Ds = (1 - (TFD / Tas));
+}
+if(document.getElementById("level").getAttribute("value")==2 || document.getElementById("level").getAttribute("value")==1)
+{
+responseTime= AAS;
+}
+else if (document.getElementById("level").getAttribute("value")==3)
+{
+responseTime=(document.getElementById("tasktime").getAttribute("value")/document.getElementById("taskcounter").getAttribute("value")+
+document.getElementById("dstime").getAttribute("value")/document.getElementById("dscounter").getAttribute("value"))/2;
+}
+
+if (document.getElementById("levelTybe").getAttribute("value")!="Open")
+{
+   levelType = "Closed";
+  Tir=timeTaken/document.getElementById("counter").getAttribute("value");
+
+}
+else
+{
+  levelType = "Opend";
+  Tir= timeTaken/tpicalTime;
+}
+if (Tar == 0)
+{
+implusivityScore = 1;}
+else
+{
+ implusivityScore =(1*(-Tar))*((Math.log10(Tir)-1)+Math.pow(10,-5));
+}*/
+var aframe_wrapper_1 = __webpack_require__(0);
+var soundmanger = /** @class */function (_super) {
+    __extends(soundmanger, _super);
+    function soundmanger() {
+        return _super.call(this, 'sound-manger', {}) || this;
+    }
+    soundmanger.prototype.init = function () {
+        document.getElementById("1lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+        document.getElementById("1lisa").components.sound.playSound();
+        document.getElementById("1lisa").addEventListener('sound-ended', function () {
+            document.getElementById("2lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+            document.getElementById("2lisa").components.sound.playSound();
+        });
+        document.getElementById("2lisa").addEventListener('sound-ended', function () {
+            document.getElementById("3lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+            //document.getElementById("3lisa").components.sound.playSound();
+        });
+    };
+    soundmanger.prototype.update = function () {};
+    soundmanger.prototype.play = function () {};
+    soundmanger.prototype.pause = function () {};
+    soundmanger.prototype.tick = function () {
+        // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
+        //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
+    };
+    soundmanger.prototype.remove = function () {};
+    soundmanger.prototype.destroy = function () {};
+    return soundmanger;
+}(aframe_wrapper_1.ComponentWrapper);
+exports.soundmanger = soundmanger;
+new soundmanger().register();
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13278,7 +13433,7 @@ exports.stats = stats;
 new stats().register();
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13341,7 +13496,7 @@ exports.timecounter = timecounter;
 new timecounter().register();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13407,7 +13562,7 @@ exports.visualDistractorMovenment = visualDistractorMovenment;
 new visualDistractorMovenment().register();
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

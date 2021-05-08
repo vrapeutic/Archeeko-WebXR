@@ -16,6 +16,8 @@ import { stats } from './components/stats';
 export { stats };
 import { selectnpc } from './components/Selectnpc';
 export { selectnpc };
+import { soundmanger } from './components/soundmanger';
+export { soundmanger };
 export declare function convertHMS(value: string): string;
 export declare function set_language(lang: string): void;
 export declare function set_npc(npc: string): void;
