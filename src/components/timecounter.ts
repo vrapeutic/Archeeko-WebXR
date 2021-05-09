@@ -8,14 +8,11 @@ export class timecounter extends ComponentWrapper<timecounter> {
     super('time-manger', {});
   }
 
-  init() {
-   
-  }
+  init() {}
 
   update() {}
 
   play() {
-   
     const time = document.getElementById('timer').getAttribute('value');
     document.getElementById('closedtimer').setAttribute('value', time);
 
@@ -33,8 +30,24 @@ export class timecounter extends ComponentWrapper<timecounter> {
       console.log(timeleft);
 
       if (timeleft == 0) {
-        window.location.href = '../dist';
-      }
+        const soundEls = document.querySelectorAll('[sound]');
+
+        soundEls.forEach(soundEl => {
+          soundEl['components'].sound.stopSound();
+        });
+        document
+          .getElementById('7' + sessionStorage.getItem('char'))
+          .setAttribute(
+            'position',
+            document
+              .getElementById(sessionStorage.getItem('npc'))
+              .getAttribute('position')
+          );
+
+        document
+          .getElementById('7' + sessionStorage.getItem('char'))
+          .components.sound.playSound();
+      }      
     }, 1000);
   }
 

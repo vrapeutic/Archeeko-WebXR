@@ -20,16 +20,24 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
       let score = document.querySelector('#score').getAttribute('value');
       score++;
       document.querySelector('#score').setAttribute('value', score);
-      if( document.querySelector('#score').getAttribute("value")==3){
-        var soundEls = document.querySelectorAll('[sound]');
+      if (document.querySelector('#score').getAttribute('value') === 3) {
+        const soundEls = document.querySelectorAll('[sound]');
 
         soundEls.forEach(soundEl => {
-          soundEl['components'].sound.stopSound()
-      
-      });
-        document.getElementById("8"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+          soundEl['components'].sound.stopSound();
+        });
+        document
+          .getElementById('8' + sessionStorage.getItem('char'))
+          .setAttribute(
+            'position',
+            document
+              .getElementById(sessionStorage.getItem('npc'))
+              .getAttribute('position')
+          );
 
-        document.getElementById("8"+sessionStorage.getItem('char')).components.sound.playSound();
+        document
+          .getElementById('8' + sessionStorage.getItem('char'))
+          .components.sound.playSound();
       }
     }, 1000);
   }

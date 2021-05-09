@@ -75,61 +75,88 @@ else
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 
-interface soundmangerSchema {
-}
+interface soundmangerSchema {}
 
 export class soundmanger extends ComponentWrapper<soundmangerSchema> {
   constructor() {
-    super('sound-manger', {
-     
-     
-     
-    });
-  } 
+    super('sound-manger', {});
+  }
   init() {
-    
-   document.getElementById("1"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-   document.getElementById("1"+sessionStorage.getItem('char')).components.sound.playSound();
-   document.getElementById("1"+sessionStorage.getItem('char')).addEventListener('sound-ended', function () {  
- 
-    document.getElementById("2"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+    const soundEls = document.querySelectorAll('[sound]');
+    soundEls.forEach(soundEl => {
+      soundEl['components'].sound.stopSound();
+    });
+    document
+      .getElementById('1' + sessionStorage.getItem('char'))
+      .setAttribute(
+        'position',
+        document
+          .getElementById(sessionStorage.getItem('npc'))
+          .getAttribute('position')
+      );
+    document
+      .getElementById('1' + sessionStorage.getItem('char'))
+      .components.sound.playSound();
+    document
+      .getElementById('1' + sessionStorage.getItem('char'))
+      .addEventListener('sound-ended', () => {
+        soundEls.forEach(soundEl => {
+          soundEl['components'].sound.stopSound();
+        });
+        document
+          .getElementById('2' + sessionStorage.getItem('char'))
+          .setAttribute(
+            'position',
+            document
+              .getElementById(sessionStorage.getItem('npc'))
+              .getAttribute('position')
+          );
 
-    document.getElementById("2"+sessionStorage.getItem('char')).components.sound.playSound();
+        document
+          .getElementById('2' + sessionStorage.getItem('char'))
+          .components.sound.playSound();
+      });
+    document
+      .getElementById('2' + sessionStorage.getItem('char'))
+      .addEventListener('sound-ended', () => {
+        soundEls.forEach(soundEl => {
+          soundEl['components'].sound.stopSound();
+        });
+        document
+          .getElementById('3' + sessionStorage.getItem('char'))
+          .setAttribute(
+            'position',
+            document
+              .getElementById(sessionStorage.getItem('npc'))
+              .getAttribute('position')
+          );
 
-}); 
-document.getElementById("2"+sessionStorage.getItem('char')).addEventListener('sound-ended', function () {  
-  var soundEls = document.querySelectorAll('[sound]');
+        document
+          .getElementById('3' + sessionStorage.getItem('char'))
+          .components.sound.playSound();
+      });
+    document
+      .getElementById('3' + sessionStorage.getItem('char'))
+      .addEventListener('sound-ended', () => {
+        soundEls.forEach(soundEl => {
+          soundEl['components'].sound.stopSound();
+        });
+        document
+          .getElementById('4' + sessionStorage.getItem('char'))
+          .setAttribute(
+            'position',
+            document
+              .getElementById(sessionStorage.getItem('npc'))
+              .getAttribute('position')
+          );
 
-  soundEls.forEach(soundEl => {
-    soundEl['components'].sound.stopSound()
-
-});
-  document.getElementById("3"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-
-  document.getElementById("3"+sessionStorage.getItem('char')).components.sound.playSound();
-
-});
-document.getElementById("3"+sessionStorage.getItem('char')).addEventListener('sound-ended', function () {  
-  var soundEls = document.querySelectorAll('[sound]');
-
-  soundEls.forEach(soundEl => {
-    soundEl['components'].sound.stopSound()
-
-});
-  document.getElementById("4"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-
-  document.getElementById("4"+sessionStorage.getItem('char')).components.sound.playSound();
-
-}); 
- 
-
- 
- 
- 
+        document
+          .getElementById('4' + sessionStorage.getItem('char'))
+          .components.sound.playSound();
+      });
   }
 
-  update() {
-  }
+  update() {}
 
   play() {}
 
@@ -146,4 +173,3 @@ document.getElementById("3"+sessionStorage.getItem('char')).addEventListener('so
 }
 
 new soundmanger().register();
-
