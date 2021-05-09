@@ -27,7 +27,9 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
       npc.setAttribute('src', '#'+sessionStorage.getItem('npc'));
       document.querySelector('a-scene').appendChild(npc);
     }
-
+    if( sessionStorage.getItem('char')==null){
+        sessionStorage.setItem('char','hus');
+      }
 
  
 

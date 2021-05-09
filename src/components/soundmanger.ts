@@ -88,20 +88,37 @@ export class soundmanger extends ComponentWrapper<soundmangerSchema> {
   } 
   init() {
     
-   document.getElementById("1lisa").setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-   document.getElementById("1lisa").components.sound.playSound();
-   document.getElementById("1lisa").addEventListener('sound-ended', function () {  
+   document.getElementById("1"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+   document.getElementById("1"+sessionStorage.getItem('char')).components.sound.playSound();
+   document.getElementById("1"+sessionStorage.getItem('char')).addEventListener('sound-ended', function () {  
  
-    document.getElementById("2lisa").setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+    document.getElementById("2"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
 
-    document.getElementById("2lisa").components.sound.playSound();
+    document.getElementById("2"+sessionStorage.getItem('char')).components.sound.playSound();
 
 }); 
-document.getElementById("2lisa").addEventListener('sound-ended', function () {  
- 
-  document.getElementById("3lisa").setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+document.getElementById("2"+sessionStorage.getItem('char')).addEventListener('sound-ended', function () {  
+  var soundEls = document.querySelectorAll('[sound]');
 
-  //document.getElementById("3lisa").components.sound.playSound();
+  soundEls.forEach(soundEl => {
+    soundEl['components'].sound.stopSound()
+
+});
+  document.getElementById("3"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+
+  document.getElementById("3"+sessionStorage.getItem('char')).components.sound.playSound();
+
+});
+document.getElementById("3"+sessionStorage.getItem('char')).addEventListener('sound-ended', function () {  
+  var soundEls = document.querySelectorAll('[sound]');
+
+  soundEls.forEach(soundEl => {
+    soundEl['components'].sound.stopSound()
+
+});
+  document.getElementById("4"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+
+  document.getElementById("4"+sessionStorage.getItem('char')).components.sound.playSound();
 
 }); 
  

@@ -198,7 +198,7 @@ exports.ComponentWrapper = ComponentWrapper;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.set_npc = exports.set_language = exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
 var visualDistractorMovenment_1 = __webpack_require__(12);
 Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
         return visualDistractorMovenment_1.visualDistractorMovenment;
@@ -258,21 +258,39 @@ function convertHMS(value) {
 }
 exports.convertHMS = convertHMS;
 function set_language(lang) {
-    sessionStorage.setItem('langauage', lang);
+    sessionStorage.setItem('lang', lang);
     var data = {
         funcName: 'set_language',
         params: [lang]
     };
 }
-exports.set_language = set_language;
 function set_npc(npc) {
     sessionStorage.setItem('npc', npc);
     var data = {
         funcName: 'set_npc',
         params: [npc]
     };
+    if (sessionStorage.getItem('lang') == null) {
+        sessionStorage.setItem('lang', 'A');
+    }
+    if (sessionStorage.getItem('lang') == 'A') {
+        if (sessionStorage.getItem('npc') == 'male') {
+            sessionStorage.setItem('char', 'hus');
+            alert(sessionStorage.getItem('char'));
+        } else {
+            sessionStorage.setItem('char', 'reem');
+            alert(sessionStorage.getItem('char'));
+        }
+    } else {
+        if (sessionStorage.getItem('npc') == 'female') {
+            sessionStorage.setItem('char', 'lisa');
+            alert(sessionStorage.getItem('char'));
+        } else {
+            sessionStorage.setItem('char', 'rich');
+            alert(sessionStorage.getItem('char'));
+        }
+    }
 }
-exports.set_npc = set_npc;
 function set_level(level) {
     sessionStorage.setItem('level', level);
     //  alert(sessionStorage.getItem('level'));
@@ -325,7 +343,9 @@ function start_game() {
     if (sessionStorage.getItem('npc') == null) sessionStorage.setItem('npc', 'male');
     document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
     document.querySelector('a-scene').setAttribute('npc', 'enable', true);
-    document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
+    setTimeout(function () {
+        document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
+    }, 1000);
     document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
     console.log(sessionStorage.getItem('npc'));
     var drMenuDiv = document.getElementById('dr-menu');
@@ -12629,6 +12649,9 @@ var selectnpc = /** @class */function (_super) {
             npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
             npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
             document.querySelector('a-scene').appendChild(npc);
+        }
+        if (sessionStorage.getItem('char') == null) {
+            sessionStorage.setItem('char', 'hus');
         } else if (sessionStorage.getItem('npc') == null) {
             sessionStorage.setItem('npc', 'male');
             var npc = document.createElement('a-gltf-model');
@@ -12724,8 +12747,12 @@ var enemy = /** @class */function (_super) {
                         } else 'mfesh';
                     });
                 } else {
-                    document.getElementById("7lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-                    document.getElementById("7lisa").components.sound.playSound();
+                    var soundEls = document.querySelectorAll('[sound]');
+                    soundEls.forEach(function (soundEl) {
+                        soundEl['components'].sound.stopSound();
+                    });
+                    document.getElementById("7" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                    document.getElementById("7" + sessionStorage.getItem('char')).components.sound.playSound();
                 }
             }, 0);
         });
@@ -12963,8 +12990,12 @@ var scoretrigger = /** @class */function (_super) {
             score++;
             document.querySelector('#score').setAttribute('value', score);
             if (document.querySelector('#score').getAttribute("value") == 3) {
-                document.getElementById("8lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-                document.getElementById("8lisa").components.sound.playSound();
+                var soundEls = document.querySelectorAll('[sound]');
+                soundEls.forEach(function (soundEl) {
+                    soundEl['components'].sound.stopSound();
+                });
+                document.getElementById("8" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                document.getElementById("8" + sessionStorage.getItem('char')).components.sound.playSound();
             }
         }, 1000);
     };
@@ -13039,8 +13070,8 @@ var shoot = /** @class */function (_super) {
                     document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
                 }
             } else {
-                document.getElementById("7lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-                document.getElementById("7lisa").components.sound.playSound();
+                document.getElementById("7" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                document.getElementById("7" + sessionStorage.getItem('char')).components.sound.playSound();
             }
             bullet.addEventListener('body-loaded', function (e) {
                 // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
@@ -13059,9 +13090,17 @@ var shoot = /** @class */function (_super) {
                     //  pStart.copy((<any>e).detail.contact);
                     //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
                     var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
+                    console.log(parseInt(sessionStorage.getItem('arrow')) / 2);
+                    var random = parseInt(sessionStorage.getItem('arrow'));
                     e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
-                    document.getElementById("5lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-                    document.getElementById("5lisa").components.sound.playSound();
+                    if (bulletCounter < 3 || bulletCounter == random / 2 || bulletCounter == random / 4) {
+                        var soundEls = document.querySelectorAll('[sound]');
+                        soundEls.forEach(function (soundEl) {
+                            soundEl['components'].sound.stopSound();
+                        });
+                        document.getElementById("5" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                        document.getElementById("5" + sessionStorage.getItem('char')).components.sound.playSound();
+                    }
                 }, 0);
             });
             setTimeout(function () {
@@ -13101,8 +13140,12 @@ var shoot = /** @class */function (_super) {
                         //this.el.setAttribute("aabb-collider","objects : a-sphere");
                         //   document.getElementById("index").setAttribute("position",
                         //currentPosition);
-                        document.getElementById("4lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-                        document.getElementById("4lisa").components.sound.playSound();
+                        var soundEls = document.querySelectorAll('[sound]');
+                        soundEls.forEach(function (soundEl) {
+                            soundEl['components'].sound.stopSound();
+                        });
+                        document.getElementById("6" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                        document.getElementById("6" + sessionStorage.getItem('char')).components.sound.playSound();
                         var partical = document.createElement('a-entity');
                         partical.setAttribute('spe-particles', 'texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
                         partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
@@ -13122,8 +13165,8 @@ var shoot = /** @class */function (_super) {
                             setTimeout(function () {
                                 ball_1.setAttribute('dynamic-body', 'mass:0.05');
                                 ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
-                                document.getElementById("9reem").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-                                document.getElementById("9reem").components.sound.playSound();
+                                document.getElementById("9" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+                                document.getElementById("9" + sessionStorage.getItem('char')).components.sound.playSound();
                             }, 5000);
                         }
                         setTimeout(function () {
@@ -13252,15 +13295,27 @@ var soundmanger = /** @class */function (_super) {
         return _super.call(this, 'sound-manger', {}) || this;
     }
     soundmanger.prototype.init = function () {
-        document.getElementById("1lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-        document.getElementById("1lisa").components.sound.playSound();
-        document.getElementById("1lisa").addEventListener('sound-ended', function () {
-            document.getElementById("2lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-            document.getElementById("2lisa").components.sound.playSound();
+        document.getElementById("1" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+        document.getElementById("1" + sessionStorage.getItem('char')).components.sound.playSound();
+        document.getElementById("1" + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
+            document.getElementById("2" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+            document.getElementById("2" + sessionStorage.getItem('char')).components.sound.playSound();
         });
-        document.getElementById("2lisa").addEventListener('sound-ended', function () {
-            document.getElementById("3lisa").setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
-            //document.getElementById("3lisa").components.sound.playSound();
+        document.getElementById("2" + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
+            var soundEls = document.querySelectorAll('[sound]');
+            soundEls.forEach(function (soundEl) {
+                soundEl['components'].sound.stopSound();
+            });
+            document.getElementById("3" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+            document.getElementById("3" + sessionStorage.getItem('char')).components.sound.playSound();
+        });
+        document.getElementById("3" + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
+            var soundEls = document.querySelectorAll('[sound]');
+            soundEls.forEach(function (soundEl) {
+                soundEl['components'].sound.stopSound();
+            });
+            document.getElementById("4" + sessionStorage.getItem('char')).setAttribute("position", document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+            document.getElementById("4" + sessionStorage.getItem('char')).components.sound.playSound();
         });
     };
     soundmanger.prototype.update = function () {};

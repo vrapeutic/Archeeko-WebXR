@@ -21,9 +21,15 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
       score++;
       document.querySelector('#score').setAttribute('value', score);
       if( document.querySelector('#score').getAttribute("value")==3){
-        document.getElementById("8lisa").setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+        var soundEls = document.querySelectorAll('[sound]');
 
-        document.getElementById("8lisa").components.sound.playSound();
+        soundEls.forEach(soundEl => {
+          soundEl['components'].sound.stopSound()
+      
+      });
+        document.getElementById("8"+sessionStorage.getItem('char')).setAttribute("position",document.getElementById(sessionStorage.getItem('npc')).getAttribute("position"));
+
+        document.getElementById("8"+sessionStorage.getItem('char')).components.sound.playSound();
       }
     }, 1000);
   }

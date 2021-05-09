@@ -147,7 +147,7 @@
                response-type="arraybuffer"></audio>
                <audio id="reemwin" src="../assets/Reem_Arabic/9ريم انت كسبت.mp3"
                response-type="arraybuffer"></audio>
-               <audio id="Husinfo1" src="../assets/Hussien_Arabic/1حسين اهلا انا حسين.mp3"
+               <audio id="husinfo1" src="../assets/Hussien_Arabic/1حسين اهلا انا حسين.mp3"
                response-type="arraybuffer"></audio>
                <audio id="husinfo2" src="../assets/Hussien_Arabic/2حسين شايف الشجرة.mp3"
                response-type="arraybuffer"></audio>
@@ -274,7 +274,7 @@
          <a-sound id="3rich" src="#richinfo3" autoplay="false" ></a-sound>
          <a-sound id="4rich" src="#richinfo4" autoplay="false" ></a-sound>
          <a-sound id="5rich" src="#richarrow" autoplay="false" ></a-sound>
-         <a-sound id="6rich" src="#lisabravo" autoplay="false" ></a-sound>
+         <a-sound id="6rich" src="#richbravo" autoplay="false" ></a-sound>
          <a-sound id="7rich" src="#richlose" autoplay="false" ></a-sound>
          <a-sound id="8rich" src="#richwin" autoplay="false" ></a-sound>
          <a-sound id="1hus" src="#husinfo1" autoplay="false"  ></a-sound>
@@ -284,7 +284,7 @@
          <a-sound id="5hus" src="#husarrow" autoplay="false" ></a-sound>
          <a-sound id="6hus" src="#husbravo" autoplay="false" ></a-sound>
          <a-sound id="7hus" src="#huslose" autoplay="false" ></a-sound>
-         <a-sound id="8hus" src="#husawin" autoplay="false" ></a-sound>
+         <a-sound id="8hus" src="#huswin" autoplay="false" ></a-sound>
          <a-sound id="9reem" src="#reemball" autoplay="false"  ></a-sound>
          <a-sound id="9hus" src="#husball" autoplay="false" ></a-sound>
         
@@ -312,7 +312,7 @@
     </body>
     <script> 
    function set_language(lang){
-  sessionStorage.setItem('langauage',lang);
+  sessionStorage.setItem('lang',lang);
 
     var data = {
       funcName: 'set_language',
@@ -320,6 +320,27 @@
         lang
       ]
     }
+   
+    if(sessionStorage.getItem('lang') =='A') {
+    if(sessionStorage.getItem('npc') =='male') {
+      sessionStorage.setItem('char','hus');  
+    alert(sessionStorage.getItem('char'));
+    }
+    else {
+      sessionStorage.setItem('char','reem');  
+     alert(sessionStorage.getItem('char'));
+    }
+  }
+  else {
+    if(sessionStorage.getItem('npc') =='female') {
+      sessionStorage.setItem('char','lisa');  
+      alert(sessionStorage.getItem('char'));
+    }
+    else {
+      sessionStorage.setItem('char','rich');  
+        alert(sessionStorage.getItem('char'));
+    } 
+  }
 
 }
 
@@ -336,26 +357,29 @@ function set_npc(npc){
 
                  
              
-/*  if(sessionStorage.getItem('langauage') =='A') {
-    if(npc =='male') {
-      sessionStorage.setItem('npc','H');  
-    alert(sessionStorage.getItem('npc'));
+    if( sessionStorage.getItem('lang')==null){
+        sessionStorage.setItem('lang','A');
+      }
+      if(sessionStorage.getItem('lang') =='A') {
+    if(sessionStorage.getItem('npc') =='male') {
+      sessionStorage.setItem('char','hus');  
+    alert(sessionStorage.getItem('char'));
     }
     else {
-      sessionStorage.setItem('npc','Re');  
-     alert(npc);
+      sessionStorage.setItem('char','reem');  
+     alert(sessionStorage.getItem('char'));
     }
   }
   else {
-    if(npc =='male') {
-      sessionStorage.setItem('npc','Ri');  
-      //alert(sessionStorage.getItem('npc'));
+    if(sessionStorage.getItem('npc') =='female') {
+      sessionStorage.setItem('char','lisa');  
+      alert(sessionStorage.getItem('char'));
     }
     else {
-      sessionStorage.setItem('npc','L');  
-        // alert(sessionStorage.getItem('npc'));
+      sessionStorage.setItem('char','rich');  
+        alert(sessionStorage.getItem('char'));
     } 
-  }*/
+  }
 }
 
     function set_level(level){
@@ -418,14 +442,20 @@ function start_game() {
 
   document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
   document.querySelector('a-scene').setAttribute('npc', 'enable', true);
-  document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
+ setTimeout(() => {
+     document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
+
+ }, 1000);
 
   
- 
+ document
+    .getElementById('butterflymodel')
+    .setAttribute('distractor', 'enable:true');
+    console.log(sessionStorage.getItem('npc'));
 
       
                       const drMenuDiv = document.getElementById('dr-menu');
-
+                      alert(sessionStorage.getItem('char'))
                       drMenuDiv.style.visibility = 'hidden';
                       gameDiv.style.visibility = 'visible';
                                 
