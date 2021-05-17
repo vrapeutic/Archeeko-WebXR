@@ -195,13 +195,15 @@
            <!--Camera-->
         <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 5" look-controls="pointerLockeEnabled:true" >
           <a-entity cursor="rayOrigin: mouse" ></a-entity>
-          <a-gltf-model   id="shooter"   rotation="15.656071751949744 92.12244613231428 2"  scale="0.2 0.2 0.2" position="0.04207 -0.31496 -0.8795" src="../assets/Sniper_Rifle.glb" scale="2 2 2" visible="true" >
+          <a-gltf-model   id="shooter"   rotation="0 90 2"  scale="0.2 0.2 0.2" position="0.04207 -0.31496 -0.8795" src="../assets/Sniper_Rifle.glb" scale="2 2 2" visible="true" >
           </a-gltf-model> 
-<a-box id="CamTrigger" static-body
-  scale="10 10 1" position="0 0 1" aabb-collider="objects:#enemy"></a-box>
+         <a-box id="CamTrigger" position="0 0 1"
+         scale="2 7 1" visible="true"   aabb-collider="objects:#enemy">
+        <a-sphere  position="0 -0.5 1" ></a-sphere>
+        </a-box>
          </a-camera>
-         <a-box id="wall" static-body 
-         scale="100 10 10" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
+         <a-box id="wall" visible="false"
+         scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
         
          <!--Hands-->
          
@@ -231,28 +233,26 @@
 
 
   <a-entity id= "TheTree"   postion="-4 0 0">
-        <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 0.05324 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable 
-        event-set__click="_event: click; _target:#selectenvironment; value:Beach " 
-  
-        >
+
+        <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 2 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable 
+        event-set__click="_event: click; _target:#selectenvironment; value:Beach " >
       </a-box>    
 
        <a-box  id="Library"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet" position="-1.88719 1.5 -3"     color="#4CC3D9" lookat="#cam"   
-        event-set__click="_event: mouseenter; _target:#selectenvironment; value:Library"
-  
-        >
+        event-set__click="_event: mouseenter; _target:#selectenvironment; value:Library">
 
   
       </a-box>    
   
-        <a-box  id="Garden"   scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.37967 -3"    color="#4CC3D9" lookat="#cam"   
-        event-set__click="_event: mouseenter; _target:#selectenvironment; value:Garden;" 
-       >
+ 
+      <a-box  id="Garden2"   scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.87967 -3"    color="#4CC3D9" lookat="#cam"   
+      event-set__click="_event: mouseenter; _target:#selectenvironment; value:Garden;" 
+     >
 
-      </a-box>    
+    </a-box>   
             <a-entity id="targetone"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
       </a-entity> 
-      
+     <a-gltf-model id="npc" src="#male" position="2 0 -3"></a-gltf-model>
      <a-sound id="1lisa" src="#lisainfo1" autoplay="false" ></a-sound>
          <a-sound id="2lisa" src="#lisainfo2" autoplay="false" ></a-sound>
          <a-sound id="3lisa" src="#lisainfo3" autoplay="false" ></a-sound>
@@ -324,21 +324,21 @@
     if(sessionStorage.getItem('lang') =='A') {
     if(sessionStorage.getItem('npc') =='male') {
       sessionStorage.setItem('char','hus');  
-    alert(sessionStorage.getItem('char'));
+   // alert(sessionStorage.getItem('char'));
     }
     else {
       sessionStorage.setItem('char','reem');  
-     alert(sessionStorage.getItem('char'));
+     //alert(sessionStorage.getItem('char'));
     }
   }
   else {
     if(sessionStorage.getItem('npc') =='female') {
       sessionStorage.setItem('char','lisa');  
-      alert(sessionStorage.getItem('char'));
+    //  alert(sessionStorage.getItem('char'));
     }
     else {
       sessionStorage.setItem('char','rich');  
-        alert(sessionStorage.getItem('char'));
+       // alert(sessionStorage.getItem('char'));
     } 
   }
 
@@ -363,21 +363,21 @@ function set_npc(npc){
       if(sessionStorage.getItem('lang') =='A') {
     if(sessionStorage.getItem('npc') =='male') {
       sessionStorage.setItem('char','hus');  
-    alert(sessionStorage.getItem('char'));
+    //alert(sessionStorage.getItem('char'));
     }
     else {
       sessionStorage.setItem('char','reem');  
-     alert(sessionStorage.getItem('char'));
+   //  alert(sessionStorage.getItem('char'));
     }
   }
   else {
     if(sessionStorage.getItem('npc') =='female') {
       sessionStorage.setItem('char','lisa');  
-      alert(sessionStorage.getItem('char'));
+     // alert(sessionStorage.getItem('char'));
     }
     else {
       sessionStorage.setItem('char','rich');  
-        alert(sessionStorage.getItem('char'));
+        //alert(sessionStorage.getItem('char'));
     } 
   }
 }
@@ -439,10 +439,9 @@ function start_game() {
     funcName: 'start_game',
     params: [''],
   };
+  document.querySelector('a-scene').setAttribute('npc', 'enable', true);
 
   document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
-  document.querySelector('a-scene').setAttribute('npc', 'enable', true);
-  document.querySelector('a-scene').setAttribute('push', 'enable', true);
 
  setTimeout(() => {
      document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
@@ -457,7 +456,7 @@ function start_game() {
 
       
                       const drMenuDiv = document.getElementById('dr-menu');
-                      alert(sessionStorage.getItem('char'))
+                 //     alert(sessionStorage.getItem('char'))
                       drMenuDiv.style.visibility = 'hidden';
                       gameDiv.style.visibility = 'visible';
                                 

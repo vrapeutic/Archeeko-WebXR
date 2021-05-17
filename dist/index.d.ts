@@ -19,8 +19,3 @@ export { selectnpc };
 import { soundmanger } from './components/soundmanger';
 export { soundmanger };
 export declare function convertHMS(value: string): string;
-export declare function set_level(level: string): void;
-export declare function set_z(z: string): void;
-export declare function set_arrows(arrow: string): void;
-export declare function set_timer(time: string): void;
-export declare function start_game(): void;

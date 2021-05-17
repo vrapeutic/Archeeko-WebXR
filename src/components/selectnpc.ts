@@ -9,15 +9,17 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
     super('npc', {});
   }
 
-  init() {
+  update() {
     console.log('npc' + sessionStorage.getItem('npc'));
   }
-  update() {}
+  play() {}
 
-  play() {
+  init() {
     console.log('npc' + sessionStorage.getItem('npc'));
     if (document.getElementById(sessionStorage.getItem('npc')) != null) {
-      document;
+      document
+        .getElementById('npc')
+        .parentNode.removeChild(document.getElementById('npc'));
       const npc = document.createElement('a-gltf-model');
       npc.setAttribute('position', {x: 2, y: 0, z: -3});
       npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
@@ -27,6 +29,9 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
     if (sessionStorage.getItem('char') == null) {
       sessionStorage.setItem('char', 'hus');
     } else if (sessionStorage.getItem('npc') == null) {
+      document
+        .getElementById('npc')
+        .parentNode.removeChild(document.getElementById('npc'));
       sessionStorage.setItem('npc', 'male');
       const npc = document.createElement('a-gltf-model');
       npc.setAttribute('position', {x: 2, y: 0, z: -3});

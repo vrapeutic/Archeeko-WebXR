@@ -3,9 +3,9 @@ interface selectnpcSchema {
 }
 export declare class selectnpc extends ComponentWrapper<selectnpcSchema> {
     constructor();
-    init(): void;
     update(): void;
     play(): void;
+    init(): void;
     pause(): void;
     tick(): void;
     remove(): void;

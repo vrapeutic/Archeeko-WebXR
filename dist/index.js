@@ -198,7 +198,7 @@ exports.ComponentWrapper = ComponentWrapper;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.start_game = exports.set_timer = exports.set_arrows = exports.set_z = exports.set_level = exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
 var visualDistractorMovenment_1 = __webpack_require__(12);
 Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
         return visualDistractorMovenment_1.visualDistractorMovenment;
@@ -257,102 +257,6 @@ function convertHMS(value) {
     return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
 }
 exports.convertHMS = convertHMS;
-function set_language(lang) {
-    sessionStorage.setItem('lang', lang);
-    var data = {
-        funcName: 'set_language',
-        params: [lang]
-    };
-}
-function set_npc(npc) {
-    sessionStorage.setItem('npc', npc);
-    var data = {
-        funcName: 'set_npc',
-        params: [npc]
-    };
-    if (sessionStorage.getItem('lang') == null) {
-        sessionStorage.setItem('lang', 'A');
-    }
-    if (sessionStorage.getItem('lang') == 'A') {
-        if (sessionStorage.getItem('npc') == 'male') {
-            sessionStorage.setItem('char', 'hus');
-            alert(sessionStorage.getItem('char'));
-        } else {
-            sessionStorage.setItem('char', 'reem');
-            alert(sessionStorage.getItem('char'));
-        }
-    } else {
-        if (sessionStorage.getItem('npc') == 'female') {
-            sessionStorage.setItem('char', 'lisa');
-            alert(sessionStorage.getItem('char'));
-        } else {
-            sessionStorage.setItem('char', 'rich');
-            alert(sessionStorage.getItem('char'));
-        }
-    }
-}
-function set_level(level) {
-    sessionStorage.setItem('level', level);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_level',
-        params: [level]
-    };
-    document.getElementById('level').setAttribute('value', level);
-}
-exports.set_level = set_level;
-function set_z(z) {
-    sessionStorage.setItem('z', z);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_z',
-        params: [z]
-    };
-    document.getElementById('TheTree').setAttribute('position', '0 0 ' + z);
-}
-exports.set_z = set_z;
-function set_arrows(arrow) {
-    sessionStorage.setItem('arrow', arrow);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_arrows',
-        params: [arrow]
-    };
-    document.getElementById('bulletCounter').setAttribute('value', arrow);
-}
-exports.set_arrows = set_arrows;
-function set_timer(time) {
-    sessionStorage.setItem('timer', time);
-    //  alert(sessionStorage.getItem('level'));
-    var data = {
-        funcName: 'set_timer',
-        params: [time]
-    };
-    document.getElementById('timer').setAttribute('value', time);
-    //console.log(time);
-    //console.log(  document.getElementById('session').getAttribute('value')
-}
-exports.set_timer = set_timer;
-function start_game() {
-    var gameDiv = document.getElementById('game');
-    // window.open('game.html',"_self");
-    var data = {
-        funcName: 'start_game',
-        params: ['']
-    };
-    if (sessionStorage.getItem('npc') == null) sessionStorage.setItem('npc', 'male');
-    document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
-    document.querySelector('a-scene').setAttribute('npc', 'enable', true);
-    setTimeout(function () {
-        document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
-    }, 1000);
-    document.getElementById('butterflymodel').setAttribute('distractor', 'enable:true');
-    console.log(sessionStorage.getItem('npc'));
-    var drMenuDiv = document.getElementById('dr-menu');
-    drMenuDiv.style.visibility = 'hidden';
-    gameDiv.style.visibility = 'visible';
-}
-exports.start_game = start_game;
 
 /***/ }),
 /* 2 */
@@ -12636,14 +12540,14 @@ var selectnpc = /** @class */function (_super) {
     function selectnpc() {
         return _super.call(this, 'npc', {}) || this;
     }
-    selectnpc.prototype.init = function () {
+    selectnpc.prototype.update = function () {
         console.log('npc' + sessionStorage.getItem('npc'));
     };
-    selectnpc.prototype.update = function () {};
-    selectnpc.prototype.play = function () {
+    selectnpc.prototype.play = function () {};
+    selectnpc.prototype.init = function () {
         console.log('npc' + sessionStorage.getItem('npc'));
         if (document.getElementById(sessionStorage.getItem('npc')) != null) {
-            document;
+            document.getElementById("npc").parentNode.removeChild(document.getElementById("npc"));
             var npc = document.createElement('a-gltf-model');
             npc.setAttribute('position', { x: 2, y: 0, z: -3 });
             npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
@@ -12653,6 +12557,7 @@ var selectnpc = /** @class */function (_super) {
         if (sessionStorage.getItem('char') == null) {
             sessionStorage.setItem('char', 'hus');
         } else if (sessionStorage.getItem('npc') == null) {
+            document.getElementById("npc").parentNode.removeChild(document.getElementById("npc"));
             sessionStorage.setItem('npc', 'male');
             var npc = document.createElement('a-gltf-model');
             npc.setAttribute('position', { x: 2, y: 0, z: -3 });
@@ -12722,7 +12627,7 @@ var enemy = /** @class */function (_super) {
         taskTimer();
         var ball = this.el;
         // ball.setAttribute('aabb-collider', 'objects: #score,a-box;');
-        var ballForce = new CANNON.Vec3(0, 0, 1);
+        var ballForce = new CANNON.Vec3(0, 0, 0.4);
         //  ball.setAttribute('dynamic-body', 'mass:0.05');
         ball.addEventListener('body-loaded', function (e) {
             //console.log(' shofbody #' +(<any>e).detail.body.el);
@@ -12732,7 +12637,7 @@ var enemy = /** @class */function (_super) {
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, newpStart);
                 clearInterval(count);
-                if (document.querySelector('#counter').getAttribute('value') <= "2") {
+                if (document.querySelector('#counter').getAttribute('value') < "2") {
                     ball.addEventListener('collide', function (e) {
                         if (e.target.components['aabb-collider']['intersectedEls'] != null) {
                             console.log(e.target.components['aabb-collider']['intersectedEls']);
@@ -12744,15 +12649,16 @@ var enemy = /** @class */function (_super) {
                                 console.log(score + 'score: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
                                 document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
                             }
+                            if (document.querySelector('#counter').getAttribute('value') >= "2") {
+                                var soundEls = document.querySelectorAll('[sound]');
+                                soundEls.forEach(function (soundEl) {
+                                    soundEl['components'].sound.stopSound();
+                                });
+                                document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                                document.getElementById('7' + sessionStorage.getItem('char')).components.sound.playSound();
+                            }
                         } else 'mfesh';
                     });
-                } else {
-                    var soundEls = document.querySelectorAll('[sound]');
-                    soundEls.forEach(function (soundEl) {
-                        soundEl['components'].sound.stopSound();
-                    });
-                    document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                    document.getElementById('7' + sessionStorage.getItem('char')).components.sound.playSound();
                 }
             }, 0);
         });
@@ -12985,27 +12891,21 @@ var scoretrigger = /** @class */function (_super) {
         }) || this;
     }
     scoretrigger.prototype.init = function () {
+        var soundEls = document.querySelectorAll('[sound]');
         setTimeout(function () {
             var score = document.querySelector('#score').getAttribute('value');
             score++;
             document.querySelector('#score').setAttribute('value', score);
-            /*  if (document.querySelector('#score').getAttribute('value') == 3) {
-                const soundEls = document.querySelectorAll('[sound]');
-                          soundEls.forEach(soundEl => {
-                  soundEl['components'].sound.stopSound();
-                });
-                document
-                  .getElementById('8' + sessionStorage.getItem('char'))
-                  .setAttribute(
-                    'position',
-                    document
-                      .getElementById(sessionStorage.getItem('npc'))
-                      .getAttribute('position')
-                  );
-                          document
-                  .getElementById('8' + sessionStorage.getItem('char'))
-                  .components.sound.playSound();
-              }*/
+            if (document.querySelector('#score').getAttribute('value') >= document.querySelectorAll('.boxs').length + 1) {
+                console.log("scoretrigger");
+                setTimeout(function () {
+                    soundEls.forEach(function (soundEl) {
+                        soundEl['components'].sound.stopSound();
+                    });
+                    document.getElementById('8' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                    document.getElementById('8' + sessionStorage.getItem('char')).components.sound.playSound();
+                }, 1000);
+            }
         }, 1000);
     };
     scoretrigger.prototype.update = function () {
@@ -13073,7 +12973,7 @@ var shoot = /** @class */function (_super) {
                 if (document.getElementById('bullet') == null) {
                     document.getElementById('shooter').appendChild(bullet);
                     document.querySelector('#wall').removeAttribute('response-time');
-                    console.log(document.querySelector('#wall'));
+                    console.log(document.querySelector('a-scene'));
                     document.getElementById('tasktime').setAttribute('value', '0');
                     bulletCounter--;
                     document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
@@ -13151,11 +13051,6 @@ var shoot = /** @class */function (_super) {
                         //this.el.setAttribute("aabb-collider","objects : a-sphere");
                         //   document.getElementById("index").setAttribute("position",
                         //currentPosition);
-                        soundEls.forEach(function (soundEl) {
-                            soundEl['components'].sound.stopSound();
-                        });
-                        document.getElementById('6' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                        document.getElementById('6' + sessionStorage.getItem('char')).components.sound.playSound();
                         var partical = document.createElement('a-entity');
                         partical.setAttribute('spe-particles', 'texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
                         partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
@@ -13163,6 +13058,13 @@ var shoot = /** @class */function (_super) {
                         document.getElementById(id_1.id).appendChild(partical);
                         document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
                         console.log(document.getElementById('levelTybe').getAttribute('value'));
+                        setTimeout(function () {
+                            soundEls.forEach(function (soundEl) {
+                                soundEl['components'].sound.stopSound();
+                            });
+                            document.getElementById('6' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                            document.getElementById('6' + sessionStorage.getItem('char')).components.sound.playSound();
+                        }, 200);
                         if (document.getElementById('level').getAttribute('value') == '3') {
                             var ball_1 = document.createElement('a-sphere');
                             // ball.setAttribute("geometry","primitive:sphere");
@@ -13171,15 +13073,17 @@ var shoot = /** @class */function (_super) {
                             ball_1.setAttribute('position', currentPosition);
                             //console.log(ball.getAttribute("position"));
                             document.getElementById('TheTree').appendChild(ball_1);
-                            ball_1.setAttribute('create-enemy', 'enabled');
                             setTimeout(function () {
-                                ball_1.setAttribute('dynamic-body', 'mass:0.05');
-                                ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
                                 soundEls.forEach(function (soundEl) {
                                     soundEl['components'].sound.stopSound();
                                 });
                                 document.getElementById('9' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
                                 document.getElementById('9' + sessionStorage.getItem('char')).components.sound.playSound();
+                            }, 200);
+                            ball_1.setAttribute('create-enemy', 'enabled');
+                            setTimeout(function () {
+                                ball_1.setAttribute('dynamic-body', 'mass:0.05');
+                                ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
                             }, 5000);
                         }
                         setTimeout(function () {
@@ -13333,7 +13237,10 @@ var soundmanger = /** @class */function (_super) {
                 soundEl['components'].sound.stopSound();
             });
             document.getElementById('4' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-            document.getElementById('4' + sessionStorage.getItem('char')).components.sound.playSound();
+            document.getElementById('4' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
+                document.getElementById('4' + sessionStorage.getItem('char')).components.sound.playSound();
+            });
+            document.querySelector('a-scene').setAttribute('push', 'enable', true);
         });
     };
     soundmanger.prototype.update = function () {};
@@ -13453,7 +13360,7 @@ var stats = /** @class */function (_super) {
                 implusivityScore = 1 * -Tar * (Math.log10(Tir) - 1 + Math.pow(10, -5));
             }
             end_session_time = new Date().toLocaleString();
-            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + Tar + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan;
+            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + Tar + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'bullets: ' + document.getElementById('bulletCounter').getAttribute('value');
         };
         function StatsDictionery() {
             statsDict = {
@@ -13477,8 +13384,11 @@ var stats = /** @class */function (_super) {
                 window.location.reload();
             }, 10000);
         }
+        if (sessionStorage.getItem('char') == null) sessionStorage.setItem('char', 'hus');
         document.getElementById('8' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
             if (document.querySelector('a-scene').getAttribute('time-manger') != null) console.log(document.getElementById('closedtimer').getAttribute('value'));
+            if (document.getElementById("enemy") != null) document.getElementById("enemy").parentNode.removeChild(document.getElementById("enemy"));
+            document.getElementById("shooter").parentNode.removeChild(document.getElementById("shooter"));
             calculate();
             StatsDictionery();
             var statsTex = document.createElement('a-text');
@@ -13488,10 +13398,14 @@ var stats = /** @class */function (_super) {
             console.log(statsTex);
             setTimeout(function () {
                 window.location.reload();
-            }, 10000);
+            }, 4000);
         });
         document.getElementById('7' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
             if (document.querySelector('a-scene').getAttribute('time-manger') != null) console.log(document.getElementById('closedtimer').getAttribute('value'));
+            document.querySelector('a-scene').setAttribute('push', 'enable', false);
+            document.querySelector('a-scene').setAttribute('create-enemy', 'enable', false);
+            if (document.getElementById("enemy") != null) document.getElementById("enemy").parentNode.removeChild(document.getElementById("enemy"));
+            document.getElementById("shooter").parentNode.removeChild(document.getElementById("shooter"));
             calculate();
             StatsDictionery();
             var statsTex = document.createElement('a-text');
@@ -13501,7 +13415,7 @@ var stats = /** @class */function (_super) {
             console.log(statsTex);
             setTimeout(function () {
                 window.location.reload();
-            }, 10000);
+            }, 4000);
         });
     };
     stats.prototype.update = function () {};

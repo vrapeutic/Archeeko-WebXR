@@ -96,7 +96,7 @@ export class soundmanger extends ComponentWrapper<soundmangerSchema> {
       );
     document
       .getElementById('1' + sessionStorage.getItem('char'))
-      .components.sound.playSound();
+      ['components'].sound.playSound();
     document
       .getElementById('1' + sessionStorage.getItem('char'))
       .addEventListener('sound-ended', () => {
@@ -114,7 +114,7 @@ export class soundmanger extends ComponentWrapper<soundmangerSchema> {
 
         document
           .getElementById('2' + sessionStorage.getItem('char'))
-          .components.sound.playSound();
+          ['components'].sound.playSound();
       });
     document
       .getElementById('2' + sessionStorage.getItem('char'))
@@ -133,7 +133,7 @@ export class soundmanger extends ComponentWrapper<soundmangerSchema> {
 
         document
           .getElementById('3' + sessionStorage.getItem('char'))
-          .components.sound.playSound();
+          ['components'].sound.playSound();
       });
     document
       .getElementById('3' + sessionStorage.getItem('char'))
@@ -149,10 +149,14 @@ export class soundmanger extends ComponentWrapper<soundmangerSchema> {
               .getElementById(sessionStorage.getItem('npc'))
               .getAttribute('position')
           );
-
         document
           .getElementById('4' + sessionStorage.getItem('char'))
-          .components.sound.playSound();
+          .addEventListener('sound-ended', () => {
+            document
+              .getElementById('4' + sessionStorage.getItem('char'))
+              ['components'].sound.playSound();
+          });
+        document.querySelector('a-scene').setAttribute('push', 'enable', true);
       });
   }
 

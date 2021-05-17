@@ -16,28 +16,34 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   }
 
   init() {
+    const soundEls = document.querySelectorAll('[sound]');
+
     setTimeout(() => {
       let score = document.querySelector('#score').getAttribute('value');
       score++;
       document.querySelector('#score').setAttribute('value', score);
-      if (document.querySelector('#score').getAttribute('value') === 3) {
-        const soundEls = document.querySelectorAll('[sound]');
+      if (
+        document.querySelector('#score').getAttribute('value') >=
+        document.querySelectorAll('.boxs').length + 1
+      ) {
+        console.log('scoretrigger');
+        setTimeout(() => {
+          soundEls.forEach(soundEl => {
+            soundEl['components'].sound.stopSound();
+          });
+          document
+            .getElementById('8' + sessionStorage.getItem('char'))
+            .setAttribute(
+              'position',
+              document
+                .getElementById(sessionStorage.getItem('npc'))
+                .getAttribute('position')
+            );
 
-        soundEls.forEach(soundEl => {
-          soundEl['components'].sound.stopSound();
-        });
-        document
-          .getElementById('8' + sessionStorage.getItem('char'))
-          .setAttribute(
-            'position',
-            document
-              .getElementById(sessionStorage.getItem('npc'))
-              .getAttribute('position')
-          );
-
-        document
-          .getElementById('8' + sessionStorage.getItem('char'))
-          .components.sound.playSound();
+          document
+            .getElementById('8' + sessionStorage.getItem('char'))
+            ['components'].sound.playSound();
+        }, 1000);
       }
     }, 1000);
   }

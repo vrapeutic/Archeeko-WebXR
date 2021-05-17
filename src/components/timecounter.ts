@@ -46,8 +46,8 @@ export class timecounter extends ComponentWrapper<timecounter> {
 
         document
           .getElementById('7' + sessionStorage.getItem('char'))
-          .components.sound.playSound();
-      }      
+          ['components'].sound.playSound();
+      }
     }, 1000);
   }
 
