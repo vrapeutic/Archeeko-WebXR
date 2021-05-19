@@ -59,9 +59,7 @@
 <body>
 
     <div id="dr-menu"  class="center">
-<a id="programatically" href="" download="date.txt">Download (dynamic)</a>
-            <a href="." >play again</a>
-            <br><br>
+
     <h>Select langauge</h>
     <br>  
     <button class="button button-cls" onclick="set_language('A')">Arabic </button>
@@ -465,9 +463,6 @@ function start_game() {
                      
     
 }
-$("a#programatically").click(function(){
-  var now =sessionStorage.getItem("statsArray") ;
-  this.href = "data:text/plain;charset=UTF-8,"  + encodeURIComponent(now);
-});
+
     </script>
 </html>

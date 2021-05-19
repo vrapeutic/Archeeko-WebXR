@@ -13370,7 +13370,7 @@ var stats = /** @class */function (_super) {
                 implusivityScore = 1 * -Tar * (Math.log10(Tir) - 1 + Math.pow(10, -5));
             }
             end_session_time = new Date().toLocaleString();
-            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + Tar + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'bullets: ' + document.getElementById('bulletCounter').getAttribute('value');
+            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + parseInt(document.getElementById('score').getAttribute('value'), 10) / document.querySelectorAll('.boxs').length + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'bullets: ' + document.getElementById('bulletCounter').getAttribute('value');
         };
         function StatsDictionery() {
             statsDict = {
@@ -13407,7 +13407,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.location.reload();
+                window.open("../dist/Final.html", "_self");
             }, 4000);
         });
         document.getElementById('7' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
@@ -13424,7 +13424,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.location.reload();
+                window.open("../dist/Final.html", "_self");
             }, 4000);
         });
     };
