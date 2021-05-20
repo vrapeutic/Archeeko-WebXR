@@ -12964,18 +12964,20 @@ var shoot = /** @class */function (_super) {
         var bulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         var random = document.querySelector('#bulletCounter').getAttribute('value');
         document.querySelector('#shooter').addEventListener('click', function () {
-            document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repition:0');
             var bullet = document.createElement('a-gltf-model');
             bullet.setAttribute('src', "#bullet1");
-            bullet.setAttribute('position', "0 0 0");
+            // bullet.setAttribute('position', "0 0 0.5");
             //  bullet.setAttribute('rotation', "0 -180 0");
-            bullet.setAttribute('scale', "5 5 5");
+            // bullet.setAttribute('scale', "5 5 5");
             bullet.setAttribute('id', 'bullet');
             bullet.setAttribute('class', 'bullets');
-            // bullet.setAttribute('animation-mixer', 'enabled:false');
+            bullet.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
             bullet.setAttribute('aabb-collider', 'objects: .boxs');
-            var newforce = new CANNON.Vec3(0, 0, 5);
-            bullet.setAttribute('dynamic-body', 'mass:0.05');
+            var newforce = new CANNON.Vec3(0, 0, 1);
+            setTimeout(function () {
+                bullet.setAttribute('dynamic-body', 'mass:0.05');
+                document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
+            }, 2000);
             if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
                 {
                     document.getElementById('shooter').appendChild(bullet);
@@ -13028,8 +13030,8 @@ var shoot = /** @class */function (_super) {
                     }
                     document.querySelector('#wall').removeAttribute('response-time');
                     document.getElementById('tasktime').setAttribute('value', '0');
-                    document.querySelector('#shooter').removeAttribute('animation-mixer');
-                }, 2000);
+                    //document.querySelector('#shooter').removeAttribute('animation-mixer');
+                }, 5000);
                 document.getElementById('wall').addEventListener('collide', function (e) {
                     if (e.detail.body.el.id == 'shooter') {
                         console.log('response' + e.detail.body.el.id);
@@ -13309,6 +13311,7 @@ var stats = /** @class */function (_super) {
         var Ds;
         var responseTime;
         var levelType;
+        var boxs = document.querySelectorAll('.boxs').length;
         var Tir = 0,
             end_session_time,
             AAS = 0,
@@ -13338,7 +13341,7 @@ var stats = /** @class */function (_super) {
         var calculate = function () {
             var response = parseInt(document.getElementById('tasktime').getAttribute('value'), 10);
             AimingScore = parseInt(document.getElementById('score').getAttribute('value'), 10) / parseInt(document.getElementById('bulletCounter').getAttribute('value'), 10);
-            Tar = parseInt(document.getElementById('score').getAttribute('value'), 10) / document.querySelectorAll('.boxs').length;
+            Tar = parseInt(document.getElementById('score').getAttribute('value'), 10) / boxs;
             responseTime = parseInt(document.getElementById('tasktime').getAttribute('value'), 10) / parseInt(document.getElementById('session').getAttribute('value'), 10);
             AAS = parseInt(document.getElementById('tasktime').getAttribute('value'), 10) / parseInt(document.getElementById('score').getAttribute('value'), 10);
             attentionSpan = parseInt(document.getElementById('session').getAttribute('value'), 10) - parseInt(document.getElementById('inps').getAttribute('value'), 10);
@@ -13370,7 +13373,7 @@ var stats = /** @class */function (_super) {
                 implusivityScore = 1 * -Tar * (Math.log10(Tir) - 1 + Math.pow(10, -5));
             }
             end_session_time = new Date().toLocaleString();
-            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + parseInt(document.getElementById('score').getAttribute('value'), 10) / document.querySelectorAll('.boxs').length + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'bullets: ' + document.getElementById('bulletCounter').getAttribute('value');
+            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + Tar + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'bullets: ' + document.getElementById('bulletCounter').getAttribute('value');
         };
         function StatsDictionery() {
             statsDict = {

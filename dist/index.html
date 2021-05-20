@@ -100,14 +100,14 @@
   </div>
   <div id="game" style="visibility: hidden;">
    
-    <a-scene   physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
+    <a-scene  stats physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
 
         <a-assets>
           <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
       
               <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FGarden_Tree01_v1.01.glb?v=1607334759579"
                response-type="arraybuffer"></a-asset-item>
-               <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.02.glb?v=1621291238960"
+               <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.03.glb?v=1621470138720"
                response-type="arraybuffer"></a-asset-item>
                <a-asset-item id="male" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FHussien_v1.01.glb?v=1619644395775"
                response-type="arraybuffer"></a-asset-item>
@@ -195,7 +195,7 @@
            <!--Camera-->
         <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 5" look-controls="pointerLockeEnabled:true" >
           <a-entity cursor="rayOrigin: mouse" ></a-entity>
-          <a-gltf-model id="shooter"  aabb-collider="objects:#Garden2,#Library,#Beach;" rotation="0 -180 0" scale="" position="0.32781 -0.71756 -0.58991" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
+          <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -0.58991" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
           </a-gltf-model>        
          <a-box id="CamTrigger" position="0 0 1"
          scale="2 7 1" visible="true"   aabb-collider="objects:#enemy">
