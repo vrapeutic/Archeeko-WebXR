@@ -21,10 +21,10 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
         .getElementById('npc')
         .parentNode.removeChild(document.getElementById('npc'));
       const npc = document.createElement('a-gltf-model');
-      npc.setAttribute('position', {x: 2, y: 0, z: -3});
+      npc.setAttribute('position', {x: 2, y: -0.5, z:0});
       npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
       npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-      document.querySelector('a-scene').appendChild(npc);
+      document.querySelector('#targetone').appendChild(npc);
     }
     if (sessionStorage.getItem('char') == null) {
       sessionStorage.setItem('char', 'hus');
@@ -34,10 +34,10 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
         .parentNode.removeChild(document.getElementById('npc'));
       sessionStorage.setItem('npc', 'male');
       const npc = document.createElement('a-gltf-model');
-      npc.setAttribute('position', {x: 2, y: 0, z: -3});
+      npc.setAttribute('position', {x: -2, y: 0, z: 0});
       npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
       npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-      document.querySelector('a-scene').appendChild(npc);
+      document.querySelector('#targetone').appendChild(npc);
     }
   }
   pause() {}

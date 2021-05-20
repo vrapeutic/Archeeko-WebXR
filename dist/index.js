@@ -12549,10 +12549,10 @@ var selectnpc = /** @class */function (_super) {
         if (document.getElementById(sessionStorage.getItem('npc')) != null) {
             document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
             var npc = document.createElement('a-gltf-model');
-            npc.setAttribute('position', { x: 2, y: 0, z: -3 });
+            npc.setAttribute('position', { x: 2, y: -0.5, z: 0 });
             npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
             npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-            document.querySelector('a-scene').appendChild(npc);
+            document.querySelector('#targetone').appendChild(npc);
         }
         if (sessionStorage.getItem('char') == null) {
             sessionStorage.setItem('char', 'hus');
@@ -12560,10 +12560,10 @@ var selectnpc = /** @class */function (_super) {
             document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
             sessionStorage.setItem('npc', 'male');
             var npc = document.createElement('a-gltf-model');
-            npc.setAttribute('position', { x: 2, y: 0, z: -3 });
+            npc.setAttribute('position', { x: -2, y: 0, z: 0 });
             npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
             npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-            document.querySelector('a-scene').appendChild(npc);
+            document.querySelector('#targetone').appendChild(npc);
         }
     };
     selectnpc.prototype.pause = function () {};
@@ -12976,7 +12976,6 @@ var shoot = /** @class */function (_super) {
             var newforce = new CANNON.Vec3(0, 0, 1);
             setTimeout(function () {
                 bullet.setAttribute('dynamic-body', 'mass:0.05');
-                document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
             }, 2000);
             if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
                 {
@@ -13013,7 +13012,8 @@ var shoot = /** @class */function (_super) {
                         //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
                         var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
                         console.log(random / 4);
-                        //var random=parseInt(sessionStorage.getItem('arrow'));
+                        //var random=parseInt(sessionStorage.getItem('arrow')); 
+                        document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
                         e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
                         if (bulletCounter <= 3 || bulletCounter == Math.floor(random / 2) || bulletCounter == Math.floor(random / 4)) {
                             soundEls.forEach(function (soundEl) {
