@@ -12965,7 +12965,7 @@ var shoot = /** @class */function (_super) {
         var random = document.querySelector('#bulletCounter').getAttribute('value');
         document.querySelector('#shooter').addEventListener('click', function () {
             var bullet = document.createElement('a-gltf-model');
-            bullet.setAttribute('src', "#bullet1");
+            bullet.setAttribute('src', '#bullet1');
             // bullet.setAttribute('position', "0 0 0.5");
             //  bullet.setAttribute('rotation', "0 -180 0");
             // bullet.setAttribute('scale', "5 5 5");
@@ -12978,132 +12978,130 @@ var shoot = /** @class */function (_super) {
                 bullet.setAttribute('dynamic-body', 'mass:0.05');
             }, 2000);
             if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
-                {
-                    document.getElementById('shooter').appendChild(bullet);
+                document.getElementById('shooter').appendChild(bullet);
+            }
+            document.getElementById('shooter').removeAttribute('animation-mixer');
+            if (bulletCounter > 0) {
+                document.querySelector('#wall').removeAttribute('response-time');
+                console.log(document.querySelector('#bullet'));
+                document.getElementById('tasktime').setAttribute('value', '0');
+                bulletCounter--;
+                document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
+            } else {
+                soundEls.forEach(function (soundEl) {
+                    soundEl['components'].sound.stopSound();
+                });
+                document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                document.getElementById('7' + sessionStorage.getItem('char'))['components'].sound.playSound();
+            }
+            bullet.addEventListener('body-loaded', function (e) {
+                // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
+                /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
+                let worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(force);
+                console.log((<any>e).detail.body.el.parentElement.id+"my body");
+                // (<any>e).detail.target.el.getAttribute("dynamic-body").applyImpulse(worldVelocity,local);
+                (<any>e).detail.target.el+  // Original entity (playerEl).
+                (<any>e).detail.body.el+   // Other entity, which playerEl touched.
+                (<any>e).detail.contact+   // Stats about the collision (CANNON.ContactEquation).
+                (<any>e).detail.contact.ni // Normal (direction) of the collision (CANNON.Vec3).
+                */setTimeout(function () {
+                    var pStart = new CANNON.Vec3(0, 0, 0);
+                    //  console.log((<any>e).detail.contact.position.x)
+                    //  pStart.copy((<any>e).detail.contact);
+                    //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
+                    var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
+                    console.log(random / 4);
+                    //var random=parseInt(sessionStorage.getItem('arrow'));
+                    document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
+                    e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
+                    if (bulletCounter <= 3 || bulletCounter == Math.floor(random / 2) || bulletCounter == Math.floor(random / 4)) {
+                        soundEls.forEach(function (soundEl) {
+                            soundEl['components'].sound.stopSound();
+                        });
+                        document.getElementById('5' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                        document.getElementById('5' + sessionStorage.getItem('char'))['components'].sound.playSound();
+                    }
+                }, 0);
+            });
+            setTimeout(function () {
+                if (document.getElementById('bullet') != null) {
+                    document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
                 }
-                document.getElementById('shooter').removeAttribute('animation-mixer');
-                if (bulletCounter > 0) {
-                    document.querySelector('#wall').removeAttribute('response-time');
-                    console.log(document.querySelector('#bullet'));
-                    document.getElementById('tasktime').setAttribute('value', '0');
-                    bulletCounter--;
-                    document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
-                } else {
-                    soundEls.forEach(function (soundEl) {
-                        soundEl['components'].sound.stopSound();
-                    });
-                    document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                    document.getElementById('7' + sessionStorage.getItem('char'))['components'].sound.playSound();
+                document.querySelector('#wall').removeAttribute('response-time');
+                document.getElementById('tasktime').setAttribute('value', '0');
+                //document.querySelector('#shooter').removeAttribute('animation-mixer');
+            }, 5000);
+            document.getElementById('wall').addEventListener('collide', function (e) {
+                if (e.detail.body.el.id == 'shooter') {
+                    console.log('response' + e.detail.body.el.id);
+                    //    clearInterval(count);
+                    // this.data.isCount = false;
+                    //  this.destroy();
+                    //delete AFRAME.components['response-time'];
+                    // isCounting=false;
+                    // document.querySelector('#shooter').removeAttribute("response-time");
+                    document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
+                    // console.log(isCounting);
+                    //delete AFRAME.AComponent['response-time'];
                 }
-                bullet.addEventListener('body-loaded', function (e) {
-                    // console.log('Player has collided with body #' +(<any>e).detail.body.el.id);
-                    /* console.log((<any>e).detail.body.el.object3D.position.x+"/n"+bullet.object3D.position.x)
-                    let worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(force);
-                    console.log((<any>e).detail.body.el.parentElement.id+"my body");
-                    // (<any>e).detail.target.el.getAttribute("dynamic-body").applyImpulse(worldVelocity,local);
-                    (<any>e).detail.target.el+  // Original entity (playerEl).
-                    (<any>e).detail.body.el+   // Other entity, which playerEl touched.
-                    (<any>e).detail.contact+   // Stats about the collision (CANNON.ContactEquation).
-                    (<any>e).detail.contact.ni // Normal (direction) of the collision (CANNON.Vec3).
-                    */setTimeout(function () {
-                        var pStart = new CANNON.Vec3(0, 0, 0);
-                        //  console.log((<any>e).detail.contact.position.x)
-                        //  pStart.copy((<any>e).detail.contact);
-                        //   let force = (<any>e).detail.body.el.body.position.vsub(pStart);
-                        var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
-                        console.log(random / 4);
-                        //var random=parseInt(sessionStorage.getItem('arrow')); 
-                        document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
-                        e.detail.body.el.body.applyImpulse(worldVelocity, pStart);
-                        if (bulletCounter <= 3 || bulletCounter == Math.floor(random / 2) || bulletCounter == Math.floor(random / 4)) {
+            });
+            bullet.addEventListener('hitstart', function (e) {
+                // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
+                //  var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
+                // console.log(targetElement.innerHTML);
+                if (e.target.components['aabb-collider']['intersectedEls'][0].className == 'boxs') {
+                    var id_1 = document.getElementById(e.target.components['aabb-collider']['intersectedEls'][0].id);
+                    //console.log(":"+id);
+                    // id.setAttribute("dynamic-body","enabled:false");
+                    if (id_1 != null) {
+                        var currentPosition = document.getElementById(id_1.id).getAttribute('position');
+                        //console.log(currentPosition);
+                        document.getElementById(id_1.id).setAttribute('dynamic-body', 'mass :0.05');
+                        document.getElementById(id_1.id).setAttribute('score-trigger', 'enabled:true');
+                        //document.querySelector('#shooter').setAttribute("aabb-collider","objects : a-sphere");
+                        //   document.getElementById("index").setAttribute("position",
+                        //currentPosition);
+                        var partical = document.createElement('a-entity');
+                        partical.setAttribute('spe-particles', 'texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
+                        partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
+                        //partical.setAttribute("position","1 3 1")
+                        document.getElementById(id_1.id).appendChild(partical);
+                        document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
+                        console.log(document.getElementById('levelTybe').getAttribute('value'));
+                        setTimeout(function () {
                             soundEls.forEach(function (soundEl) {
                                 soundEl['components'].sound.stopSound();
                             });
-                            document.getElementById('5' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                            document.getElementById('5' + sessionStorage.getItem('char'))['components'].sound.playSound();
-                        }
-                    }, 0);
-                });
-                setTimeout(function () {
-                    if (document.getElementById('bullet') != null) {
-                        document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
-                    }
-                    document.querySelector('#wall').removeAttribute('response-time');
-                    document.getElementById('tasktime').setAttribute('value', '0');
-                    //document.querySelector('#shooter').removeAttribute('animation-mixer');
-                }, 5000);
-                document.getElementById('wall').addEventListener('collide', function (e) {
-                    if (e.detail.body.el.id == 'shooter') {
-                        console.log('response' + e.detail.body.el.id);
-                        //    clearInterval(count);
-                        // this.data.isCount = false;
-                        //  this.destroy();
-                        //delete AFRAME.components['response-time'];
-                        // isCounting=false;
-                        // document.querySelector('#shooter').removeAttribute("response-time");
-                        document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
-                        // console.log(isCounting);
-                        //delete AFRAME.AComponent['response-time'];
-                    }
-                });
-                bullet.addEventListener('hitstart', function (e) {
-                    // console.log(' collided with #' +(<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
-                    //  var targetElement = (<any>e).target.components["aabb-collider"]["intersectedEls"][0];
-                    // console.log(targetElement.innerHTML);
-                    if (e.target.components['aabb-collider']['intersectedEls'][0].className == 'boxs') {
-                        var id_1 = document.getElementById(e.target.components['aabb-collider']['intersectedEls'][0].id);
-                        //console.log(":"+id);
-                        // id.setAttribute("dynamic-body","enabled:false");
-                        if (id_1 != null) {
-                            var currentPosition = document.getElementById(id_1.id).getAttribute('position');
-                            //console.log(currentPosition);
-                            document.getElementById(id_1.id).setAttribute('dynamic-body', 'mass :0.05');
-                            document.getElementById(id_1.id).setAttribute('score-trigger', 'enabled:true');
-                            //document.querySelector('#shooter').setAttribute("aabb-collider","objects : a-sphere");
-                            //   document.getElementById("index").setAttribute("position",
-                            //currentPosition);
-                            var partical = document.createElement('a-entity');
-                            partical.setAttribute('spe-particles', 'texture: ../../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
-                            partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
-                            //partical.setAttribute("position","1 3 1")
-                            document.getElementById(id_1.id).appendChild(partical);
-                            document.querySelector('#wall').setAttribute('response-time', 'enabled:true');
-                            console.log(document.getElementById('levelTybe').getAttribute('value'));
+                            document.getElementById('6' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                            document.getElementById('6' + sessionStorage.getItem('char'))['components'].sound.playSound();
+                        }, 200);
+                        if (document.getElementById('level').getAttribute('value') == '3') {
+                            var ball_1 = document.createElement('a-sphere');
+                            // ball.setAttribute("geometry","primitive:sphere");
+                            ball_1.setAttribute('scale', { x: 0.3, y: 0.3, z: 0.3 });
+                            ball_1.setAttribute('id', 'enemy');
+                            ball_1.setAttribute('position', currentPosition);
+                            //console.log(ball.getAttribute("position"));
+                            document.getElementById('TheTree').appendChild(ball_1);
                             setTimeout(function () {
                                 soundEls.forEach(function (soundEl) {
                                     soundEl['components'].sound.stopSound();
                                 });
-                                document.getElementById('6' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                                document.getElementById('6' + sessionStorage.getItem('char'))['components'].sound.playSound();
+                                document.getElementById('9' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                                document.getElementById('9' + sessionStorage.getItem('char'))['components'].sound.playSound();
                             }, 200);
-                            if (document.getElementById('level').getAttribute('value') == '3') {
-                                var ball_1 = document.createElement('a-sphere');
-                                // ball.setAttribute("geometry","primitive:sphere");
-                                ball_1.setAttribute('scale', { x: 0.3, y: 0.3, z: 0.3 });
-                                ball_1.setAttribute('id', 'enemy');
-                                ball_1.setAttribute('position', currentPosition);
-                                //console.log(ball.getAttribute("position"));
-                                document.getElementById('TheTree').appendChild(ball_1);
-                                setTimeout(function () {
-                                    soundEls.forEach(function (soundEl) {
-                                        soundEl['components'].sound.stopSound();
-                                    });
-                                    document.getElementById('9' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                                    document.getElementById('9' + sessionStorage.getItem('char'))['components'].sound.playSound();
-                                }, 200);
-                                ball_1.setAttribute('create-enemy', 'enabled');
-                                setTimeout(function () {
-                                    ball_1.setAttribute('dynamic-body', 'mass:0.05');
-                                    ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
-                                }, 5000);
-                            }
+                            ball_1.setAttribute('create-enemy', 'enabled');
                             setTimeout(function () {
-                                document.getElementById(id_1.id).parentNode.removeChild(document.getElementById(id_1.id));
-                            }, 2000);
+                                ball_1.setAttribute('dynamic-body', 'mass:0.05');
+                                ball_1.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
+                            }, 5000);
                         }
-                    } else console.log('goodck');
-                });
-            }
+                        setTimeout(function () {
+                            document.getElementById(id_1.id).parentNode.removeChild(document.getElementById(id_1.id));
+                        }, 2000);
+                    }
+                } else console.log('goodck');
+            });
         });
     };
     shoot.prototype.update = function () {};
@@ -13410,7 +13408,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.open("../dist/Final.html", "_self");
+                window.open('../dist/Final.html', '_self');
             }, 4000);
         });
         document.getElementById('7' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
@@ -13427,7 +13425,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.open("../dist/Final.html", "_self");
+                window.open('../dist/Final.html', '_self');
             }, 4000);
         });
     };
