@@ -58,7 +58,7 @@
 <script type="text/javascript" src="index.js"></script></head>
 <body>
 
-    <div id="dr-menu"  class="center">
+    <div id="dr-menu"  class="center" style="visibility: hidden;">
 
     <h>Select langauge</h>
     <br>  
@@ -98,7 +98,7 @@
  <br> <br>
     <button class="button button-cls" onclick="start_game()">Start</button>
   </div>
-  <div id="game" style="visibility: hidden;">
+  <div id="game" >
    
     <a-scene   physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
 
@@ -195,8 +195,7 @@
            <!--Camera-->
         <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 5" look-controls="pointerLockeEnabled:true" >
           <a-entity cursor="rayOrigin: mouse" ></a-entity>
-          <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -0.58991" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
-          </a-gltf-model>        
+   
          <a-box id="CamTrigger" position="0 0 1"
          scale="2 5 1" visible="true"   aabb-collider="objects:#enemy">
         </a-box>
@@ -210,8 +209,10 @@
   
          <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"  aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class = "hand"  static-body="shape: sphere; sphereRadius: 0.02;"    grab   ></a-entity>
          <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;"grab 
-             class = "hand"></a-entity>
-         <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
+             class = "hand">
+                      <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -0.58991" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
+          </a-gltf-model>     
+            </a-entity>
                
 
        <!--Menu-Buttons-->
@@ -252,7 +253,7 @@
             <a-entity id="targetone"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
     <a-gltf-model id="npc" src="#male" position="2 -0.5 0"></a-gltf-model>
 </a-entity>        
-     <a-sound id="1lisa" src="assets/Reem_English/1lisa hello.mp3" autoplay="false" ></a-sound>
+     <a-sound id="1lisa" src="#lisainfo1" autoplay="false" ></a-sound>
          <a-sound id="2lisa" src="#lisainfo2" autoplay="false" ></a-sound>
          <a-sound id="3lisa" src="#lisainfo3" autoplay="false" ></a-sound>
          <a-sound id="4lisa" src="#lisainfo4" autoplay="false" ></a-sound>
