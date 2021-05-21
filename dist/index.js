@@ -13062,7 +13062,7 @@ var shoot = /** @class */function (_super) {
                         //   document.getElementById("index").setAttribute("position",
                         //currentPosition);
                         var partical = document.createElement('a-entity');
-                        partical.setAttribute('spe-particles', 'texture: images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
+                        partical.setAttribute('spe-particles', 'texture: ../images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
                         partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
                         //partical.setAttribute("position","1 3 1")
                         document.getElementById(id_1.id).appendChild(partical);
@@ -13392,7 +13392,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.location.reload();
+                window.open('../Final.html', '_self');
             }, 10000);
         }
         if (sessionStorage.getItem('char') == null) sessionStorage.setItem('char', 'hus');
@@ -13408,7 +13408,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.open('../dist/Final.html', '_self');
+                window.open('../Final.html', '_self');
             }, 4000);
         });
         document.getElementById('7' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
@@ -13425,7 +13425,7 @@ var stats = /** @class */function (_super) {
             document.querySelector('a-camera').appendChild(statsTex);
             console.log(statsTex);
             setTimeout(function () {
-                window.open('../dist/Final.html', '_self');
+                window.open('../Final.html', '_self');
             }, 4000);
         });
     };
