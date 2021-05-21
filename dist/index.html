@@ -213,7 +213,8 @@
                       <a-gltf-model id="shooter" clickable  rotation="0 -180 0" scale="" push  src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
           </a-gltf-model>     
             </a-entity>
-               
+            <a-entity laser-controls="hand: right" raycaster="objects: #shooter; far: 2" ></a-entity>
+
 
        <!--Menu-Buttons-->
            <a-text id="counter" value="0" geometry="primitive:plane"visible="true" position="-4.19846 1 1" ></a-text>
