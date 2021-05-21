@@ -7,6 +7,7 @@
         <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
         <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
         <script src="assets/custom/aframe-spe-particles-component.js"></script>
+        <script src="https://unpkg.com/super-hands@^3.0.1/dist/super-hands.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
 <style>
   body {
@@ -209,7 +210,7 @@
          <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"  aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class = "hand"  static-body="shape: sphere; sphereRadius: 0.02;"    grab   ></a-entity>
          <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;"grab 
              class = "hand">
-                      <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" push  src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
+                      <a-gltf-model id="shooter" clickable  rotation="0 -180 0" scale="" push  src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
           </a-gltf-model>     
             </a-entity>
                
