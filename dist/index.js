@@ -12963,7 +12963,7 @@ var shoot = /** @class */function (_super) {
         var soundEls = document.querySelectorAll('[sound]');
         var bulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         var random = document.querySelector('#bulletCounter').getAttribute('value');
-        document.querySelector('#shooter').addEventListener('click', function () {
+        document.querySelector('#right').addEventListener('click', function () {
             var bullet = document.createElement('a-gltf-model');
             bullet.setAttribute('src', '#bullet1');
             // bullet.setAttribute('position', "0 0 0.5");
