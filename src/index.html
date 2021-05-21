@@ -99,7 +99,7 @@
     <button class="button button-cls" onclick="start_game()">Start</button>
   </div>
    
-    <a-scene   physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
+    <a-scene  vr-mode-ui="enabled: true" physics="debug: false" sound-manger time-manger  restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
 
         <a-assets>
           <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
@@ -249,7 +249,7 @@
      >
 
     </a-box>   
-            <a-entity id="targetone"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
+            <a-entity id="targetone" npc aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
     <a-gltf-model id="npc" src="#male" position="2 -0.5 0"></a-gltf-model>
 </a-entity>        
      <a-sound id="1lisa" src="#lisainfo1" autoplay="false" ></a-sound>
@@ -303,7 +303,7 @@
     <a-box id="box4" position="-3.00254 0.1 1.15781" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
        
        ></a-box>  
-       <a-gltf-model id="butterflymodel" src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer  ></a-gltf-model>
+       <a-gltf-model id="butterflymodel" distractor src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer  ></a-gltf-model>
   </a-entity>
   </a-scene> 
 
