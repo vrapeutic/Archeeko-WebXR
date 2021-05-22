@@ -12977,16 +12977,14 @@ var shoot = /** @class */function (_super) {
             setTimeout(function () {
                 bullet.setAttribute('dynamic-body', 'mass:0.05');
             }, 2000);
-            if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
-                document.getElementById('shooter').appendChild(bullet);
-            }
             document.getElementById('shooter').removeAttribute('animation-mixer');
             if (bulletCounter > 0) {
-                document.querySelector('#wall').removeAttribute('response-time');
-                console.log(document.querySelector('#bullet'));
-                document.getElementById('tasktime').setAttribute('value', '0');
-                bulletCounter--;
-                document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
+                if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
+                    document.getElementById('shooter').appendChild(bullet);
+                    document.querySelector('#wall').removeAttribute('response-time');
+                    console.log(document.querySelector('#bullet'));
+                    document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
+                }
             } else {
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
