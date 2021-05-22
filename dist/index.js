@@ -12983,6 +12983,8 @@ var shoot = /** @class */function (_super) {
                     document.getElementById('shooter').appendChild(bullet);
                     document.querySelector('#wall').removeAttribute('response-time');
                     console.log(document.querySelector('#bullet'));
+                    document.getElementById('tasktime').setAttribute('value', '0');
+                    bulletCounter--;
                     document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
                 }
             } else {
