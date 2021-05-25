@@ -214,7 +214,7 @@
          <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
                
 
-       <!--Menu-Buttons-->
+       <!--Menu-Stats-->
            <a-text id="livesCounter" value="0" geometry="primitive:plane"visible="true" position="-4.19846 1 1" ></a-text>
            <a-text id="score" value="0" geometry="primitive:plane"visible="true" position="-4.19846 2 1" ></a-text>
            <a-text id="bulletCounter" value="55" geometry="primitive:plane"visible="true" position="-4.19846 3 1" ></a-text>
@@ -229,25 +229,18 @@
            <a-text id="closedtimer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
 
 
-
+<!--TreeTarget-->
 
   <a-entity id= "TheTree"   postion="-4 0 0">
 
-        <a-box  id="Beach" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 2 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable 
-        event-set__click="_event: click; _target:#selectenvironment; value:Beach " >
+        <a-box  id="gift1" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 2 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable  >
       </a-box>    
 
-       <a-box  id="Library"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet" position="-1.88719 1.5 -3"     color="#4CC3D9" lookat="#cam"   
-        event-set__click="_event: mouseenter; _target:#selectenvironment; value:Library">
-
-  
+       <a-box  id="gift2"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet" position="-1.88719 1.5 -3"     color="#4CC3D9" lookat="#cam"         >
       </a-box>    
   
  
-      <a-box  id="Garden2"   scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.87967 -3"    color="#4CC3D9" lookat="#cam"   
-      event-set__click="_event: mouseenter; _target:#selectenvironment; value:Garden;" 
-     >
-
+      <a-box  id="gift3"   scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.87967 -3"    color="#4CC3D9" lookat="#cam"   >
     </a-box>   
             <a-entity id="targetTree"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
     <a-gltf-model id="npc"  src="#male" position="2 -0.5 0"></a-gltf-model>

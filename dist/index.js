@@ -13385,17 +13385,17 @@ var visualDistractorMovenment = /** @class */function (_super) {
         }) || this;
     }
     visualDistractorMovenment.prototype.init = function () {
-        var newpos,
-            random = 0;
+        var nextPosition,
+            randomPosition = 0;
         var box = document.querySelectorAll('.bTarget'); //Array of targets
         var distractor = this.el;
         var startDsMovement = function cycle() {
             setTimeout(function () {
-                random++;
-                newpos = box[random].getAttribute('position'); // restor next target for distractor
-                distractor.setAttribute('animation', 'property:position; to:' + newpos.x + ' 1 ' + newpos.z + ' dur:5000');
-                if (random >= box.length - 1) {
-                    random = 0; // Set it back to `0` when it reaches `4`
+                randomPosition++;
+                nextPosition = box[randomPosition].getAttribute('position'); // restor next target for distractor
+                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 1 ' + nextPosition.z + ' dur:5000');
+                if (randomPosition >= box.length - 1) {
+                    randomPosition = 0; // Set it back to `0` when it reaches `4`
                 }
                 cycle();
             }, 2000);
