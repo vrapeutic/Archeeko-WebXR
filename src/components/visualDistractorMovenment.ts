@@ -16,24 +16,24 @@ export class visualDistractorMovenment extends ComponentWrapper<visualDistractor
   }
 
   init() {
-    let newpos,
-      random = 0;
+    let nextPosition  ,
+      randomPosition = 0;
     const box = document.querySelectorAll('.bTarget'); //Array of targets
     const distractor = this.el;
 
     const startDsMovement = function cycle() {
       setTimeout(() => {
-        random++;
+        randomPosition++;
 
-        newpos = box[random].getAttribute('position'); // restor next target for distractor
+        nextPosition   = box[randomPosition].getAttribute('position'); // restor next target for distractor
 
         distractor.setAttribute(
           'animation',
-          'property:position; to:' + newpos.x + ' 1 ' + newpos.z + ' dur:5000'
+          'property:position; to:' + nextPosition  .x + ' 1 ' + nextPosition  .z + ' dur:5000'
         );
 
-        if (random >= box.length - 1) {
-          random = 0; // Set it back to `0` when it reaches `4`
+        if (randomPosition >= box.length - 1) {
+          randomPosition = 0; // Set it back to `0` when it reaches `4`
         }
         cycle();
       }, 2000);

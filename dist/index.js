@@ -12643,12 +12643,6 @@ var enemy = /** @class */function (_super) {
                                 console.log(lives + 'lives: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
                                 document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
                             }
-                            var soundEls = document.querySelectorAll('[sound]');
-                            soundEls.forEach(function (soundEl) {
-                                soundEl['components'].sound.stopSound();
-                            });
-                            document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
-                            document.getElementById('7' + sessionStorage.getItem('char'))['components'].sound.playSound();
                         }
                     });
                 }
@@ -12656,6 +12650,14 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= giftCounter) {
+                var soundEls = document.querySelectorAll('[sound]');
+                soundEls.forEach(function (soundEl) {
+                    soundEl['components'].sound.stopSound();
+                });
+                document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                document.getElementById('7' + sessionStorage.getItem('char'))['components'].sound.playSound();
+            }
             document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
         }, 8000);
     };
@@ -12935,7 +12937,7 @@ var shoot = /** @class */function (_super) {
                     bulletCounter--;
                     document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
                 }
-            } else if (bulletCounter == 0 || document.querySelector('#livesCounter').getAttribute('value') == "1") {
+            } else {
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
                 });
