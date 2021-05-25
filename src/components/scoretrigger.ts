@@ -17,14 +17,16 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
 
   init() {
     const soundEls = document.querySelectorAll('[sound]');
-
+const giftCounter=document.querySelectorAll('.boxs').length + 1;
     setTimeout(() => {
       let score = document.querySelector('#score').getAttribute('value');
       score++;
+     // sessionStorage.setItem('isCount', 'true');
+
       document.querySelector('#score').setAttribute('value', score);
       if (
         document.querySelector('#score').getAttribute('value') >=
-        document.querySelectorAll('.boxs').length + 1
+     giftCounter
       ) {
         console.log('scoretrigger');
         setTimeout(() => {
@@ -43,7 +45,14 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
           document
             .getElementById('8' + sessionStorage.getItem('char'))
             ['components'].sound.playSound();
-        }, 1000);
+            if (document.getElementById('enemy') != null)
+            document
+              .getElementById('enemy')
+              .parentNode.removeChild(document.getElementById('enemy'));
+          document
+            .getElementById('shooter')
+            .parentNode.removeChild(document.getElementById('shooter'));
+        }, 2000);
       }
     }, 1000);
   }
@@ -56,10 +65,7 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
 
   pause() {}
 
-  tick() {
-    // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
-    //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
-  }
+  tick() {}
 
   remove() {}
 

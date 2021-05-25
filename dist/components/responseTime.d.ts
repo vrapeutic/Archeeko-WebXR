@@ -1,6 +1,5 @@
 import { ComponentWrapper } from '../essential/aframe-wrapper';
 interface responseTimeSchema {
-    isCount: boolean;
 }
 export declare class responseTime extends ComponentWrapper<responseTimeSchema> {
     constructor();

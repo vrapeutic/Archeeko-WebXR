@@ -15,37 +15,20 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
   play() {}
 
   init() {
-    console.log('npc' + sessionStorage.getItem('npc'));
-    if (document.getElementById(sessionStorage.getItem('npc')) != null) {
-      document
-        .getElementById('npc')
-        .parentNode.removeChild(document.getElementById('npc'));
-      const npc = document.createElement('a-gltf-model');
-      npc.setAttribute('position', {x: 2, y: -0.5, z: 0});
-      npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
-      npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-      document.querySelector('#targetone').appendChild(npc);
-    }
     if (sessionStorage.getItem('char') == null) {
       sessionStorage.setItem('char', 'hus');
+    }
+    console.log('npc' + sessionStorage.getItem('npc'));
+    if (sessionStorage.getItem('npc') != null) {
+      CurrentNpc();
     } else if (sessionStorage.getItem('npc') == null) {
-      document
-        .getElementById('npc')
-        .parentNode.removeChild(document.getElementById('npc'));
       sessionStorage.setItem('npc', 'male');
-      const npc = document.createElement('a-gltf-model');
-      npc.setAttribute('position', {x: -2, y: 0, z: 0});
-      npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
-      npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
-      document.querySelector('#targetone').appendChild(npc);
+      CurrentNpc();
     }
   }
   pause() {}
 
-  tick() {
-    // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
-    //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
-  }
+  tick() {}
 
   remove() {}
 
@@ -53,3 +36,13 @@ export class selectnpc extends ComponentWrapper<selectnpcSchema> {
 }
 
 new selectnpc().register();
+function CurrentNpc() {
+  document
+    .getElementById('npc')
+    .parentNode.removeChild(document.getElementById('npc'));
+  const npc = document.createElement('a-gltf-model');
+  npc.setAttribute('position', {x: 2, y: 0, z: 0});
+  npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
+  npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
+  document.querySelector('#targetTree').appendChild(npc);
+}

@@ -53,10 +53,7 @@ export class timecounter extends ComponentWrapper<timecounter> {
 
   pause() {}
 
-  tick() {
-    // this.el.setAttribute("position",document.querySelector("#shooter").getAttribute("position"));
-    //this.el.setAttribute("rotation",document.querySelector("#shooter").getAttribute("rotation"));
-  }
+  tick() {}
 
   remove() {}
 
