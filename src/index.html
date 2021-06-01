@@ -104,11 +104,17 @@
 
         <a-assets>
           <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
-      
-              <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FGarden_Tree01_v1.01.glb?v=1607334759579"
-               response-type="arraybuffer"></a-asset-item>
-               <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.03.glb?v=1621470138720"
-               response-type="arraybuffer"></a-asset-item>
+          <a-asset-item id = "enviroment" src=" https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_environment_v1.02.glb?v=1622518748903"></a-asset-item>
+          <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_tree_hero_v1.01.glb?v=1622426332347"
+           response-type="arraybuffer"></a-asset-item>
+           <a-asset-item id="giftbox" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox01_v1.01.glb?v=1622426332455"
+           response-type="arraybuffer"></a-asset-item>
+           <a-asset-item id="giftbox1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox02_v1.01.glb?v=1622426329744"
+           response-type="arraybuffer"></a-asset-item>
+           <a-asset-item id="ballEnemy" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FBeach_prop_ball_01.glb?v=1610265467831"
+           response-type="arraybuffer"></a-asset-item>
+           <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.04.glb?v=1622518718142"
+           response-type="arraybuffer"></a-asset-item>
                <a-asset-item id="male" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FHussien_v1.01.glb?v=1619644395775"
                response-type="arraybuffer"></a-asset-item>
                <a-asset-item id="female" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FReem_v1.01.glb?v=1619724823091"
@@ -188,15 +194,18 @@
   
         <!--sky  <a-sky src="#starsky"></a-sky>
   -->
-  <a-plane  id="ground" aabb-collider="objects:#bullet" static-body material="color: #dbb014"  width="80" height="80" rotation="-90 0 180" position="0 -1.71 0"></a-plane>   <!--lights-->
-  
+  <a-plane  id="ground" aabb-collider="objects:#bullet" static-body material="color: #dbb014"  width="80" height="80" rotation="-90 0 180" position="0 -1.71 0">
+      <!--lights-->
+
+  </a-plane>   <!--lights-->
+  <a-entity  id="ground2"  gltf-model="#enviroment"></a-entity> 
      <a-entity id="updateMe"></a-entity>
   
            <!--Camera-->
-        <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 5" look-controls="pointerLockeEnabled:true" >
-          <a-entity cursor="rayOrigin: mouse" ></a-entity>
-          <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -0.58991" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.02.glb?v=1621291238846"  visible="" >
-          </a-gltf-model>        
+           <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 30" look-controls="pointerLockeEnabled:true" >
+            <a-entity cursor="rayOrigin: mouse" ></a-entity>
+            <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543"  visible="" >
+            </a-gltf-model>   
          <a-box id="CamTrigger" position="0 0 1"
          scale="2 5 1" visible="true"   aabb-collider="objects:#enemy">
         </a-box>
@@ -229,22 +238,22 @@
            <a-text id="closedtimer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
 
 
+
 <!--TreeTarget-->
 
-  <a-entity id= "TheTree"   postion="-4 0 0">
+<a-entity id= "TheTree"   position="0 0 15">
 
-        <a-box  id="gift1" class="boxs"  scale="0.4 .4 .4"   position="-2.19846 2 -3"  aabb-collider="objects:#bullet"  color="#4CC3D9" lookat="#cam"  clickable  >
-      </a-box>    
+  <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1 3.2 -1" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+  </a-entity>
+    <a-entity  id="gift2" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-4 3.2 -1.6" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+    </a-entity>    
 
-       <a-box  id="gift2"  scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet" position="-1.88719 1.5 -3"     color="#4CC3D9" lookat="#cam"         >
-      </a-box>    
-  
- 
-      <a-box  id="gift3"   scale="0.4 .4 .4"  class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.87967 -3"    color="#4CC3D9" lookat="#cam"   >
-    </a-box>   
-            <a-entity id="targetTree"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true" position="-1.78878 0 -3.6332"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
-    <a-gltf-model id="npc"  src="#male" position="2 -0.5 0"></a-gltf-model>
-</a-entity>        
+
+    <a-entity  id="gift3" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.87967 -3"    color="#4CC3D9" lookat="#cam"   >
+    </a-entity>   
+          <a-entity id="targetTree"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
+  <a-gltf-model id="npc"  src="#male" position="7 0 2"></a-gltf-model>
+</a-entity>           
      <a-sound id="1lisa" src="assets/Reem_English/1lisa hello.mp3" autoplay="false" ></a-sound>
          <a-sound id="2lisa" src="#lisainfo2" autoplay="false" ></a-sound>
          <a-sound id="3lisa" src="#lisainfo3" autoplay="false" ></a-sound>

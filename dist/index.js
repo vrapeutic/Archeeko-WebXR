@@ -12650,7 +12650,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= giftCounter) {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= 2) {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -13012,10 +13012,13 @@ function giftHit(e, soundEls) {
                 document.getElementById('6' + sessionStorage.getItem('char'))['components'].sound.playSound();
             }, 200);
             if (document.getElementById('level').getAttribute('value') == '3') {
-                var ball_1 = document.createElement('a-sphere');
-                ball_1.setAttribute('scale', { x: 0.3, y: 0.3, z: 0.3 });
+                var ball_1 = document.createElement('a-gltf-model');
+                ball_1.setAttribute('src', '#ballEnemy');
                 ball_1.setAttribute('id', 'enemy');
                 ball_1.setAttribute('position', currentPosition);
+                ball_1.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
+                ball_1.setAttribute('animation-mixer', 'timeScale:0');
+                ball_1.setAttribute('scale', '1 1 1');
                 document.getElementById('TheTree').appendChild(ball_1);
                 setTimeout(function () {
                     soundEls.forEach(function (soundEl) {
@@ -13232,7 +13235,7 @@ var stats = /** @class */function (_super) {
                 implusivityScore = 1 * -Tar * (Math.log10(Tir) - 1 + Math.pow(10, -5));
             }
             end_session_time = new Date().toLocaleString();
-            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + Tar + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'bullets: ' + document.getElementById('livesCounter').getAttribute('value');
+            statString = 'Tas:' + Tas + ' responese ' + response + ' duration ' + document.getElementById('closedtimer').getAttribute('value') + ' levelType: ' + levelType + ' end : ' + end_session_time + ' AAS ' + AAS + ' aminingscore' + AimingScore + ' response ' + responseTime + ' Start' + start_session_time + ' Ds ' + Ds + ' timeTaken ' + timeTaken + ' tar' + Tar + ' Tir' + Tir + ' omission ' + omissionScore + ' imps ' + implusivityScore + ' attention' + attentionSpan + 'lives: ' + document.getElementById('livesCounter').getAttribute('value');
         };
         function StatsDictionery() {
             statsDict = {
