@@ -12567,7 +12567,7 @@ new selectnpc().register();
 function CurrentNpc() {
     document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
     var npc = document.createElement('a-gltf-model');
-    npc.setAttribute('position', { x: 2, y: 0, z: 0 });
+    npc.setAttribute('position', "7 0 2");
     npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
     npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
     document.querySelector('#targetTree').appendChild(npc);
@@ -12622,7 +12622,7 @@ var enemy = /** @class */function (_super) {
             console.log(timer);
         };
         distractingTimer();
-        var ballForce = new CANNON.Vec3(0, 0, 0.5);
+        var ballForce = new CANNON.Vec3(0, 0, 2);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12650,7 +12650,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= 2) {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= 3) {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -12913,7 +12913,7 @@ var shoot = /** @class */function (_super) {
         var soundEls = document.querySelectorAll('[sound]');
         var bulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         var randomBulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
-        var newforce = new CANNON.Vec3(0, 0, 1);
+        var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         window.addEventListener('click', function () {
             var currentBullet = document.createElement('a-gltf-model');
@@ -13016,9 +13016,6 @@ function giftHit(e, soundEls) {
                 ball_1.setAttribute('src', '#ballEnemy');
                 ball_1.setAttribute('id', 'enemy');
                 ball_1.setAttribute('position', currentPosition);
-                ball_1.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
-                ball_1.setAttribute('animation-mixer', 'timeScale:0');
-                ball_1.setAttribute('scale', '1 1 1');
                 document.getElementById('TheTree').appendChild(ball_1);
                 setTimeout(function () {
                     soundEls.forEach(function (soundEl) {

@@ -111,7 +111,7 @@
            response-type="arraybuffer"></a-asset-item>
            <a-asset-item id="giftbox1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox02_v1.01.glb?v=1622426329744"
            response-type="arraybuffer"></a-asset-item>
-           <a-asset-item id="ballEnemy" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FBeach_prop_ball_01.glb?v=1610265467831"
+           <a-asset-item id="ballEnemy" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_ball_v1.01.glb?v=1622558154966"
            response-type="arraybuffer"></a-asset-item>
            <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.04.glb?v=1622518718142"
            response-type="arraybuffer"></a-asset-item>
@@ -207,7 +207,7 @@
             <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543"  visible="" >
             </a-gltf-model>   
          <a-box id="CamTrigger" position="0 0 1"
-         scale="2 5 1" visible="true"   aabb-collider="objects:#enemy">
+         scale="5 5 1" visible="true"   aabb-collider="objects:#enemy">
         </a-box>
          </a-camera>
          <a-box id="wall" visible="false"
@@ -243,14 +243,30 @@
 
 <a-entity id= "TheTree"   position="0 0 15">
 
-  <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1 3.2 -1" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+  <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
   </a-entity>
-    <a-entity  id="gift2" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-4 3.2 -1.6" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+    <a-entity  id="gift2" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
     </a-entity>    
 
 
-    <a-entity  id="gift3" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="-1.4 0.87967 -3"    color="#4CC3D9" lookat="#cam"   >
+    <a-entity  id="gift3" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 3.2 2.8"    color="#4CC3D9" lookat="#cam"   >
     </a-entity>   
+    <a-entity id="gift4" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 5.2 2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+    </a-entity>
+      <a-entity  id="gift5" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 5.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+      </a-entity>    
+  
+  
+      <a-entity  id="gift6" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 5.2 2.8"    color="#4CC3D9" lookat="#cam"   >
+      </a-entity> 
+      <a-entity  id="gift7" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 7.2 1.2"    color="#4CC3D9" lookat="#cam"   >
+      </a-entity>   
+      <a-entity id="gift8" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+      </a-entity>
+        <a-entity  id="gift9" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+        </a-entity>    
+    
+  
           <a-entity id="targetTree"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
   <a-gltf-model id="npc"  src="#male" position="7 0 2"></a-gltf-model>
 </a-entity>           
