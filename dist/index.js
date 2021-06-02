@@ -12622,7 +12622,7 @@ var enemy = /** @class */function (_super) {
             console.log(timer);
         };
         distractingTimer();
-        var ballForce = new CANNON.Vec3(0, 0, 2);
+        var ballForce = new CANNON.Vec3(0, 0, 0.5);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12638,9 +12638,11 @@ var enemy = /** @class */function (_super) {
                             if (e.target.components['aabb-collider']['intersectedEls'][0].id != 'CamTrigger') {
                                 console.log('curlives' + lives);
                             } else {
-                                lives++;
-                                document.querySelector('#livesCounter').setAttribute('value', lives);
-                                console.log(lives + 'lives: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
+                                setTimeout(function () {
+                                    lives++;
+                                    document.querySelector('#livesCounter').setAttribute('value', lives);
+                                    console.log(lives + 'lives: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
+                                }, 1000);
                                 document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
                             }
                         }
@@ -12843,13 +12845,12 @@ var scoretrigger = /** @class */function (_super) {
     }
     scoretrigger.prototype.init = function () {
         var soundEls = document.querySelectorAll('[sound]');
-        var giftCounter = document.querySelectorAll('.boxs').length + 1;
         setTimeout(function () {
             var score = document.querySelector('#score').getAttribute('value');
             score++;
             // sessionStorage.setItem('isCount', 'true');
             document.querySelector('#score').setAttribute('value', score);
-            if (document.querySelector('#score').getAttribute('value') >= giftCounter) {
+            if (document.querySelector('#score').getAttribute('value') >= parseInt(sessionStorage.getItem('gift'), 10)) {
                 console.log('scoretrigger');
                 setTimeout(function () {
                     soundEls.forEach(function (soundEl) {
@@ -12996,7 +12997,7 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_1.id).setAttribute('dynamic-body', 'mass :0.05');
             document.getElementById(giftId_1.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
-            partical.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: yellow, red, cyan, black; distribution: sphere; particle-count: 800; ');
+            partical.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; ');
             partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_1.id).appendChild(partical);
@@ -13034,7 +13035,53 @@ function giftHit(e, soundEls) {
                 document.getElementById(giftId_1.id).parentNode.removeChild(document.getElementById(giftId_1.id));
             }, 2000);
         }
-    } else console.log('goodck');
+    } else if (e.target.components['aabb-collider']['intersectedEls'][1].className == 'boxs') {
+        var giftId_2 = document.getElementById(e.target.components['aabb-collider']['intersectedEls'][1].id);
+        if (giftId_2 != null) {
+            var currentPosition = document.getElementById(giftId_2.id).getAttribute('position');
+            //console.log(currentPosition);
+            document.getElementById(giftId_2.id).setAttribute('dynamic-body', 'mass :0.05');
+            document.getElementById(giftId_2.id).setAttribute('score-trigger', 'enabled:true');
+            var partical = document.createElement('a-entity');
+            partical.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; ');
+            partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
+            //partical.setAttribute("position","1 3 1")
+            document.getElementById(giftId_2.id).appendChild(partical);
+            document.getElementById('tasktime').setAttribute("response-time", "enbled:true");
+            sessionStorage.setItem('isCount', 'true');
+            //window.isCount=true;
+            console.log(document.getElementById('levelTybe').getAttribute('value'));
+            setTimeout(function () {
+                soundEls.forEach(function (soundEl) {
+                    soundEl['components'].sound.stopSound();
+                });
+                document.getElementById('6' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                document.getElementById('6' + sessionStorage.getItem('char'))['components'].sound.playSound();
+            }, 200);
+            if (document.getElementById('level').getAttribute('value') == '3') {
+                var ball_2 = document.createElement('a-gltf-model');
+                ball_2.setAttribute('src', '#ballEnemy');
+                ball_2.setAttribute('id', 'enemy');
+                ball_2.setAttribute('position', currentPosition);
+                document.getElementById('TheTree').appendChild(ball_2);
+                setTimeout(function () {
+                    soundEls.forEach(function (soundEl) {
+                        soundEl['components'].sound.stopSound();
+                    });
+                    document.getElementById('9' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                    document.getElementById('9' + sessionStorage.getItem('char'))['components'].sound.playSound();
+                }, 2500);
+                ball_2.setAttribute('create-enemy', 'enabled');
+                setTimeout(function () {
+                    ball_2.setAttribute('dynamic-body', 'mass:0.05');
+                    ball_2.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
+                }, 5000);
+            }
+            setTimeout(function () {
+                document.getElementById(giftId_2.id).parentNode.removeChild(document.getElementById(giftId_2.id));
+            }, 2000);
+        }
+    }
 }
 function ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls) {
     setTimeout(function () {

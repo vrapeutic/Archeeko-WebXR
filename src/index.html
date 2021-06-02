@@ -86,9 +86,9 @@
     <br> <br>
     <h>Select Distance</h>
     <br>
-    <button class="button button-cls" onclick="set_z(3)">5</button>
-    <button class="button button-cls" onclick="set_z(0)">7</button>
-    <button class="button button-cls" onclick="set_z(-3)">10</button>
+    <button class="button button-cls" onclick="set_z(2)">5</button>
+    <button class="button button-cls" onclick="set_z(5)">7</button>
+    <button class="button button-cls" onclick="set_z(0)">10</button>
     <br> <br>  
     <h>Select npc</h>
     <br>
@@ -206,8 +206,8 @@
             <a-entity cursor="rayOrigin: mouse" ></a-entity>
             <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543"  visible="" >
             </a-gltf-model>   
-         <a-box id="CamTrigger" position="0 0 1"
-         scale="5 5 1" visible="true"   aabb-collider="objects:#enemy">
+         <a-box id="CamTrigger" position="0 0 2"
+         scale="2 7 1" visible="true"   aabb-collider="objects:#enemy">
         </a-box>
          </a-camera>
          <a-box id="wall" visible="false"
@@ -249,7 +249,7 @@
     </a-entity>    
 
 
-    <a-entity  id="gift3" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 3.2 2.8"    color="#4CC3D9" lookat="#cam"   >
+    <a-entity  id="gift3" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 3.2 2.5"    color="#4CC3D9" lookat="#cam"   >
     </a-entity>   
     <a-entity id="gift4" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 5.2 2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
     </a-entity>
@@ -306,19 +306,19 @@
          <a-sound id="9hus" src="#husball" autoplay="false" ></a-sound>
         
          <!----------butterfly target path-->
-       <a-box id="box" position="-3.08328 0.1 -3.41235"  visible="false" depth="0.4" width = "0.4" height = "0.4" position = "0 0.1 -0.1"  aabb-collider="objects:a-cylinder, a-sphere,a-box" class = "bTarget"
+       <a-box id="box" position="-3.08328 3 3.41235"  visible="false" depth="0.4" width = "0.4" height = "0.4" position = "0 0.1 -0.1"  aabb-collider="objects:a-cylinder, a-sphere,a-box" class = "bTarget"
             
        ></a-box>   
-         <a-box id="box1" position="0.55281 0.1 1.48203" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
+         <a-box id="box1" position="0.55281 3 5" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
        
        ></a-box> 
-    <a-box id="box2" position="0.56386 0.1 -3.66149" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
+    <a-box id="box2" position="0.56386 2 10" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
        
        ></a-box> 
-     <a-box id="box3" position="-1 0.1 3.73918" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
+     <a-box id="box3" position="-1 3 3.73918" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
        
        ></a-box>  
-    <a-box id="box4" position="-3.00254 0.1 1.15781" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
+    <a-box id="box4" position="-3.00254 3 10" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
        
        ></a-box>  
        <a-gltf-model id="butterflymodel" src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer  ></a-gltf-model>
@@ -420,7 +420,7 @@ function set_npc(npc){
             z
           ]
         }
-        document.getElementById('TheTree').object3D.position.z=z;
+        document.getElementById('TheTree').object3D.position.z+=z;
        
       }
       function set_arrows(arrow){
@@ -480,7 +480,8 @@ function start_game() {
     .getElementById('butterflymodel')
     .setAttribute('distractor', 'enable:true');
     console.log(sessionStorage.getItem('npc'));
-
+    const giftCounter=document.querySelectorAll('.boxs').length ;
+sessionStorage.setItem('gift',giftCounter.toString());
       
                       const drMenuDiv = document.getElementById('dr-menu');
                  //     alert(sessionStorage.getItem('char'))

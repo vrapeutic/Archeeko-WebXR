@@ -5,6 +5,7 @@ interface ScoreSchema {
   readonly index: number;
 }
 
+  
 export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   constructor() {
     super('score-trigger', {
@@ -16,8 +17,9 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   }
 
   init() {
+ 
     const soundEls = document.querySelectorAll('[sound]');
-const giftCounter=document.querySelectorAll('.boxs').length + 1;
+    
     setTimeout(() => {
       let score = document.querySelector('#score').getAttribute('value');
       score++;
@@ -26,7 +28,8 @@ const giftCounter=document.querySelectorAll('.boxs').length + 1;
       document.querySelector('#score').setAttribute('value', score);
       if (
         document.querySelector('#score').getAttribute('value') >=
-     giftCounter
+       parseInt( sessionStorage.getItem('gift'),10)  
+
       ) {
         console.log('scoretrigger');
         setTimeout(() => {
