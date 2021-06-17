@@ -1,496 +1,443 @@
 <html>
-    <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
-        <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
-        <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
-        <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
-        <script src="assets/custom/aframe-spe-particles-component.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
-<style>
-  body {
-    font-family: "Abel", sans-serif;
-    background-color:azure;
-    font-size: larger;
-  }
 
-  button {
-    font-family: "Abel", sans-serif;
-  }
-
-  .button-cls {
-    font-family: "Abel", sans-serif;
-    border-radius: 5px;
-    background-color: #25b2c2;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 25px;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    overflow: hidden;
-    cursor: pointer;
-    margin: 5px;
-  }
-
-  .button-cls:hover {
-    background-color: #3e8e41
-  }
-
-  .center {
-    margin: 0 auto;
-    width: 80%;
-    text-align: center;
-    width: 70%;
-    height: 70%;
-    
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-      
-    margin: auto;
-  } 
-</style>     
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+    <script src="assets/custom/aframe-spe-particles-component.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <style>
+        body {
+            font-family: "Abel", sans-serif;
+            background-color: azure;
+            font-size: larger;
+        }
+        
+        button {
+            font-family: "Abel", sans-serif;
+        }
+        
+        .button-cls {
+            font-family: "Abel", sans-serif;
+            border-radius: 5px;
+            background-color: #25b8c2;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 25px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .button-cls:hover {
+            background-color: #3e8e41
+        }
+        
+        .center {
+            margin: 0 auto;
+            width: 80%;
+            text-align: center;
+            width: 70%;
+            height: 70%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
 <script type="text/javascript" src="index.js"></script></head>
+
 <body>
 
-    <div id="dr-menu"  class="center">
+    <div id="dr-menu" class="center">
 
-    <h>Select langauge</h>
-    <br>  
-    <button class="button button-cls" onclick="set_language('A')">Arabic </button>
-    <button class="button button-cls" onclick="set_language('E')">English </button>
-    <br> <br>
-    <h>Select level</h>
-    <br>
-    <button class="button button-cls" onclick="set_level(1)">level 1</button>
-    <button class="button button-cls" onclick="set_level(2)">level 2</button>
-    <button class="button button-cls" onclick="set_level(3)">level 3</button>
-    <br> <br> 
-    <h>Select timer</h>
-    <br>
-    <button class="button button-cls" onclick="set_timer(90)"> 30</button>
-    <button class="button button-cls" onclick="set_timer(120)"> 60</button>
-    <button class="button button-cls" onclick="set_timer(150)"> 90</button>
-    <button class="button button-cls" onclick="set_timer(0)"> open </button>
-    <br> <br>
-    <h>Select Arrows</h>
-    <br>
-    <button class="button button-cls" onclick="set_arrows(25)">25</button>
-    <button class="button button-cls" onclick="set_arrows(75)">75</button>
-    <button class="button button-cls" onclick="set_arrows(120)">120</button>
-    <br> <br>
-    <h>Select Distance</h>
-    <br>
-    <button class="button button-cls" onclick="set_z(2)">5</button>
-    <button class="button button-cls" onclick="set_z(5)">7</button>
-    <button class="button button-cls" onclick="set_z(0)">10</button>
-    <br> <br>  
-    <h>Select npc</h>
-    <br>
-    <button class="button button-cls" onclick="set_npc('male')">Male</button>
-    <button class="button button-cls" onclick="set_npc('female')">Female</button>
-       <br> <br>
- <br> <br>
-    <button class="button button-cls" onclick="start_game(),set_taskTimer()">Start</button>
-  </div>
-  <div id="game" style="visibility: hidden;">
-   
-    <a-scene   physics="debug: false"   restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" >
+        <h>Select langauge</h>
+        <br>
+        <button class="button button-cls" onclick="set_language('A')">Arabic </button>
+        <button class="button button-cls" onclick="set_language('E')">English </button>
+        <br> <br>
+        <h>Select level</h>
+        <br>
+        <button class="button button-cls" onclick="set_level(1)">level 1</button>
+        <button class="button button-cls" onclick="set_level(2)">level 2</button>
+        <button class="button button-cls" onclick="set_level(3)">level 3</button>
+        <br> <br>
+        <h>Select timer</h>
+        <br>
+        <button class="button button-cls" onclick="set_timer(90)"> 30</button>
+        <button class="button button-cls" onclick="set_timer(120)"> 60</button>
+        <button class="button button-cls" onclick="set_timer(150)"> 90</button>
+        <button class="button button-cls" onclick="set_timer(0)"> open </button>
+        <br> <br>
+        <h>Select Arrows</h>
+        <br>
+        <button class="button button-cls" onclick="set_arrows(25)">25</button>
+        <button class="button button-cls" onclick="set_arrows(75)">75</button>
+        <button class="button button-cls" onclick="set_arrows(120)">120</button>
+        <br> <br>
+        <h>Select Distance</h>
+        <br>
+        <button class="button button-cls" onclick="set_z(2)">5</button>
+        <button class="button button-cls" onclick="set_z(5)">7</button>
+        <button class="button button-cls" onclick="set_z(0)">10</button>
+        <br> <br>
+        <h>Select npc</h>
+        <br>
+        <button class="button button-cls" onclick="set_npc('male')">Male</button>
+        <button class="button button-cls" onclick="set_npc('female')">Female</button>
+        <br> <br>
+        <br> <br>
+        <button class="button button-cls" onclick="start_game(),set_taskTimer()">Start</button>
+    </div>
+    <div id="game" style="visibility: hidden;">
 
-        <a-assets>
-          <a-asset-item id = "butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
-          <a-asset-item id = "enviroment" src=" https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_environment_v1.02.glb?v=1622518748903"></a-asset-item>
-          <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_tree_hero_v1.01.glb?v=1622426332347"
-           response-type="arraybuffer"></a-asset-item>
-           <a-asset-item id="giftbox" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox01_v1.01.glb?v=1622426332455"
-           response-type="arraybuffer"></a-asset-item>
-           <a-asset-item id="giftbox1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox02_v1.01.glb?v=1622426329744"
-           response-type="arraybuffer"></a-asset-item>
-           <a-asset-item id="ballEnemy" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_ball_v1.01.glb?v=1622558154966"
-           response-type="arraybuffer"></a-asset-item>
-           <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.04.glb?v=1622518718142"
-           response-type="arraybuffer"></a-asset-item>
-               <a-asset-item id="male" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FHussien_v1.01.glb?v=1619644395775"
-               response-type="arraybuffer"></a-asset-item>
-               <a-asset-item id="female" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FReem_v1.01.glb?v=1619724823091"
-               response-type="arraybuffer"></a-asset-item>
-               <audio id="lisainfo1" src="assets/Reem_English/1lisa hello.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisainfo2" src="assets/Reem_English/2lisa You see the beautiful tree.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisainfo3" src="assets/Reem_English/3lisa Pull your arrow.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisainfo4" src="assets/Reem_English/4lisa The more you hit gift boxes.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisaarrow" src="assets/Reem_English/5lisa Take care.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisabravo" src="assets/Reem_English/7lisa bravo=great.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisalose" src="assets/Reem_English/8lisa You have no arrows.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="lisawin" src="assets/Reem_English/9lisa  Bravo !  You Won.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reeminfo1" src="assets/Reem_Arabic/1ريم اهلا انا ريم.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reeminfo2" src="assets/Reem_Arabic/2ريم شايف الشجرة الجميلة.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reeminfo3" src="assets/Reem_Arabic/3ريم يلا شد السهم.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reeminfo4" src="assets/Reem_Arabic/4ريم لازم تنشن صح.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reemarrow" src="assets/Reem_Arabic/5ريم خلي بالك ماتضيعش الاسهم.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reembravo" src="assets/Reem_Arabic/7ريم برافو.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reemlose" src="assets/Reem_Arabic/8ريم كل الاسهم خلصت.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reemball" src="assets/Reem_Arabic/6ريم حاسب الكورة.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="reemwin" src="assets/Reem_Arabic/9ريم انت كسبت.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husinfo1" src="assets/Hussien_Arabic/1حسين اهلا انا حسين.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husinfo2" src="assets/Hussien_Arabic/2حسين شايف الشجرة.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husinfo3" src="assets/Hussien_Arabic/3حسين يلا شد السهم.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husinfo4" src="assets/Hussien_Arabic/4حسين لازم تنشن صح.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husarrow" src="assets/Hussien_Arabic/5حسين خلي بالك ماتضيعش الاسهم.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husbravo" src="assets/Hussien_Arabic/7حسين برافو.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="huslose" src="assets/Hussien_Arabic/8حسين كل الاسهم خلصت.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="huswin" src="assets/Hussien_Arabic/9حسين انت كسبت.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="husball" src="assets/Hussien_Arabic/6حسين حاسبب الكورة.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richinfo1" src="assets/Hussein_English/1rich Hello I am.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richinfo2" src="assets/Hussein_English/2rich You see the beautiful tree.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richinfo3" src="assets/Hussein_English/3rich Pull your arrow backward.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richinfo4" src="assets/Hussein_English/4rich the more you hit gift boxes.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richarrow" src="assets/Hussein_English/5rich Take care.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richbravo" src="assets/Hussein_English/7rich bravo= well done.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richlose" src="assets/Hussein_English/8rich You have no arrows anymore.mp3"
-               response-type="arraybuffer"></audio>
-               <audio id="richwin" src="assets/Hussein_English/9rich Bravo !  You Won.mp3"
-               response-type="arraybuffer"></audio>
+        <a-scene physics="debug: false" restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
 
-              </a-assets>
-       
-       <a-entity id="updateMe"></a-entity>
-  
-        <!--sky  <a-sky src="#starsky"></a-sky>
+            <a-assets>
+                <a-asset-item id="butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
+                <a-asset-item id="enviroment" src=" https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_environment_v1.02.glb?v=1622518748903"></a-asset-item>
+                <a-asset-item id="target" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_tree_hero_v1.01.glb?v=1622426332347" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="giftbox" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox01_v1.01.glb?v=1622426332455" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="giftbox1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_giftBox02_v1.01.glb?v=1622426329744" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="ballEnemy" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_ball_v1.01.glb?v=1622558154966" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="bullet1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_bolt_v1.04.glb?v=1622518718142" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="particals" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_particles_v1.01.glb?v=1623008988477" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="male" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FHussien_v1.01.glb?v=1619644395775" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="female" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FReem_v1.01.glb?v=1619724823091" response-type="arraybuffer"></a-asset-item>
+                <audio id="lisainfo1" src="assets/Reem_English/1lisa hello.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisainfo2" src="assets/Reem_English/2lisa You see the beautiful tree.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisainfo3" src="assets/Reem_English/3lisa Pull your arrow.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisainfo4" src="assets/Reem_English/4lisa The more you hit gift boxes.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisaarrow" src="assets/Reem_English/5lisa Take care.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisabravo" src="assets/Reem_English/7lisa bravo=great.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisalose" src="assets/Reem_English/8lisa You have no arrows.mp3" response-type="arraybuffer"></audio>
+                <audio id="lisawin" src="assets/Reem_English/9lisa  Bravo !  You Won.mp3" response-type="arraybuffer"></audio>
+                <audio id="reeminfo1" src="assets/Reem_Arabic/1ريم اهلا انا ريم.mp3" response-type="arraybuffer"></audio>
+                <audio id="reeminfo2" src="assets/Reem_Arabic/2ريم شايف الشجرة الجميلة.mp3" response-type="arraybuffer"></audio>
+                <audio id="reeminfo3" src="assets/Reem_Arabic/3ريم يلا شد السهم.mp3" response-type="arraybuffer"></audio>
+                <audio id="reeminfo4" src="assets/Reem_Arabic/4ريم لازم تنشن صح.mp3" response-type="arraybuffer"></audio>
+                <audio id="reemarrow" src="assets/Reem_Arabic/5ريم خلي بالك ماتضيعش الاسهم.mp3" response-type="arraybuffer"></audio>
+                <audio id="reembravo" src="assets/Reem_Arabic/7ريم برافو.mp3" response-type="arraybuffer"></audio>
+                <audio id="reemlose" src="assets/Reem_Arabic/8ريم كل الاسهم خلصت.mp3" response-type="arraybuffer"></audio>
+                <audio id="reemball" src="assets/Reem_Arabic/6ريم حاسب الكورة.mp3" response-type="arraybuffer"></audio>
+                <audio id="reemwin" src="assets/Reem_Arabic/9ريم انت كسبت.mp3" response-type="arraybuffer"></audio>
+                <audio id="husinfo1" src="assets/Hussien_Arabic/1حسين اهلا انا حسين.mp3" response-type="arraybuffer"></audio>
+                <audio id="husinfo2" src="assets/Hussien_Arabic/2حسين شايف الشجرة.mp3" response-type="arraybuffer"></audio>
+                <audio id="husinfo3" src="assets/Hussien_Arabic/3حسين يلا شد السهم.mp3" response-type="arraybuffer"></audio>
+                <audio id="husinfo4" src="assets/Hussien_Arabic/4حسين لازم تنشن صح.mp3" response-type="arraybuffer"></audio>
+                <audio id="husarrow" src="assets/Hussien_Arabic/5حسين خلي بالك ماتضيعش الاسهم.mp3" response-type="arraybuffer"></audio>
+                <audio id="husbravo" src="assets/Hussien_Arabic/7حسين برافو.mp3" response-type="arraybuffer"></audio>
+                <audio id="huslose" src="assets/Hussien_Arabic/8حسين كل الاسهم خلصت.mp3" response-type="arraybuffer"></audio>
+                <audio id="huswin" src="assets/Hussien_Arabic/9حسين انت كسبت.mp3" response-type="arraybuffer"></audio>
+                <audio id="husball" src="assets/Hussien_Arabic/6حسين حاسبب الكورة.mp3" response-type="arraybuffer"></audio>
+                <audio id="richinfo1" src="assets/Hussein_English/1rich Hello I am.mp3" response-type="arraybuffer"></audio>
+                <audio id="richinfo2" src="assets/Hussein_English/2rich You see the beautiful tree.mp3" response-type="arraybuffer"></audio>
+                <audio id="richinfo3" src="assets/Hussein_English/3rich Pull your arrow backward.mp3" response-type="arraybuffer"></audio>
+                <audio id="richinfo4" src="assets/Hussein_English/4rich the more you hit gift boxes.mp3" response-type="arraybuffer"></audio>
+                <audio id="richarrow" src="assets/Hussein_English/5rich Take care.mp3" response-type="arraybuffer"></audio>
+                <audio id="richbravo" src="assets/Hussein_English/7rich bravo= well done.mp3" response-type="arraybuffer"></audio>
+                <audio id="richlose" src="assets/Hussein_English/8rich You have no arrows anymore.mp3" response-type="arraybuffer"></audio>
+                <audio id="richwin" src="assets/Hussein_English/9rich Bravo !  You Won.mp3" response-type="arraybuffer"></audio>
+
+            </a-assets>
+
+            <a-entity id="updateMe"></a-entity>
+
+            <!--sky  <a-sky src="#starsky"></a-sky>
   -->
-  <a-plane  id="ground" aabb-collider="objects:#bullet" static-body material="color: #dbb014"  width="80" height="80" rotation="-90 0 180" position="0 -1.71 0">
-      <!--lights-->
+            <a-plane id="ground" aabb-collider="objects:#bullet" static-body material="color: #dbb014" width="80" height="80" rotation="-90 0 180" position="0 -1.71 0">
+                <!--lights-->
 
-  </a-plane>   <!--lights-->
-  <a-entity  id="ground2"  gltf-model="#enviroment"></a-entity> 
-     <a-entity id="updateMe"></a-entity>
-  
-           <!--Camera-->
-           <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 30" look-controls="pointerLockeEnabled:true" >
-            <a-entity cursor="rayOrigin: mouse" ></a-entity>
-            <a-gltf-model id="shooter"   rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543"  visible="" >
-            </a-gltf-model>   
-         <a-box id="CamTrigger" position="0 0 2"
-         scale="2 7 1" visible="true"   aabb-collider="objects:#enemy">
-        </a-box>
-         </a-camera>
-         <a-box id="wall" visible="false"
-         scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
-        
-         <!--Hands-->
-         
-         <a-entity progressive-controls></a-entity>
-  
-         <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"  aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class = "hand"  static-body="shape: sphere; sphereRadius: 0.02;"    grab   ></a-entity>
-         <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;"grab 
-             class = "hand"></a-entity>
-         <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
-               
+            </a-plane>
+            <!--lights-->
+            <a-entity id="ground2" gltf-model="#enviroment"></a-entity>
+            <a-entity id="updateMe"></a-entity>
 
-       <!--Menu-Stats-->
-           <a-text id="livesCounter" value="0" geometry="primitive:plane"visible="true" position="-4.19846 1 1" ></a-text>
-           <a-text id="score" value="0" geometry="primitive:plane"visible="true" position="-4.19846 2 1" ></a-text>
-           <a-text id="bulletCounter" value="55" geometry="primitive:plane"visible="true" position="-4.19846 3 1" ></a-text>
-           <a-text id="level" value="3" geometry="primitive:plane"visible="true" position="-4.19846 4 1" ></a-text>
-           <a-text id="session" response-time value="0" geometry="primitive:plane"visible="true" position="4 1 1"  ></a-text>
-           <a-text id="inps" value="0" geometry="primitive:plane"visible="true" position="-3 1 1" inps-counter ></a-text>
-           <a-text id="timer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
-           <a-text id="taskcounter" value="1" geometry="primitive:circle" visible="false" position="-30 1 3" ></a-text>
-           <a-text id="dstime" value="0" geometry="primitive:circle" position="-3 2 1" visible="true" ></a-text>
-           <a-text id="tasktime" stats-time value="0" geometry="primitive:circle" position="-45 1 4" visible="false"></a-text>
-           <a-text id="levelTybe" value="open" geometry="primitive:circle" visible="false" position="-15 1 1"></a-text>
-           <a-text id="closedtimer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"  ></a-text>
+            <!--Camera-->
+            <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 30" look-controls="pointerLockeEnabled:true">
+                <a-entity cursor="rayOrigin: mouse"></a-entity>
+                <a-gltf-model id="shooter" rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="">
+                </a-gltf-model>
+                <a-box id="CamTrigger" position="0 0 2" scale="2 7 1" visible="true" aabb-collider="objects:#enemy">
+                </a-box>
+            </a-camera>
+            <a-box id="wall" visible="false" scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
+
+            <!--Hands-->
+
+            <a-entity progressive-controls></a-entity>
+
+            <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
+            <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;" grab class="hand"></a-entity>
+            <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
+
+
+            <!--Menu-Stats-->
+            <a-text id="livesCounter" value="0" geometry="primitive:plane" visible="true" position="-4.19846 1 1"></a-text>
+            <a-text id="score" value="0" geometry="primitive:plane" visible="true" position="-4.19846 2 1"></a-text>
+            <a-text id="bulletCounter" value="55" geometry="primitive:plane" visible="true" position="-4.19846 3 1"></a-text>
+            <a-text id="level" value="3" geometry="primitive:plane" visible="true" position="-4.19846 4 1"></a-text>
+            <a-text id="session" response-time value="0" geometry="primitive:plane" visible="true" position="4 1 1"></a-text>
+            <a-text id="inps" value="0" geometry="primitive:plane" visible="true" position="-3 1 1" inps-counter></a-text>
+            <a-text id="timer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"></a-text>
+            <a-text id="taskcounter" value="1" geometry="primitive:circle" visible="false" position="-30 1 3"></a-text>
+            <a-text id="dstime" value="0" geometry="primitive:circle" position="-3 2 1" visible="true"></a-text>
+            <a-text id="tasktime" stats-time value="0" geometry="primitive:circle" position="-45 1 4" visible="false"></a-text>
+            <a-text id="levelTybe" value="open" geometry="primitive:circle" visible="false" position="-15 1 1"></a-text>
+            <a-text id="closedtimer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"></a-text>
 
 
 
-<!--TreeTarget-->
+            <!--TreeTarget-->
 
-<a-entity id= "TheTree"   position="0 0 15">
+            <a-entity id="TheTree" position="0 0 15">
 
-  <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
-  </a-entity>
-    <a-entity  id="gift2" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
-    </a-entity>    
+                <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+                </a-entity>
+                <a-entity id="gift2" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+                </a-entity>
 
 
-    <a-entity  id="gift3" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 3.2 2.5"    color="#4CC3D9" lookat="#cam"   >
-    </a-entity>   
-    <a-entity id="gift4" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 5.2 2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
-    </a-entity>
-      <a-entity  id="gift5" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 5.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
-      </a-entity>    
-  
-  
-      <a-entity  id="gift6" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 5.2 2.8"    color="#4CC3D9" lookat="#cam"   >
-      </a-entity> 
-      <a-entity  id="gift7" gltf-model="#giftbox1"     class="boxs" aabb-collider="objects:#bullet"   position="0.2 7.2 1.2"    color="#4CC3D9" lookat="#cam"   >
-      </a-entity>   
-      <a-entity id="gift8" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
-      </a-entity>
-        <a-entity  id="gift9" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
-        </a-entity>    
-    
-  
-          <a-entity id="targetTree"  aabb-collider="objects:#bullet"   class="Box" gltf-model="#target" shadow="receive: true"     amimation-mixer="enabled:false" rotation="0 2 1" shadow >
-  <a-gltf-model id="npc"  src="#male" position="7 0 2"></a-gltf-model>
-</a-entity>           
-     <a-sound id="1lisa" src="assets/Reem_English/1lisa hello.mp3" autoplay="false" ></a-sound>
-         <a-sound id="2lisa" src="#lisainfo2" autoplay="false" ></a-sound>
-         <a-sound id="3lisa" src="#lisainfo3" autoplay="false" ></a-sound>
-         <a-sound id="4lisa" src="#lisainfo4" autoplay="false" ></a-sound>
-         <a-sound id="5lisa" src="#lisaarrow" autoplay="false" ></a-sound>
-         <a-sound id="6lisa" src="#lisabravo" autoplay="false" ></a-sound>
-         <a-sound id="7lisa" src="#lisalose" autoplay="false" ></a-sound>
-         <a-sound id="8lisa" src="#lisawin" autoplay="false" ></a-sound>
-         <a-sound id="1reem" src="#reeminfo1" autoplay="false" ></a-sound>
-         <a-sound id="2reem" src="#reeminfo2" autoplay="false" ></a-sound>
-         <a-sound id="3reem" src="#reeminfo3" autoplay="false" ></a-sound>
-         <a-sound id="4reem" src="#reeminfo4" autoplay="false" ></a-sound>
-         <a-sound id="5reem" src="#reemarrow" autoplay="false" ></a-sound>
-         <a-sound id="6reem" src="#reembravo" autoplay="false" ></a-sound>
-         <a-sound id="7reem" src="#reemlose" autoplay="false" ></a-sound>
-         <a-sound id="8reem" src="#reemwin" autoplay="false" ></a-sound>
-         <a-sound id="1rich" src="#richinfo1" autoplay="false" ></a-sound>
-         <a-sound id="2rich" src="#richinfo2" autoplay="false" ></a-sound>
-         <a-sound id="3rich" src="#richinfo3" autoplay="false" ></a-sound>
-         <a-sound id="4rich" src="#richinfo4" autoplay="false" ></a-sound>
-         <a-sound id="5rich" src="#richarrow" autoplay="false" ></a-sound>
-         <a-sound id="6rich" src="#richbravo" autoplay="false" ></a-sound>
-         <a-sound id="7rich" src="#richlose" autoplay="false" ></a-sound>
-         <a-sound id="8rich" src="#richwin" autoplay="false" ></a-sound>
-         <a-sound id="1hus" src="#husinfo1" autoplay="false"  ></a-sound>
-         <a-sound id="2hus" src="#husinfo2" autoplay="false" ></a-sound>
-         <a-sound id="3hus" src="#husinfo3" autoplay="false" ></a-sound>
-         <a-sound id="4hus" src="#husinfo4" autoplay="false" ></a-sound>
-         <a-sound id="5hus" src="#husarrow" autoplay="false" ></a-sound>
-         <a-sound id="6hus" src="#husbravo" autoplay="false" ></a-sound>
-         <a-sound id="7hus" src="#huslose" autoplay="false" ></a-sound>
-         <a-sound id="8hus" src="#huswin" autoplay="false" ></a-sound>
-         <a-sound id="9reem" src="#reemball" autoplay="false"  ></a-sound>
-         <a-sound id="9hus" src="#husball" autoplay="false" ></a-sound>
-        
-         <!----------butterfly target path-->
-       <a-box id="box" position="-3.08328 3 3.41235"  visible="false" depth="0.4" width = "0.4" height = "0.4" position = "0 0.1 -0.1"  aabb-collider="objects:a-cylinder, a-sphere,a-box" class = "bTarget"
-            
-       ></a-box>   
-         <a-box id="box1" position="0.55281 3 5" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
-       
-       ></a-box> 
-    <a-box id="box2" position="0.56386 2 10" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
-       
-       ></a-box> 
-     <a-box id="box3" position="-1 3 3.73918" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 -1"  aabb-collider="objects: a-cylinder,a-sphere,a-box" class = "bTarget"
-       
-       ></a-box>  
-    <a-box id="box4" position="-3.00254 3 10" visible="false" depth="0.4" width = "0.4" height = "0.4" position = "-1 0.1 1"  aabb-collider="objects: a-cylinder,a-sphere,a-box"  class = "bTarget"
-       
-       ></a-box>  
-       <a-gltf-model id="butterflymodel" src="#butterfly" position = "0 0 -1" scale="5 5 5" animation-mixer  ></a-gltf-model>
-  </a-entity>
-  </a-scene> </div>
+                <a-entity id="gift3" gltf-model="#giftbox1" class="boxs" aabb-collider="objects:#bullet" position="0.2 3.2 2.5" color="#4CC3D9" lookat="#cam">
+                </a-entity>
+                <a-entity id="gift4" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 5.2 2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+                </a-entity>
+                <a-entity id="gift5" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 5.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+                </a-entity>
 
-   
-    </body>
-    <script> 
-   function set_language(lang){
-  sessionStorage.setItem('lang',lang);
 
-    var data = {
-      funcName: 'set_language',
-      params: [
-        lang
-      ]
-    }
-   
-    if(sessionStorage.getItem('lang') =='A') {
-    if(sessionStorage.getItem('npc') =='male') {
-      sessionStorage.setItem('char','hus');  
-   // alert(sessionStorage.getItem('char'));
-    }
-    else {
-      sessionStorage.setItem('char','reem');  
-     //alert(sessionStorage.getItem('char'));
-    }
-  }
-  else {
-    if(sessionStorage.getItem('npc') =='female') {
-      sessionStorage.setItem('char','lisa');  
-    //  alert(sessionStorage.getItem('char'));
-    }
-    else {
-      sessionStorage.setItem('char','rich');  
-       // alert(sessionStorage.getItem('char'));
-    } 
-  }
+                <a-entity id="gift6" gltf-model="#giftbox1" class="boxs" aabb-collider="objects:#bullet" position="0.2 5.2 2.8" color="#4CC3D9" lookat="#cam">
+                </a-entity>
+                <a-entity id="gift7" gltf-model="#giftbox1" class="boxs" aabb-collider="objects:#bullet" position="0.2 7.2 1.2" color="#4CC3D9" lookat="#cam">
+                </a-entity>
+                <a-entity id="gift8" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+                </a-entity>
+                <a-entity id="gift9" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
+                </a-entity>
 
-}
 
-function set_npc(npc){
-    sessionStorage.setItem('npc',npc);
+                <a-entity id="targetTree" aabb-collider="objects:#bullet" class="Box" gltf-model="#target" shadow="receive: true" amimation-mixer="enabled:false" rotation="0 2 1" shadow>
+                    <a-gltf-model id="npc" src="#male" position="7 0 2"></a-gltf-model>
+                </a-entity>
+                <a-sound id="1lisa" src="assets/Reem_English/1lisa hello.mp3" autoplay="false"></a-sound>
+                <a-sound id="2lisa" src="#lisainfo2" autoplay="false"></a-sound>
+                <a-sound id="3lisa" src="#lisainfo3" autoplay="false"></a-sound>
+                <a-sound id="4lisa" src="#lisainfo4" autoplay="false"></a-sound>
+                <a-sound id="5lisa" src="#lisaarrow" autoplay="false"></a-sound>
+                <a-sound id="6lisa" src="#lisabravo" autoplay="false"></a-sound>
+                <a-sound id="7lisa" src="#lisalose" autoplay="false"></a-sound>
+                <a-sound id="8lisa" src="#lisawin" autoplay="false"></a-sound>
+                <a-sound id="1reem" src="#reeminfo1" autoplay="false"></a-sound>
+                <a-sound id="2reem" src="#reeminfo2" autoplay="false"></a-sound>
+                <a-sound id="3reem" src="#reeminfo3" autoplay="false"></a-sound>
+                <a-sound id="4reem" src="#reeminfo4" autoplay="false"></a-sound>
+                <a-sound id="5reem" src="#reemarrow" autoplay="false"></a-sound>
+                <a-sound id="6reem" src="#reembravo" autoplay="false"></a-sound>
+                <a-sound id="7reem" src="#reemlose" autoplay="false"></a-sound>
+                <a-sound id="8reem" src="#reemwin" autoplay="false"></a-sound>
+                <a-sound id="1rich" src="#richinfo1" autoplay="false"></a-sound>
+                <a-sound id="2rich" src="#richinfo2" autoplay="false"></a-sound>
+                <a-sound id="3rich" src="#richinfo3" autoplay="false"></a-sound>
+                <a-sound id="4rich" src="#richinfo4" autoplay="false"></a-sound>
+                <a-sound id="5rich" src="#richarrow" autoplay="false"></a-sound>
+                <a-sound id="6rich" src="#richbravo" autoplay="false"></a-sound>
+                <a-sound id="7rich" src="#richlose" autoplay="false"></a-sound>
+                <a-sound id="8rich" src="#richwin" autoplay="false"></a-sound>
+                <a-sound id="1hus" src="#husinfo1" autoplay="false"></a-sound>
+                <a-sound id="2hus" src="#husinfo2" autoplay="false"></a-sound>
+                <a-sound id="3hus" src="#husinfo3" autoplay="false"></a-sound>
+                <a-sound id="4hus" src="#husinfo4" autoplay="false"></a-sound>
+                <a-sound id="5hus" src="#husarrow" autoplay="false"></a-sound>
+                <a-sound id="6hus" src="#husbravo" autoplay="false"></a-sound>
+                <a-sound id="7hus" src="#huslose" autoplay="false"></a-sound>
+                <a-sound id="8hus" src="#huswin" autoplay="false"></a-sound>
+                <a-sound id="9reem" src="#reemball" autoplay="false"></a-sound>
+                <a-sound id="9hus" src="#husball" autoplay="false"></a-sound>
 
-  var data = {
-      funcName: 'set_npc',
-      params: [
-        npc
-      ]
-    }
-  
+                <!----------butterfly target path-->
+                <a-box id="box" position="-3.08328 3 3.41235" visible="false" depth="0.4" width="0.4" height="0.4" position="0 0.1 -0.1" aabb-collider="objects:a-cylinder, a-sphere,a-box" class="bTarget"></a-box>
+                <a-box id="box1" position="0.55281 3 5" visible="false" depth="0.4" width="0.4" height="0.4" position="1 0.1 1" aabb-collider="objects: a-cylinder,a-sphere,a-box" class="bTarget"></a-box>
+                <a-box id="box2" position="0.56386 2 10" visible="false" depth="0.4" width="0.4" height="0.4" position="1 0.1 -1" aabb-collider="objects: a-cylinder,a-sphere,a-box" class="bTarget"></a-box>
+                <a-box id="box3" position="-1 3 3.73918" visible="false" depth="0.4" width="0.4" height="0.4" position="-1 0.1 -1" aabb-collider="objects: a-cylinder,a-sphere,a-box" class="bTarget"></a-box>
+                <a-box id="box4" position="-3.00254 3 10" visible="false" depth="0.4" width="0.4" height="0.4" position="-1 0.1 1" aabb-collider="objects: a-cylinder,a-sphere,a-box" class="bTarget"></a-box>
+                <a-gltf-model id="butterflymodel" src="#butterfly" position="0 0 -1" scale="5 5 5" animation-mixer></a-gltf-model>
+            </a-entity>
+        </a-scene>
+    </div>
 
-                 
-             
-    if( sessionStorage.getItem('lang')==null){
-        sessionStorage.setItem('lang','A');
-      }
-      if(sessionStorage.getItem('lang') =='A') {
-    if(sessionStorage.getItem('npc') =='male') {
-      sessionStorage.setItem('char','hus');  
-    //alert(sessionStorage.getItem('char'));
-    }
-    else {
-      sessionStorage.setItem('char','reem');  
-   //  alert(sessionStorage.getItem('char'));
-    }
-  }
-  else {
-    if(sessionStorage.getItem('npc') =='female') {
-      sessionStorage.setItem('char','lisa');  
-     // alert(sessionStorage.getItem('char'));
-    }
-    else {
-      sessionStorage.setItem('char','rich');  
-        //alert(sessionStorage.getItem('char'));
-    } 
-  }
-}
 
-    function set_level(level){
-      sessionStorage.setItem('level',level);  
-     //  alert(sessionStorage.getItem('level'));
+</body>
+<script>
+    function set_language(lang) {
+        sessionStorage.setItem('lang', lang);
+
         var data = {
-          funcName: 'set_level',
-          params: [
-            level
-          ]
+            funcName: 'set_language',
+            params: [
+                lang
+            ]
         }
-        document.getElementById('level').setAttribute('value',level);
-       
-      }
-      function set_z(z){
-      sessionStorage.setItem('z',z);  
-     //  alert(sessionStorage.getItem('level'));
+
+        if (sessionStorage.getItem('lang') == 'A') {
+            if (sessionStorage.getItem('npc') == 'male') {
+                sessionStorage.setItem('char', 'hus');
+                // alert(sessionStorage.getItem('char'));
+            } else {
+                sessionStorage.setItem('char', 'reem');
+                //alert(sessionStorage.getItem('char'));
+            }
+        } else {
+            if (sessionStorage.getItem('npc') == 'female') {
+                sessionStorage.setItem('char', 'lisa');
+                //  alert(sessionStorage.getItem('char'));
+            } else {
+                sessionStorage.setItem('char', 'rich');
+                // alert(sessionStorage.getItem('char'));
+            }
+        }
+
+    }
+
+    function set_npc(npc) {
+        sessionStorage.setItem('npc', npc);
+
         var data = {
-          funcName: 'set_z',
-          params: [
-            z
-          ]
+            funcName: 'set_npc',
+            params: [
+                npc
+            ]
         }
-        document.getElementById('TheTree').object3D.position.z+=z;
-       
-      }
-      function set_arrows(arrow){
-      sessionStorage.setItem('arrow',arrow);  
-     //  alert(sessionStorage.getItem('level'));
+
+
+
+
+        if (sessionStorage.getItem('lang') == null) {
+            sessionStorage.setItem('lang', 'A');
+        }
+        if (sessionStorage.getItem('lang') == 'A') {
+            if (sessionStorage.getItem('npc') == 'male') {
+                sessionStorage.setItem('char', 'hus');
+                //alert(sessionStorage.getItem('char'));
+            } else {
+                sessionStorage.setItem('char', 'reem');
+                //  alert(sessionStorage.getItem('char'));
+            }
+        } else {
+            if (sessionStorage.getItem('npc') == 'female') {
+                sessionStorage.setItem('char', 'lisa');
+                // alert(sessionStorage.getItem('char'));
+            } else {
+                sessionStorage.setItem('char', 'rich');
+                //alert(sessionStorage.getItem('char'));
+            }
+        }
+    }
+
+    function set_level(level) {
+        sessionStorage.setItem('level', level);
+        //  alert(sessionStorage.getItem('level'));
         var data = {
-          funcName: 'set_arrows',
-          params: [
-            arrow
-          ]
+            funcName: 'set_level',
+            params: [
+                level
+            ]
         }
-        document.getElementById('bulletCounter').setAttribute('value',arrow);
-       
-      }
-      function set_timer(time){
-      sessionStorage.setItem('timer',time);  
-     //  alert(sessionStorage.getItem('level'));
+        document.getElementById('level').setAttribute('value', level);
+
+    }
+
+    function set_z(z) {
+        sessionStorage.setItem('z', z);
+        //  alert(sessionStorage.getItem('level'));
         var data = {
-          funcName: 'set_timer',
-          params: [
-            time
-          ]
+            funcName: 'set_z',
+            params: [
+                z
+            ]
         }
-        document.getElementById('timer').setAttribute('value',time);
-       
-      }
-      function set_taskTimer(){
-      sessionStorage.setItem('isCount','false');  
-     //  alert(sessionStorage.getItem('level'));
+        document.getElementById('TheTree').object3D.position.z += z;
+
+    }
+
+    function set_arrows(arrow) {
+        sessionStorage.setItem('arrow', arrow);
+        //  alert(sessionStorage.getItem('level'));
         var data = {
-          funcName: 'set_taskTimer',
-          params: [
-            
-          ]
+            funcName: 'set_arrows',
+            params: [
+                arrow
+            ]
         }
-       
-      }
+        document.getElementById('bulletCounter').setAttribute('value', arrow);
 
-function start_game() {
-  const gameDiv = document.getElementById('game');
-  // window.open('game.html',"_self");
-  const data = {
-    funcName: 'start_game',
-    params: [''],
-  };
-  document.querySelector('a-scene').setAttribute('npc', 'enable', true);
+    }
 
-  document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
+    function set_timer(time) {
+        sessionStorage.setItem('timer', time);
+        //  alert(sessionStorage.getItem('level'));
+        var data = {
+            funcName: 'set_timer',
+            params: [
+                time
+            ]
+        }
+        document.getElementById('timer').setAttribute('value', time);
 
- setTimeout(() => {
-     document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
+    }
 
- }, 1000);
+    function set_taskTimer() {
+        sessionStorage.setItem('isCount', 'false');
+        //  alert(sessionStorage.getItem('level'));
+        var data = {
+            funcName: 'set_taskTimer',
+            params: [
 
-  
- document
-    .getElementById('butterflymodel')
-    .setAttribute('distractor', 'enable:true');
-    console.log(sessionStorage.getItem('npc'));
-    const giftCounter=document.querySelectorAll('.boxs').length ;
-sessionStorage.setItem('gift',giftCounter.toString());
-      
-                      const drMenuDiv = document.getElementById('dr-menu');
-                 //     alert(sessionStorage.getItem('char'))
-                      drMenuDiv.style.visibility = 'hidden';
-                      gameDiv.style.visibility = 'visible';
-                                
-                     
-    
-}
+            ]
+        }
 
-    </script>
+    }
+
+    function start_game() {
+        const gameDiv = document.getElementById('game');
+        // window.open('game.html',"_self");
+        const data = {
+            funcName: 'start_game',
+            params: [''],
+        };
+        document.querySelector('a-scene').setAttribute('npc', 'enable', true);
+
+        document.querySelector('a-scene').setAttribute('time-manger', 'enable', true);
+
+        setTimeout(() => {
+            document.querySelector('a-scene').setAttribute('sound-manger', 'enable', true);
+
+        }, 1000);
+
+
+        document
+            .getElementById('butterflymodel')
+            .setAttribute('distractor', 'enable:true');
+        console.log(sessionStorage.getItem('npc'));
+        const giftCounter = document.querySelectorAll('.boxs').length;
+        sessionStorage.setItem('gift', giftCounter.toString());
+
+        const drMenuDiv = document.getElementById('dr-menu');
+        //     alert(sessionStorage.getItem('char'))
+        drMenuDiv.style.visibility = 'hidden';
+        gameDiv.style.visibility = 'visible';
+
+
+
+    }
+</script>
+
 </html>
