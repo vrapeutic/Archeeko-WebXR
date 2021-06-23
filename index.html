@@ -176,21 +176,21 @@
 
             <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
             <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;" grab class="hand">
-                <a-gltf-model id="shooter" rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="">
+                <a-gltf-model id="shooter" rotation="0 -180 0" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="">
                 </a-gltf-model>
             </a-entity>
 
 
             <!--Menu-Stats-->
-            <a-text id="livesCounter" value="0" geometry="primitive:plane" visible="true" position="-4.19846 1 1"></a-text>
-            <a-text id="score" value="0" geometry="primitive:plane" visible="true" position="-4.19846 2 1"></a-text>
-            <a-text id="bulletCounter" value="55" geometry="primitive:plane" visible="true" position="-4.19846 3 1"></a-text>
-            <a-text id="level" value="3" geometry="primitive:plane" visible="true" position="-4.19846 4 1"></a-text>
-            <a-text id="session" response-time value="0" geometry="primitive:plane" visible="true" position="4 1 1"></a-text>
-            <a-text id="inps" value="0" geometry="primitive:plane" visible="true" position="-3 1 1" inps-counter></a-text>
+            <a-text id="livesCounter" value="0" geometry="primitive:plane" visible="false" position="-4.19846 1 1"></a-text>
+            <a-text id="score" value="0" geometry="primitive:plane" visible="false" position="-4.19846 2 1"></a-text>
+            <a-text id="bulletCounter" value="55" geometry="primitive:plane" visible="false" position="-4.19846 3 1"></a-text>
+            <a-text id="level" value="3" geometry="primitive:plane" visible="false" position="-4.19846 4 1"></a-text>
+            <a-text id="session" response-time value="0" geometry="primitive:plane" visible="false" position="4 1 1"></a-text>
+            <a-text id="inps" value="0" geometry="primitive:plane" visible="false" position="-3 1 1" inps-counter></a-text>
             <a-text id="timer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"></a-text>
             <a-text id="taskcounter" value="1" geometry="primitive:circle" visible="false" position="-30 1 3"></a-text>
-            <a-text id="dstime" value="0" geometry="primitive:circle" position="-3 2 1" visible="true"></a-text>
+            <a-text id="dstime" value="0" geometry="primitive:circle" position="-3 2 1" visible="false"></a-text>
             <a-text id="tasktime" stats-time value="0" geometry="primitive:circle" position="-45 1 4" visible="false"></a-text>
             <a-text id="levelTybe" value="open" geometry="primitive:circle" visible="false" position="-15 1 1"></a-text>
             <a-text id="closedtimer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"></a-text>
@@ -435,7 +435,6 @@
         drMenuDiv.style.visibility = 'hidden';
         gameDiv.style.visibility = 'visible';
         document.querySelector('a-scene').enterVR();
-
 
     }
 </script>
