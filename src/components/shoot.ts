@@ -1,7 +1,6 @@
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
-import {Entity, ObjectMap, Component, System} from 'aframe';
 
 //import type { Body } from 'cannon-es'
 //require("../../aframe-physics-system-master/dist/aframe-physics-system");
