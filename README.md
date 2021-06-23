@@ -1,4 +1,4 @@
-# Archeeko - WebXR Version | [Try it out!](https://archeeko-f3fc01.web.app/) 
+# Archeeko - WebXR Version | [Try it out!](https://vrapeutic.github.io/Archeeko-WebXR/) 
 
 
 
