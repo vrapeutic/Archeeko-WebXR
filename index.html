@@ -58,43 +58,42 @@
 
 <body>
 
-    <div id="dr-menu" class="center">
+    <div id="dr-menu">
 
         <h>Select langauge</h>
         <br>
         <button class="button button-cls" onclick="set_language('A')">Arabic </button>
         <button class="button button-cls" onclick="set_language('E')">English </button>
-        <br> <br>
+        <br>
         <h>Select level</h>
         <br>
         <button class="button button-cls" onclick="set_level(1)">level 1</button>
         <button class="button button-cls" onclick="set_level(2)">level 2</button>
         <button class="button button-cls" onclick="set_level(3)">level 3</button>
-        <br> <br>
+        <br>
         <h>Select timer</h>
         <br>
         <button class="button button-cls" onclick="set_timer(90)"> 30</button>
         <button class="button button-cls" onclick="set_timer(120)"> 60</button>
         <button class="button button-cls" onclick="set_timer(150)"> 90</button>
         <button class="button button-cls" onclick="set_timer(0)"> open </button>
-        <br> <br>
+        <br>
         <h>Select Arrows</h>
         <br>
         <button class="button button-cls" onclick="set_arrows(25)">25</button>
         <button class="button button-cls" onclick="set_arrows(75)">75</button>
         <button class="button button-cls" onclick="set_arrows(120)">120</button>
-        <br> <br>
+        <br>
         <h>Select Distance</h>
         <br>
-        <button class="button button-cls" onclick="set_z(2)">5</button>
-        <button class="button button-cls" onclick="set_z(5)">7</button>
+        <button class="button button-cls" onclick="set_z(5)">5</button>
+        <button class="button button-cls" onclick="set_z(2)">7</button>
         <button class="button button-cls" onclick="set_z(0)">10</button>
-        <br> <br>
+        <br>
         <h>Select npc</h>
         <br>
         <button class="button button-cls" onclick="set_npc('male')">Male</button>
         <button class="button button-cls" onclick="set_npc('female')">Female</button>
-        <br> <br>
         <br> <br>
         <button class="button button-cls" onclick="start_game(),set_taskTimer()">Start</button>
     </div>
@@ -163,10 +162,9 @@
             <a-entity id="updateMe"></a-entity>
 
             <!--Camera-->
-            <a-camera id="cam" rotation="22.001579333023617 2.8647889756541156 2" movement-controls="speed: 0.15 constrainToNavMesh:true" position="-2 1.6 30" look-controls="pointerLockeEnabled:true">
+            <a-camera id="cam" position="-2 1.6 30">
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
-                <a-gltf-model id="shooter" rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="">
-                </a-gltf-model>
+
                 <a-box id="CamTrigger" position="0 0 2" scale="2 7 1" visible="true" aabb-collider="objects:#enemy">
                 </a-box>
             </a-camera>
@@ -177,8 +175,10 @@
             <a-entity progressive-controls></a-entity>
 
             <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
-            <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;" grab class="hand"></a-entity>
-            <a-entity laser-controls="hand: right" raycaster="objects: .boxs; far: 100"></a-entity>
+            <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" static-body="shape: sphere; sphereRadius: 0.02;" grab class="hand">
+                <a-gltf-model id="shooter" rotation="0 -180 0" scale="" position="0.32781 -0.71756 -1" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="">
+                </a-gltf-model>
+            </a-entity>
 
 
             <!--Menu-Stats-->
@@ -199,7 +199,7 @@
 
             <!--TreeTarget-->
 
-            <a-entity id="TheTree" position="0 0 15">
+            <a-entity id="TheTree" position="0 0 -15">
 
                 <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
                 </a-entity>
@@ -434,7 +434,7 @@
         //     alert(sessionStorage.getItem('char'))
         drMenuDiv.style.visibility = 'hidden';
         gameDiv.style.visibility = 'visible';
-
+        document.querySelector('a-scene').enterVR();
 
 
     }
