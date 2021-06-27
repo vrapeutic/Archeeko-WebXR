@@ -12804,7 +12804,7 @@ var shoot = /** @class */function (_super) {
     }
     shoot.prototype.init = function () {
         var soundEls = document.querySelectorAll('[sound]');
-        var bulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
+        var bulletCounter = parseInt(document.querySelector('#bulletCounter').getAttribute('value'), 10);
         var randomBulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
@@ -12821,13 +12821,14 @@ var shoot = /** @class */function (_super) {
             document.getElementById('shooter').removeAttribute('animation-mixer');
             if (bulletCounter > 0) {
                 if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
+                    currentBullet.setAttribute("scale", "3 3 3");
                     document.getElementById('shooter').appendChild(currentBullet);
                     sessionStorage.setItem('isCount', 'false');
                     //isCount=false;
                     console.log(document.querySelector('#bullet'));
                     //document.getElementById('tasktime').setAttribute('value', '0');
                     bulletCounter--;
-                    document.querySelector('#bulletCounter').setAttribute('value', bulletCounter);
+                    document.querySelector('#bulletCounter').setAttribute('value', bulletCounter.toString());
                 }
             } else {
                 soundEls.forEach(function (soundEl) {

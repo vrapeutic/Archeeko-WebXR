@@ -19,9 +19,9 @@ export class shoot extends ComponentWrapper<shootSchema> {
   init() {
     const soundEls = document.querySelectorAll('[sound]');
 
-    let bulletCounter = document
+    let bulletCounter = parseInt(document
       .querySelector('#bulletCounter')
-      .getAttribute('value');
+      .getAttribute('value'),10);
     const randomBulletCounter = document
       .querySelector('#bulletCounter')
       .getAttribute('value');
@@ -52,6 +52,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
           document.getElementById('bullet') == null &&
           document.getElementById('enemy') == null
         ) {
+          currentBullet.setAttribute("scale","3 3 3")
           document.getElementById('shooter').appendChild(currentBullet);
           sessionStorage.setItem('isCount','false');
 
@@ -62,7 +63,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
           bulletCounter--;
           document
             .querySelector('#bulletCounter')
-            .setAttribute('value', bulletCounter);
+            .setAttribute('value', bulletCounter.toString());
         }
       } else  {
         soundEls.forEach(soundEl => {
