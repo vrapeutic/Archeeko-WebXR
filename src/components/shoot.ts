@@ -152,16 +152,10 @@ function giftHit(e: Event, soundEls: NodeList) {
         .getElementById(giftId.id)
         .setAttribute('score-trigger', 'enabled:true');
 
-      const partical = document.createElement('a-entity');
-      partical.setAttribute(
-        'spe-particles',
-        'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; '
-      );
+        var partical = document.createElement('a-entity');
+        partical.setAttribute("gltf-model", "#particals");
 
-      partical.setAttribute(
-        'spe-particles',
-        'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;'
-      );
+        partical.setAttribute("animation-mixer", "enabled:true");
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
 
