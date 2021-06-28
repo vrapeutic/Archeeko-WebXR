@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -192,6 +192,74 @@ exports.ComponentWrapper = ComponentWrapper;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
+var visualDistractorMovenment_1 = __webpack_require__(12);
+Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
+        return visualDistractorMovenment_1.visualDistractorMovenment;
+    } });
+var shoot_1 = __webpack_require__(8);
+Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
+        return shoot_1.shoot;
+    } });
+var enemy_1 = __webpack_require__(4);
+Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
+        return enemy_1.enemy;
+    } });
+var scoretrigger_1 = __webpack_require__(7);
+Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
+        return scoretrigger_1.scoretrigger;
+    } });
+var timecounter_1 = __webpack_require__(11);
+Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
+        return timecounter_1.timecounter;
+    } });
+var inpsCounter_1 = __webpack_require__(5);
+Object.defineProperty(exports, "inpsCounter", { enumerable: true, get: function () {
+        return inpsCounter_1.inpsCounter;
+    } });
+var responseTime_1 = __webpack_require__(6);
+Object.defineProperty(exports, "responseTime", { enumerable: true, get: function () {
+        return responseTime_1.responseTime;
+    } });
+var stats_1 = __webpack_require__(10);
+Object.defineProperty(exports, "stats", { enumerable: true, get: function () {
+        return stats_1.stats;
+    } });
+var Selectnpc_1 = __webpack_require__(3);
+Object.defineProperty(exports, "selectnpc", { enumerable: true, get: function () {
+        return Selectnpc_1.selectnpc;
+    } });
+var soundmanger_1 = __webpack_require__(9);
+Object.defineProperty(exports, "soundmanger", { enumerable: true, get: function () {
+        return soundmanger_1.soundmanger;
+    } });
+function convertHMS(value) {
+    var sec = parseInt(value, 10); // convert value to number if it's string
+    var hours = Math.floor(sec / 3600); // get hours
+    var minutes = Math.floor((sec - hours * 3600) / 60); // get minutes
+    var seconds = sec - hours * 3600 - minutes * 60; //  get seconds
+    // add 0 if value < 10; Example: 2 => 02
+    if (hours < 10) {
+        hours = 0 + hours;
+    }
+    if (minutes < 10) {
+        minutes = 0 + minutes;
+    }
+    if (seconds < 10) {
+        seconds = 0 + seconds;
+    }
+    return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
+}
+exports.convertHMS = convertHMS;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12441,7 +12509,7 @@ World.prototype.emitContactEvents = (() => {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12506,7 +12574,7 @@ function CurrentNpc() {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12532,7 +12600,7 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enemy = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var CANNON = __webpack_require__(1);
+var CANNON = __webpack_require__(2);
 var giftCounter = document.querySelectorAll('.boxs').length;
 var enemy = /** @class */function (_super) {
     __extends(enemy, _super);
@@ -12599,7 +12667,7 @@ exports.enemy = enemy;
 new enemy().register();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12655,7 +12723,7 @@ exports.inpsCounter = inpsCounter;
 new inpsCounter().register();
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12699,7 +12767,7 @@ exports.responseTime = responseTime;
 new responseTime().register();
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12770,7 +12838,7 @@ exports.scoretrigger = scoretrigger;
 new scoretrigger().register();
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12796,7 +12864,7 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.shoot = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
-var CANNON = __webpack_require__(1);
+var CANNON = __webpack_require__(2);
 var shoot = /** @class */function (_super) {
     __extends(shoot, _super);
     function shoot() {
@@ -12876,11 +12944,11 @@ function giftHit(e, soundEls) {
             //console.log(currentPosition);
             document.getElementById(giftId_1.id).setAttribute('dynamic-body', 'mass :0.05');
             document.getElementById(giftId_1.id).setAttribute('score-trigger', 'enabled:true');
-            var partical = document.createElement('a-entity');
-            partical.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; ');
-            partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
+            var partical_1 = document.createElement('a-entity');
+            partical_1.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; ');
+            partical_1.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
             //partical.setAttribute("position","1 3 1")
-            document.getElementById(giftId_1.id).appendChild(partical);
+            document.getElementById(giftId_1.id).appendChild(partical_1);
             sessionStorage.setItem('isCount', 'true');
             //window.isCount=true;
             console.log(document.getElementById('levelTybe').getAttribute('value'));
@@ -12922,8 +12990,8 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_2.id).setAttribute('dynamic-body', 'mass :0.05');
             document.getElementById(giftId_2.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
-            partical.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; ');
-            partical.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
+            partical.setAttribute("gltf-model", "#particals");
+            partical.setAttribute("animation-mixer", "enabled:true");
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_2.id).appendChild(partical);
             sessionStorage.setItem('isCount', 'true');
@@ -12979,7 +13047,7 @@ function ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13054,7 +13122,7 @@ exports.soundmanger = soundmanger;
 new soundmanger().register();
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13080,12 +13148,32 @@ var __extends = this && this.__extends || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.stats = void 0;
 var aframe_wrapper_1 = __webpack_require__(0);
+var index_1 = __webpack_require__(1);
 var stats = /** @class */function (_super) {
     __extends(stats, _super);
     function stats() {
         return _super.call(this, 'stats-time', {}) || this;
     }
-    stats.prototype.init = function () {};
+    stats.prototype.init = function () {
+        var startSession = 0;
+        var mysession = setInterval(function () {
+            startSession++;
+            document.getElementById('session').setAttribute('value', startSession.toString());
+            var timeTaken = index_1.convertHMS(document.getElementById('session').getAttribute('value'));
+        }, 1000);
+        mysession;
+        if (sessionStorage.getItem('char') == null) sessionStorage.setItem('char', 'hus');
+        document.getElementById('8' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
+            setTimeout(function () {
+                location.reload();
+            }, 5000);
+        });
+        document.getElementById('7' + sessionStorage.getItem('char')).addEventListener('sound-ended', function () {
+            setTimeout(function () {
+                location.reload();
+            }, 5000);
+        });
+    };
     stats.prototype.update = function () {};
     stats.prototype.play = function () {};
     stats.prototype.pause = function () {};
@@ -13099,7 +13187,7 @@ new stats().register();
 function EndSession(statString) {}
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13164,7 +13252,7 @@ exports.timecounter = timecounter;
 new timecounter().register();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13228,74 +13316,6 @@ var visualDistractorMovenment = /** @class */function (_super) {
 }(aframe_wrapper_1.ComponentWrapper);
 exports.visualDistractorMovenment = visualDistractorMovenment;
 new visualDistractorMovenment().register();
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertHMS = exports.soundmanger = exports.selectnpc = exports.stats = exports.responseTime = exports.inpsCounter = exports.timecounter = exports.scoretrigger = exports.enemy = exports.shoot = exports.visualDistractorMovenment = void 0;
-var visualDistractorMovenment_1 = __webpack_require__(11);
-Object.defineProperty(exports, "visualDistractorMovenment", { enumerable: true, get: function () {
-        return visualDistractorMovenment_1.visualDistractorMovenment;
-    } });
-var shoot_1 = __webpack_require__(7);
-Object.defineProperty(exports, "shoot", { enumerable: true, get: function () {
-        return shoot_1.shoot;
-    } });
-var enemy_1 = __webpack_require__(3);
-Object.defineProperty(exports, "enemy", { enumerable: true, get: function () {
-        return enemy_1.enemy;
-    } });
-var scoretrigger_1 = __webpack_require__(6);
-Object.defineProperty(exports, "scoretrigger", { enumerable: true, get: function () {
-        return scoretrigger_1.scoretrigger;
-    } });
-var timecounter_1 = __webpack_require__(10);
-Object.defineProperty(exports, "timecounter", { enumerable: true, get: function () {
-        return timecounter_1.timecounter;
-    } });
-var inpsCounter_1 = __webpack_require__(4);
-Object.defineProperty(exports, "inpsCounter", { enumerable: true, get: function () {
-        return inpsCounter_1.inpsCounter;
-    } });
-var responseTime_1 = __webpack_require__(5);
-Object.defineProperty(exports, "responseTime", { enumerable: true, get: function () {
-        return responseTime_1.responseTime;
-    } });
-var stats_1 = __webpack_require__(9);
-Object.defineProperty(exports, "stats", { enumerable: true, get: function () {
-        return stats_1.stats;
-    } });
-var Selectnpc_1 = __webpack_require__(2);
-Object.defineProperty(exports, "selectnpc", { enumerable: true, get: function () {
-        return Selectnpc_1.selectnpc;
-    } });
-var soundmanger_1 = __webpack_require__(8);
-Object.defineProperty(exports, "soundmanger", { enumerable: true, get: function () {
-        return soundmanger_1.soundmanger;
-    } });
-function convertHMS(value) {
-    var sec = parseInt(value, 10); // convert value to number if it's string
-    var hours = Math.floor(sec / 3600); // get hours
-    var minutes = Math.floor((sec - hours * 3600) / 60); // get minutes
-    var seconds = sec - hours * 3600 - minutes * 60; //  get seconds
-    // add 0 if value < 10; Example: 2 => 02
-    if (hours < 10) {
-        hours = 0 + hours;
-    }
-    if (minutes < 10) {
-        minutes = 0 + minutes;
-    }
-    if (seconds < 10) {
-        seconds = 0 + seconds;
-    }
-    return hours + ':' + minutes + ':' + seconds; // Return is HH : MM : SS
-}
-exports.convertHMS = convertHMS;
 
 /***/ })
 /******/ ]);
