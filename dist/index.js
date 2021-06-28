@@ -12645,7 +12645,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= 3) {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= 6) {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
