@@ -10,6 +10,7 @@ export class stats extends ComponentWrapper<statsSchema> {
   }
 
   init() {
+    
   }
   update() {}
 

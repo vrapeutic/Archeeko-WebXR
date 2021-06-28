@@ -18,7 +18,6 @@ export class shoot extends ComponentWrapper<shootSchema> {
 
   init() {
     const soundEls = document.querySelectorAll('[sound]');
-
     let bulletCounter = parseInt(document
       .querySelector('#bulletCounter')
       .getAttribute('value'),10);
@@ -29,7 +28,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
 
-    window.addEventListener('click', () => {
+    document.querySelector('a-scene').addEventListener('click', () => {
 
       const currentBullet = document.createElement('a-gltf-model');
       currentBullet.setAttribute('src', '#bullet1');
