@@ -12568,6 +12568,7 @@ function CurrentNpc() {
     document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
     var npc = document.createElement('a-gltf-model');
     npc.setAttribute('position', "7 0 2");
+    npc.setAttribute('scale', "2 2 2");
     npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
     npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
     document.querySelector('#targetTree').appendChild(npc);
@@ -12644,7 +12645,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= 3) {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= 6) {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -12944,11 +12945,11 @@ function giftHit(e, soundEls) {
             //console.log(currentPosition);
             document.getElementById(giftId_1.id).setAttribute('dynamic-body', 'mass :0.05');
             document.getElementById(giftId_1.id).setAttribute('score-trigger', 'enabled:true');
-            var partical_1 = document.createElement('a-entity');
-            partical_1.setAttribute('spe-particles', 'texture:images/particles/sparkle.png;color: blue, red, cyan, black; distribution: sphere; particle-count: 800; ');
-            partical_1.setAttribute('spe-particles', 'randomize-velocity: true;radius: 0.5; velocity-spread: 0.5; drag: 1; max-age: 10;blending: additive;active-multiplier: 1000;  size: 5, 5, 5, 0;');
+            var partical = document.createElement('a-entity');
+            partical.setAttribute("gltf-model", "#particals");
+            partical.setAttribute("animation-mixer", "enabled:true");
             //partical.setAttribute("position","1 3 1")
-            document.getElementById(giftId_1.id).appendChild(partical_1);
+            document.getElementById(giftId_1.id).appendChild(partical);
             sessionStorage.setItem('isCount', 'true');
             //window.isCount=true;
             console.log(document.getElementById('levelTybe').getAttribute('value'));

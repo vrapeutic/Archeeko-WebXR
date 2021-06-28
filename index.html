@@ -177,7 +177,7 @@
             <a-entity progressive-controls></a-entity>
 
             <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
-            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects: #TheTree, #ground2; far: 100; showLine: false"
+            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects: #TheTree, #ground2; far: 1000; showLine: false"
                 class="hand" velocity="" daydream-controls="hand: right" gearvr-controls="hand: right" magicleap-controls="hand: right; model: false" oculus-go-controls="hand: right" oculus-touch-controls="hand: right; model: false" vive-controls="hand: right; model: false"
                 vive-focus-controls="hand: right" windows-motion-controls="model: false" generic-tracked-controller-controls="hand: right" tracked-controls-webxr="id: oculus-touch; hand: right" tracked-controls="id: oculus-touch; hand: right; orientationOffset: 43 0 0"
                 line="end: 0 0 -100; opacity: 0; visible: false" cursor="downEvents: triggerdown; upEvents: triggerup">
@@ -189,11 +189,11 @@
 
 
             <!--Menu-Stats-->
-            <a-text id="livesCounter" value="0" geometry="primitive:plane" visible="false" position="-4.19846 1 1"></a-text>
-            <a-text id="score" value="0" geometry="primitive:plane" visible="false" position="-4.19846 2 1"></a-text>
-            <a-text id="bulletCounter" value="55" geometry="primitive:plane" visible="false" position="-4.19846 3 1"></a-text>
-            <a-text id="level" value="3" geometry="primitive:plane" visible="false" position="-4.19846 4 1"></a-text>
-            <a-text id="session" response-time value="0" geometry="primitive:plane" visible="false" position="4 1 1"></a-text>
+            <a-text id="livesCounter" value="0" geometry="primitive:plane" visible="true" position="-4.19846 1 1"></a-text>
+            <a-text id="score" value="0" geometry="primitive:plane" visible="true" position="-4.19846 2 1"></a-text>
+            <a-text id="bulletCounter" value="55" geometry="primitive:plane" visible="true" position="-4.19846 3 1"></a-text>
+            <a-text id="level" value="3" geometry="primitive:plane" visible="true" position="-4.19846 4 1"></a-text>
+            <a-text id="session" response-time value="0" geometry="primitive:plane" visible="true" position="4 1 1"></a-text>
             <a-text id="inps" value="0" geometry="primitive:plane" visible="false" position="-3 1 1" inps-counter></a-text>
             <a-text id="timer" value="0" geometry="primitive:circle" position="-35 1 7" visible="false"></a-text>
             <a-text id="taskcounter" value="1" geometry="primitive:circle" visible="false" position="-30 1 3"></a-text>
@@ -233,7 +233,7 @@
 
 
                 <a-entity id="targetTree" aabb-collider="objects:#bullet" class="Box" gltf-model="#target" shadow="receive: true" amimation-mixer="enabled:false" rotation="0 2 1" shadow>
-                    <a-gltf-model id="npc" src="#male" position="7 0 2"></a-gltf-model>
+                    <a-gltf-model id="npc" src="#male" scale="2 2 2" position="7 0 2"></a-gltf-model>
                 </a-entity>
                 <a-sound id="1lisa" src="assets/Reem_English/1lisa hello.mp3" autoplay="false"></a-sound>
                 <a-sound id="2lisa" src="#lisainfo2" autoplay="false"></a-sound>
