@@ -113,6 +113,7 @@
                 <a-asset-item id="particals" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_particles_v1.01.glb?v=1623008988477" response-type="arraybuffer"></a-asset-item>
                 <a-asset-item id="male" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FHussien_v1.01.glb?v=1619644395775" response-type="arraybuffer"></a-asset-item>
                 <a-asset-item id="female" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FReem_v1.01.glb?v=1619724823091" response-type="arraybuffer"></a-asset-item>
+                <a-asset-item id="particals" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_particles_v1.01.glb?v=1623008988477" response-type="arraybuffer"></a-asset-item>
                 <audio id="lisainfo1" src="assets/Reem_English/1lisa hello.mp3" response-type="arraybuffer"></audio>
                 <audio id="lisainfo2" src="assets/Reem_English/2lisa You see the beautiful tree.mp3" response-type="arraybuffer"></audio>
                 <audio id="lisainfo3" src="assets/Reem_English/3lisa Pull your arrow.mp3" response-type="arraybuffer"></audio>
@@ -176,11 +177,15 @@
             <a-entity progressive-controls></a-entity>
 
             <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
-            <a-entity id="righthand" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: #shooter,.boxs;" sphere-collider="objects: #shooter,.boxs;" static-body="shape: sphere; sphereRadius: 0.02;" laser-controls raycaster="objects: #ground2; far: 5"
-                class="hand">
-                <a-gltf-model id="shooter" rotation="0 -180 0" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="">
+            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects: #TheTree, #ground2; far: 100; showLine: false"
+                class="hand" velocity="" daydream-controls="hand: right" gearvr-controls="hand: right" magicleap-controls="hand: right; model: false" oculus-go-controls="hand: right" oculus-touch-controls="hand: right; model: false" vive-controls="hand: right; model: false"
+                vive-focus-controls="hand: right" windows-motion-controls="model: false" generic-tracked-controller-controls="hand: right" tracked-controls-webxr="id: oculus-touch; hand: right" tracked-controls="id: oculus-touch; hand: right; orientationOffset: 43 0 0"
+                line="end: 0 0 -100; opacity: 0; visible: false" cursor="downEvents: triggerdown; upEvents: triggerup">
+                <a-gltf-model id="shooter" rotation="0 -180 0" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="" animation-mixer="loop: false; repetitions: 0">
                 </a-gltf-model>
             </a-entity>
+
+            <a-light type="directional" position="0 6 0"></a-light>
 
 
             <!--Menu-Stats-->
