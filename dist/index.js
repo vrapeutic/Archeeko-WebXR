@@ -12877,7 +12877,7 @@ var shoot = /** @class */function (_super) {
         var randomBulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
-        document.querySelector('#TheTree').addEventListener('click', function () {
+        document.querySelector('#click').addEventListener('click', function () {
             var currentBullet = document.createElement('a-gltf-model');
             currentBullet.setAttribute('src', '#bullet1');
             currentBullet.setAttribute('id', 'bullet');
@@ -12890,6 +12890,7 @@ var shoot = /** @class */function (_super) {
             document.getElementById('shooter').removeAttribute('animation-mixer');
             if (bulletCounter > 0) {
                 if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
+                    currentBullet.setAttribute('scale', '2 2 2');
                     document.getElementById('shooter').appendChild(currentBullet);
                     sessionStorage.setItem('isCount', 'false');
                     //isCount=false;

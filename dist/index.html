@@ -166,7 +166,6 @@
             <!--Camera-->
             <a-camera id="cam" position="-2 1.6 30">
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
-
                 <a-box id="CamTrigger" position="0 0 2" scale="2 7 1" visible="true" aabb-collider="objects:#enemy">
                 </a-box>
             </a-camera>
@@ -177,12 +176,14 @@
             <a-entity progressive-controls></a-entity>
 
             <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
-            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects: #TheTree, #ground,#ground2;.boxes; far: 1000; showLine: false"
+            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects: #click;.boxes; far: 100; showLine: true"
                 class="hand" velocity="" daydream-controls="hand: right" gearvr-controls="hand: right" magicleap-controls="hand: right; model: false" oculus-go-controls="hand: right" oculus-touch-controls="hand: right; model: false" vive-controls="hand: right; model: false"
                 vive-focus-controls="hand: right" windows-motion-controls="model: false" generic-tracked-controller-controls="hand: right" tracked-controls-webxr="id: oculus-touch; hand: right" tracked-controls="id: oculus-touch; hand: right; orientationOffset: 43 0 0"
                 line="end: 0 0 -100; opacity: 0; visible: false" cursor="downEvents: triggerdown; upEvents: triggerup">
                 <a-gltf-model id="shooter" rotation="0 -180 0" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="" animation-mixer="loop: false; repetitions: 0">
                 </a-gltf-model>
+                <a-box id="click" position="0 0 -2" scale="0.1 0.1 0.1" material="" geometry=""></a-box>
+
             </a-entity>
 
             <a-light type="directional" position="0 6 0"></a-light>
