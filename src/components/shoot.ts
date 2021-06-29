@@ -29,7 +29,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const bullet = document.getElementById('bullet');
 
     document.getElementById('onHand').addEventListener('click', () => {
-
+console.log("click");
       const currentBullet = document.createElement('a-gltf-model');
       currentBullet.setAttribute('src', '#bullet1');
       currentBullet.setAttribute('id', 'bullet');
