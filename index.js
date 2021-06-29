@@ -12878,6 +12878,7 @@ var shoot = /** @class */function (_super) {
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         document.getElementById('onHand').addEventListener('click', function () {
+            console.log("click");
             var currentBullet = document.createElement('a-gltf-model');
             currentBullet.setAttribute('src', '#bullet1');
             currentBullet.setAttribute('id', 'bullet');

@@ -169,6 +169,8 @@
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
                 <a-box id="CamTrigger" position="0 0 2" scale="2 7 1" visible="true" aabb-collider="objects:#enemy">
                 </a-box>
+                <a-box id="onHand" position="0 -1 -4" scale="5 10 0.1" material="opacity:0.2" geometry=""></a-box>
+
             </a-camera>
             <a-box id="wall" visible="false" scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
 
@@ -176,14 +178,13 @@
 
             <a-entity progressive-controls></a-entity>
 
-            <a-entity oculus-quest-controls="hand: left"></a-entity>
+            <a-entity hand-controls="hand: left"></a-entity>
 
-            <a-entity oculus-quest-controls="hand: right" laser-controls raycaster="objects:#onHand; far: 100">
+            <a-entity hand-controls="hand: right" laser-controls raycaster="objects:#onHand; far: 1000">
 
 
                 <a-gltf-model id="shooter" rotation="0 -180 0" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="" animation-mixer="loop: false; repetitions: 0">
                 </a-gltf-model>
-                <a-box id="onHand" position="0 0 -2" scale="0.1 0.1 0.1" material="" geometry=""></a-box>
 
             </a-entity>
 
