@@ -28,7 +28,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
 
-    document.querySelector('a-scene').addEventListener('click', () => {
+    document.querySelector('#TheTree').addEventListener('click', () => {
 
       const currentBullet = document.createElement('a-gltf-model');
       currentBullet.setAttribute('src', '#bullet1');
@@ -51,7 +51,6 @@ export class shoot extends ComponentWrapper<shootSchema> {
           document.getElementById('bullet') == null &&
           document.getElementById('enemy') == null
         ) {
-          currentBullet.setAttribute("scale","3 3 3")
           document.getElementById('shooter').appendChild(currentBullet);
           sessionStorage.setItem('isCount','false');
 
