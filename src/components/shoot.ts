@@ -105,6 +105,7 @@ console.log("click");
             .getElementById('bullet')
             .parentNode.removeChild(document.getElementById('bullet'));
         }    
+        sessionStorage.setItem('isCount','true');
 
         //document.querySelector('#shooter').removeAttribute('animation-mixer');
       }, 5000);
@@ -166,7 +167,6 @@ function giftHit(e: Event, soundEls: NodeList) {
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
 
-       sessionStorage.setItem('isCount','true');
       //window.isCount=true;
       console.log(document.getElementById('levelTybe').getAttribute('value'));
       setTimeout(() => {
@@ -253,7 +253,6 @@ function giftHit(e: Event, soundEls: NodeList) {
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
 
-       sessionStorage.setItem('isCount','true');
       //window.isCount=true;
       console.log(document.getElementById('levelTybe').getAttribute('value'));
       setTimeout(() => {

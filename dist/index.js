@@ -12645,7 +12645,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= 6) {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= 4) {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -12921,6 +12921,7 @@ var shoot = /** @class */function (_super) {
                 if (document.getElementById('bullet') != null) {
                     document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
                 }
+                sessionStorage.setItem('isCount', 'true');
                 //document.querySelector('#shooter').removeAttribute('animation-mixer');
             }, 5000);
             document.getElementById('wall').addEventListener('collide', function (e) {});
@@ -12956,7 +12957,6 @@ function giftHit(e, soundEls) {
             partical.setAttribute("animation-mixer", "enabled:true");
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_1.id).appendChild(partical);
-            sessionStorage.setItem('isCount', 'true');
             //window.isCount=true;
             console.log(document.getElementById('levelTybe').getAttribute('value'));
             setTimeout(function () {
@@ -13001,7 +13001,6 @@ function giftHit(e, soundEls) {
             partical.setAttribute("animation-mixer", "enabled:true");
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_2.id).appendChild(partical);
-            sessionStorage.setItem('isCount', 'true');
             //window.isCount=true;
             console.log(document.getElementById('levelTybe').getAttribute('value'));
             setTimeout(function () {

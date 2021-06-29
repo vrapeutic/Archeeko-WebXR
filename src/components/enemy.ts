@@ -79,7 +79,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     ball.addEventListener('body-loaded', applyForceOnEnemy);
  
     setTimeout(() => { 
-        if( document.querySelector('#livesCounter').getAttribute('value')>=6){
+        if( document.querySelector('#livesCounter').getAttribute('value')>=4){
       const soundEls = document.querySelectorAll('[sound]');
 
       soundEls.forEach(soundEl => {
