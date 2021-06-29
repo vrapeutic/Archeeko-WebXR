@@ -12877,7 +12877,7 @@ var shoot = /** @class */function (_super) {
         var randomBulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
-        document.querySelector('#click').addEventListener('click', function () {
+        document.querySelector('#onHand').addEventListener('click', function () {
             var currentBullet = document.createElement('a-gltf-model');
             currentBullet.setAttribute('src', '#bullet1');
             currentBullet.setAttribute('id', 'bullet');

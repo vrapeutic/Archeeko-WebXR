@@ -28,7 +28,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
 
-    document.querySelector('#click').addEventListener('click', () => {
+    document.querySelector('#onHand').addEventListener('click', () => {
 
       const currentBullet = document.createElement('a-gltf-model');
       currentBullet.setAttribute('src', '#bullet1');
