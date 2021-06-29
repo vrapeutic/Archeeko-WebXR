@@ -160,7 +160,7 @@
 
             </a-plane>
             <!--lights-->
-            <a-entity id="ground2" aabb-collider gltf-model="#enviroment"></a-entity>
+            <a-entity id="ground2" gltf-model="#enviroment"></a-entity>
             <a-entity id="updateMe"></a-entity>
 
             <!--Camera-->
@@ -176,13 +176,13 @@
             <a-entity progressive-controls></a-entity>
 
             <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" aabb-collider="objects: .boxs;" sphere-collider="objects: .throwable" class="hand" static-body="shape: sphere; sphereRadius: 0.02;" grab></a-entity>
-            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects: #click;.boxes; far: 100; showLine: true"
+            <a-entity id="righthand" hand-controls="hand: right; color: #ffcccc" aabb-collider="objects: #shooter,.boxs" sphere-collider="objects: #shooter,.boxs" static-body="shape: sphere; sphereRadius: 0.02" laser-controls="" raycaster="objects:#onHand;far: 100; showLine: true"
                 class="hand" velocity="" daydream-controls="hand: right" gearvr-controls="hand: right" magicleap-controls="hand: right; model: false" oculus-go-controls="hand: right" oculus-touch-controls="hand: right; model: false" vive-controls="hand: right; model: false"
                 vive-focus-controls="hand: right" windows-motion-controls="model: false" generic-tracked-controller-controls="hand: right" tracked-controls-webxr="id: oculus-touch; hand: right" tracked-controls="id: oculus-touch; hand: right; orientationOffset: 43 0 0"
                 line="end: 0 0 -100; opacity: 0; visible: false" cursor="downEvents: triggerdown; upEvents: triggerup">
                 <a-gltf-model id="shooter" rotation="0 -180 0" src="https://cdn.glitch.com/7de25775-9f1e-45af-8694-b18f418e6c6a%2FArchekoo_crossbow_v1.03.glb?v=1622518717543" visible="" animation-mixer="loop: false; repetitions: 0">
                 </a-gltf-model>
-                <a-box id="click" position="0 0 -2" scale="0.1 0.1 0.1" material="" geometry=""></a-box>
+                <a-box id="onHand" position="0 0 -2" scale="0.1 0.1 0.1" material="" geometry=""></a-box>
 
             </a-entity>
 
@@ -207,7 +207,7 @@
 
             <!--TreeTarget-->
 
-            <a-entity id="TheTree" aabb-collider position="0 0 -15">
+            <a-entity id="TheTree" position="0 0 -15">
 
                 <a-entity id="gift1" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 -40.71380796420117" position="-1.7 3.2 2.8" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
                 </a-entity>
