@@ -29,7 +29,7 @@ export class visualDistractorMovenment extends ComponentWrapper<visualDistractor
 
         distractor.setAttribute(
           'animation',
-          'property:position; to:' + nextPosition  .x + ' 1 ' + nextPosition  .z + ' dur:5000'
+          'property:position; to:' + nextPosition  .x + ' 3 ' + nextPosition  .z + ' dur:5000'
         );
 
         if (randomPosition >= box.length - 1) {

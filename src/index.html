@@ -167,9 +167,9 @@
             <!--Camera-->
             <a-camera id="cam" position="-2 1.6 30">
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
-                <a-box id="CamTrigger" position="0 0 2" scale="2 7 1" visible="true" aabb-collider="objects:#enemy">
+                <a-box id="CamTrigger" position="0 0 1" scale="0.3 0.3 0.3" visible="true" aabb-collider="objects:#enemy">
                 </a-box>
-                <a-box id="onHand" position="0 -1 -4" scale="5 10 0.1" material="opacity:0.2" geometry=""></a-box>
+                <a-box id="onHand" position="0 -1 -4" scale="5 10 0.1" material="opacity:0.01" geometry=""></a-box>
 
             </a-camera>
             <a-box id="wall" visible="false" scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>

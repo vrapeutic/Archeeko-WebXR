@@ -21,7 +21,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     const ball = this.el;
 
     // var isCounting=true;
-    const ballForce = new CANNON.Vec3(0, 0, 0.5);
+    const ballForce = new CANNON.Vec3(0, 0, 0.8);
 
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {

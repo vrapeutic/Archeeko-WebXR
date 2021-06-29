@@ -24,6 +24,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const randomBulletCounter = document
       .querySelector('#bulletCounter')
       .getAttribute('value');
+      sessionStorage.setItem('isCount','true');
 
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
@@ -51,6 +52,7 @@ console.log("click");
           document.getElementById('bullet') == null &&
           document.getElementById('enemy') == null
         ) {
+          if(sessionStorage.getItem('isCount')!="false"){
           currentBullet.setAttribute('scale','2 2 2');
           document.getElementById('shooter').appendChild(currentBullet);
           sessionStorage.setItem('isCount','false');
@@ -58,12 +60,13 @@ console.log("click");
           //isCount=false;
 
           console.log(document.querySelector('#bullet'));
-          //document.getElementById('tasktime').setAttribute('value', '0');
+          //document.getElementById('tasktime').setAttr}ibute('value', '0');
           bulletCounter--;
           document
             .querySelector('#bulletCounter')
             .setAttribute('value', bulletCounter.toString());
         }
+      }
       } else  {
         soundEls.forEach(soundEl => {
           soundEl['components'].sound.stopSound();
@@ -84,9 +87,13 @@ console.log("click");
           document
             .getElementById('enemy')
             .parentNode.removeChild(document.getElementById('enemy'));
+            setTimeout(() => {
+              
+     
         document
           .getElementById('shooter')
-          .parentNode.removeChild(document.getElementById('shooter'));
+          .parentNode.removeChild(document.getElementById('shooter')); 
+              }, 2000);
       }
       currentBullet.addEventListener('body-loaded', e => {
         ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls);

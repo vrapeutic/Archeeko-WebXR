@@ -12615,7 +12615,7 @@ var enemy = /** @class */function (_super) {
         var timer = parseInt(document.getElementById('dstime').getAttribute('value'), 10);
         var ball = this.el;
         // var isCounting=true;
-        var ballForce = new CANNON.Vec3(0, 0, 0.5);
+        var ballForce = new CANNON.Vec3(0, 0, 0.8);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12875,6 +12875,7 @@ var shoot = /** @class */function (_super) {
         var soundEls = document.querySelectorAll('[sound]');
         var bulletCounter = parseInt(document.querySelector('#bulletCounter').getAttribute('value'), 10);
         var randomBulletCounter = document.querySelector('#bulletCounter').getAttribute('value');
+        sessionStorage.setItem('isCount', 'true');
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         document.getElementById('onHand').addEventListener('click', function () {
@@ -12891,14 +12892,16 @@ var shoot = /** @class */function (_super) {
             document.getElementById('shooter').removeAttribute('animation-mixer');
             if (bulletCounter > 0) {
                 if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
-                    currentBullet.setAttribute('scale', '2 2 2');
-                    document.getElementById('shooter').appendChild(currentBullet);
-                    sessionStorage.setItem('isCount', 'false');
-                    //isCount=false;
-                    console.log(document.querySelector('#bullet'));
-                    //document.getElementById('tasktime').setAttribute('value', '0');
-                    bulletCounter--;
-                    document.querySelector('#bulletCounter').setAttribute('value', bulletCounter.toString());
+                    if (sessionStorage.getItem('isCount') != "false") {
+                        currentBullet.setAttribute('scale', '2 2 2');
+                        document.getElementById('shooter').appendChild(currentBullet);
+                        sessionStorage.setItem('isCount', 'false');
+                        //isCount=false;
+                        console.log(document.querySelector('#bullet'));
+                        //document.getElementById('tasktime').setAttr}ibute('value', '0');
+                        bulletCounter--;
+                        document.querySelector('#bulletCounter').setAttribute('value', bulletCounter.toString());
+                    }
                 }
             } else {
                 soundEls.forEach(function (soundEl) {
@@ -12907,7 +12910,9 @@ var shoot = /** @class */function (_super) {
                 document.getElementById('7' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
                 document.getElementById('7' + sessionStorage.getItem('char'))['components'].sound.playSound();
                 if (document.getElementById('enemy') != null) document.getElementById('enemy').parentNode.removeChild(document.getElementById('enemy'));
-                document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
+                setTimeout(function () {
+                    document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
+                }, 2000);
             }
             currentBullet.addEventListener('body-loaded', function (e) {
                 ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls);
@@ -13299,7 +13304,7 @@ var visualDistractorMovenment = /** @class */function (_super) {
             setTimeout(function () {
                 randomPosition++;
                 nextPosition = box[randomPosition].getAttribute('position'); // restor next target for distractor
-                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 1 ' + nextPosition.z + ' dur:5000');
+                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 3 ' + nextPosition.z + ' dur:5000');
                 if (randomPosition >= box.length - 1) {
                     randomPosition = 0; // Set it back to `0` when it reaches `4`
                 }
