@@ -2,6 +2,7 @@ import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
 import {scoretrigger} from './scoretrigger';
+import THREE = require('three');
   const giftCounter=document.querySelectorAll('.boxs').length ;
 
 interface enemySchema {}
@@ -12,8 +13,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
   }
 
   init() {
-    var camPosition=parseInt(document.getElementById('cam').getAttribute("position"),10);
-    let lives = document.querySelector('#livesCounter').getAttribute('value');
+    let lives = document.querySelector('#livesCounter').getAttribute('value'); 
     let count = -1;
     let timer = parseInt(
       document.getElementById('dstime').getAttribute('value'),
@@ -26,14 +26,23 @@ export class enemy extends ComponentWrapper<enemySchema> {
 
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {
-        const LocalForce = new CANNON.Vec3(camPosition);
+        const LocalForce = new CANNON.Vec3(0,0,0);
 
         const worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(
           ballForce
         );
         ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
+      var player = document.querySelector("a-camera");
 
         (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+        var angle = player.getAttribute("rotation")
+        var x = 0.1 * Math.cos(angle.y * Math.PI / 180)
+        var y = 0.1 * Math.sin(angle.y * Math.PI / 180)
+        var pos = ball.getAttribute("position")
+        pos.x -= y;
+        // pos.z += x;
+       ball.setAttribute("position", pos);
+    
         //ball.setAttribute("position",camPosition.)
         clearInterval(count);
         if (
