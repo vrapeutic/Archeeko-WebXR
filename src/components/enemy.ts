@@ -12,6 +12,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
   }
 
   init() {
+    var camPosition=parseInt(document.getElementById('cam').getAttribute("position"),10);
     let lives = document.querySelector('#livesCounter').getAttribute('value');
     let count = -1;
     let timer = parseInt(
@@ -25,7 +26,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
 
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {
-        const LocalForce = new CANNON.Vec3(0, 0, 0);
+        const LocalForce = new CANNON.Vec3(camPosition);
 
         const worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(
           ballForce
@@ -33,6 +34,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
         ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
 
         (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+        //ball.setAttribute("position",camPosition.)
         clearInterval(count);
         if (
           document.querySelector('#livesCounter').getAttribute('value') < '2'
@@ -79,7 +81,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     ball.addEventListener('body-loaded', applyForceOnEnemy);
  
     setTimeout(() => { 
-        if( document.querySelector('#livesCounter').getAttribute('value')>=4){
+        if( document.querySelector('#livesCounter').getAttribute('value')>="4"){
       const soundEls = document.querySelectorAll('[sound]');
 
       soundEls.forEach(soundEl => {

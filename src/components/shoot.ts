@@ -35,10 +35,13 @@ console.log("click");
       currentBullet.setAttribute('src', '#bullet1');
       currentBullet.setAttribute('id', 'bullet');
       currentBullet.setAttribute('class', 'bullets');
+      if(sessionStorage.getItem('isCount')!="false"){
       currentBullet.setAttribute(
         'animation-mixer',
         'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true'
       );
+    }
+    currentBullet.addEventListener('animation-finished',()=>{
       currentBullet.setAttribute('aabb-collider', 'objects: .boxs');
 
       setTimeout(() => {
@@ -105,10 +108,10 @@ console.log("click");
             .getElementById('bullet')
             .parentNode.removeChild(document.getElementById('bullet'));
         }    
-        sessionStorage.setItem('isCount','true');
 
         //document.querySelector('#shooter').removeAttribute('animation-mixer');
       }, 5000);
+    })
       document.getElementById('wall').addEventListener('collide', e => {
       });
       document.getElementById('ground').addEventListener('collide', e => {
