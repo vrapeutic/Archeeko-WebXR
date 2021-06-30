@@ -12929,6 +12929,8 @@ var shoot = /** @class */function (_super) {
                     if (document.getElementById('bullet') != null) {
                         document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
                     }
+                    console.log("tree");
+                    sessionStorage.setItem('isCount', 'true');
                     //document.querySelector('#shooter').removeAttribute('animation-mixer');
                 }, 5000);
                 document.getElementById('bullet').addEventListener('animation-finished', function () {
