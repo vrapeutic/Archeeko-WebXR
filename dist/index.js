@@ -12881,32 +12881,28 @@ var shoot = /** @class */function (_super) {
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         document.getElementById('onHand').addEventListener('click', function () {
-            console.log("click");
-            var currentBullet = document.createElement('a-gltf-model');
-            currentBullet.setAttribute('src', '#bullet1');
-            currentBullet.setAttribute('id', 'bullet');
-            currentBullet.setAttribute('class', 'bullets');
             if (sessionStorage.getItem('isCount') != "false") {
-                currentBullet.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
-            }
-            currentBullet.addEventListener('animation-finished', function () {
-                currentBullet.setAttribute('aabb-collider', 'objects: .boxs');
+                console.log("click");
+                var currentBullet_1 = document.createElement('a-gltf-model');
+                currentBullet_1.setAttribute('src', '#bullet1');
+                currentBullet_1.setAttribute('id', 'bullet');
+                currentBullet_1.setAttribute('class', 'bullets');
+                currentBullet_1.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
+                currentBullet_1.setAttribute('aabb-collider', 'objects: .boxs');
                 setTimeout(function () {
-                    currentBullet.setAttribute('dynamic-body', 'mass:0.05');
+                    currentBullet_1.setAttribute('dynamic-body', 'mass:0.05');
                 }, 2000);
                 document.getElementById('shooter').removeAttribute('animation-mixer');
                 if (bulletCounter > 0) {
                     if (document.getElementById('bullet') == null && document.getElementById('enemy') == null) {
-                        if (sessionStorage.getItem('isCount') != "false") {
-                            currentBullet.setAttribute('scale', '2 2 2');
-                            document.getElementById('shooter').appendChild(currentBullet);
-                            sessionStorage.setItem('isCount', 'false');
-                            //isCount=false;
-                            console.log(document.querySelector('#bullet'));
-                            //document.getElementById('tasktime').setAttr}ibute('value', '0');
-                            bulletCounter--;
-                            document.querySelector('#bulletCounter').setAttribute('value', bulletCounter.toString());
-                        }
+                        currentBullet_1.setAttribute('scale', '2 2 2');
+                        document.getElementById('shooter').appendChild(currentBullet_1);
+                        sessionStorage.setItem('isCount', 'false');
+                        //isCount=false;
+                        console.log(document.querySelector('#bullet'));
+                        //document.getElementById('tasktime').setAttr}ibute('value', '0');
+                        bulletCounter--;
+                        document.querySelector('#bulletCounter').setAttribute('value', bulletCounter.toString());
                     }
                 } else {
                     soundEls.forEach(function (soundEl) {
@@ -12919,7 +12915,7 @@ var shoot = /** @class */function (_super) {
                         document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
                     }, 2000);
                 }
-                currentBullet.addEventListener('body-loaded', function (e) {
+                currentBullet_1.addEventListener('body-loaded', function (e) {
                     ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls);
                 });
                 setTimeout(function () {
@@ -12928,12 +12924,16 @@ var shoot = /** @class */function (_super) {
                     }
                     //document.querySelector('#shooter').removeAttribute('animation-mixer');
                 }, 5000);
-            });
-            document.getElementById('wall').addEventListener('collide', function (e) {});
-            document.getElementById('ground').addEventListener('collide', function (e) {});
-            currentBullet.addEventListener('hitstart', function (e) {
-                giftHit(e, soundEls);
-            });
+                document.getElementById('bullet').addEventListener('animation-finished', function () {
+                    console.log("tree");
+                    sessionStorage.setItem('isCount', 'true');
+                });
+                document.getElementById('wall').addEventListener('collide', function (e) {});
+                document.getElementById('ground').addEventListener('collide', function (e) {});
+                currentBullet_1.addEventListener('hitstart', function (e) {
+                    giftHit(e, soundEls);
+                });
+            }
         });
     };
     shoot.prototype.update = function () {};

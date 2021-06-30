@@ -29,19 +29,21 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
 
-    document.getElementById('onHand').addEventListener('click', () => {
+    document.getElementById('onHand').addEventListener('click', () => {    
+      
+  if(sessionStorage.getItem('isCount')!="false"){
+
 console.log("click");
       const currentBullet = document.createElement('a-gltf-model');
       currentBullet.setAttribute('src', '#bullet1');
       currentBullet.setAttribute('id', 'bullet');
       currentBullet.setAttribute('class', 'bullets');
-      if(sessionStorage.getItem('isCount')!="false"){
       currentBullet.setAttribute(
         'animation-mixer',
         'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true'
       );
-    }
-    currentBullet.addEventListener('animation-finished',()=>{
+   
+   
       currentBullet.setAttribute('aabb-collider', 'objects: .boxs');
 
       setTimeout(() => {
@@ -55,7 +57,6 @@ console.log("click");
           document.getElementById('bullet') == null &&
           document.getElementById('enemy') == null
         ) {
-          if(sessionStorage.getItem('isCount')!="false"){
           currentBullet.setAttribute('scale','2 2 2');
           document.getElementById('shooter').appendChild(currentBullet);
           sessionStorage.setItem('isCount','false');
@@ -69,7 +70,7 @@ console.log("click");
             .querySelector('#bulletCounter')
             .setAttribute('value', bulletCounter.toString());
         }
-      }
+      
       } else  {
         soundEls.forEach(soundEl => {
           soundEl['components'].sound.stopSound();
@@ -111,7 +112,11 @@ console.log("click");
 
         //document.querySelector('#shooter').removeAttribute('animation-mixer');
       }, 5000);
-    })
+      document.getElementById('bullet').addEventListener('animation-finished',()=>{
+     console.log("tree");
+      sessionStorage.setItem('isCount','true');
+
+    });
       document.getElementById('wall').addEventListener('collide', e => {
       });
       document.getElementById('ground').addEventListener('collide', e => {
@@ -119,6 +124,7 @@ console.log("click");
       currentBullet.addEventListener('hitstart', e => {
         giftHit(e, soundEls);
       });
+    }
     });
   }
 
