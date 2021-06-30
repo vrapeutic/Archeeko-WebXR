@@ -12610,7 +12610,6 @@ var enemy = /** @class */function (_super) {
     }
     enemy.prototype.init = function () {
         var _this = this;
-        var camPosition = parseInt(document.getElementById('cam').getAttribute("position"), 10);
         var lives = document.querySelector('#livesCounter').getAttribute('value');
         var count = -1;
         var timer = parseInt(document.getElementById('dstime').getAttribute('value'), 10);
@@ -12620,10 +12619,18 @@ var enemy = /** @class */function (_super) {
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
-                var LocalForce = new CANNON.Vec3(camPosition);
+                var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
+                var player = document.querySelector("a-camera");
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+                var angle = player.getAttribute("rotation");
+                var x = 0.1 * Math.cos(angle.y * Math.PI / 180);
+                var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
+                var pos = ball.getAttribute("position");
+                pos.x -= y;
+                // pos.z += x;
+                ball.setAttribute("position", pos);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
                 if (document.querySelector('#livesCounter').getAttribute('value') < '2') {
@@ -12922,6 +12929,8 @@ var shoot = /** @class */function (_super) {
                     if (document.getElementById('bullet') != null) {
                         document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
                     }
+                    console.log("tree");
+                    sessionStorage.setItem('isCount', 'true');
                     //document.querySelector('#shooter').removeAttribute('animation-mixer');
                 }, 5000);
                 document.getElementById('bullet').addEventListener('animation-finished', function () {
