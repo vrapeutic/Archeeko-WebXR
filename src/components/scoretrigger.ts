@@ -46,11 +46,10 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
             .getElementById('8' + sessionStorage.getItem('char'))
             ['components'].sound.playSound();
           if (document.getElementById('enemy') != null)
-            
-          document
-            .getElementById('shooter')
-            .parentNode.removeChild(document.getElementById('shooter'));
-        }, 4000);
+            document
+              .getElementById('shooter')
+              .parentNode.removeChild(document.getElementById('shooter'));
+        }, 6000);
       }
     }, 1000);
   }
