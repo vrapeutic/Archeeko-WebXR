@@ -5,7 +5,6 @@ interface ScoreSchema {
   readonly index: number;
 }
 
-  
 export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   constructor() {
     super('score-trigger', {
@@ -17,19 +16,17 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
   }
 
   init() {
- 
     const soundEls = document.querySelectorAll('[sound]');
-    
+
     setTimeout(() => {
       let score = document.querySelector('#score').getAttribute('value');
       score++;
-     // sessionStorage.setItem('isCount', 'true');
+      // sessionStorage.setItem('isCount', 'true');
 
       document.querySelector('#score').setAttribute('value', score);
       if (
         document.querySelector('#score').getAttribute('value') >=
-       parseInt( sessionStorage.getItem('gift'),10)  
-
+        parseInt(sessionStorage.getItem('gift'), 10)
       ) {
         console.log('scoretrigger');
         setTimeout(() => {
@@ -48,7 +45,7 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
           document
             .getElementById('8' + sessionStorage.getItem('char'))
             ['components'].sound.playSound();
-            if (document.getElementById('enemy') != null)
+          if (document.getElementById('enemy') != null)
             document
               .getElementById('enemy')
               .parentNode.removeChild(document.getElementById('enemy'));

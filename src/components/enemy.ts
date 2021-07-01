@@ -2,8 +2,7 @@ import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 import * as CANNON from 'cannon-es';
 import {scoretrigger} from './scoretrigger';
-import THREE = require('three');
-  const giftCounter=document.querySelectorAll('.boxs').length ;
+const giftCounter = document.querySelectorAll('.boxs').length;
 
 interface enemySchema {}
 
@@ -13,34 +12,32 @@ export class enemy extends ComponentWrapper<enemySchema> {
   }
 
   init() {
-    let lives = document.querySelector('#livesCounter').getAttribute('value'); 
-    let count = -1;
-    let timer = parseInt(
+    let lives = document.querySelector('#livesCounter').getAttribute('value');
+    const count = -1;
+    const timer = parseInt(
       document.getElementById('dstime').getAttribute('value'),
       10
     );
     const ball = this.el;
-    var angle =  document.querySelector("a-camera").getAttribute("rotation")
-    var y = 0.1 * Math.sin(angle.y * Math.PI / 180)
-    var pos = ball.getAttribute("position")
-    console.log(pos.z);
+    const angle = document.querySelector('#cam').getAttribute('rotation');
+    const y = 0.1 * Math.sin((angle.y * Math.PI) / 180);
     // var isCounting=true;
-    const ballForce = new CANNON.Vec3(0, 0, 0.8);
+    //pos.z += x;
+console.log(y);
+    const ballForce = new CANNON.Vec3(y, 0, 0.8);
 
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {
-        const LocalForce = new CANNON.Vec3(0,0,0);
+        const LocalForce = new CANNON.Vec3(0, 0, 0);
 
         const worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(
           ballForce
         );
         ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
-  
-        pos.x = y;
-            //pos.z += x;
-          ball.setAttribute("position", pos);
-            (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
-           
+
+        (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+        
+
         //ball.setAttribute("position",camPosition.)
         clearInterval(count);
         if (
@@ -61,52 +58,51 @@ export class enemy extends ComponentWrapper<enemySchema> {
                 console.log('curlives' + lives);
               } else {
                 setTimeout(() => {
-                  
-              
-                lives++;
-                document
-                  .querySelector('#livesCounter')
-                  .setAttribute('value', lives);
-                console.log(
-                  lives +
-                    'lives: ' +
-                    (<any>e).target.components['aabb-collider'][
-                      'intersectedEls'
-                    ][0].id
-                );
-  }, 1000);
+                  lives++;
+                  document
+                    .querySelector('#livesCounter')
+                    .setAttribute('value', lives);
+                  console.log(
+                    lives +
+                      'lives: ' +
+                      (<any>e).target.components['aabb-collider'][
+                        'intersectedEls'
+                      ][0].id
+                  );
+                }, 1000);
                 document
                   .getElementById(this.el.id)
                   .parentNode.removeChild(document.getElementById(this.el.id));
               }
-            
             }
           });
         }
       }, 0);
     };
     ball.addEventListener('body-loaded', applyForceOnEnemy);
- 
-    setTimeout(() => { 
-        if( document.querySelector('#livesCounter').getAttribute('value')>="3"){
-      const soundEls = document.querySelectorAll('[sound]');
 
-      soundEls.forEach(soundEl => {
-        soundEl['components'].sound.stopSound();
-      });
-      document
-        .getElementById('7' + sessionStorage.getItem('char'))
-        .setAttribute(
-          'position',
-          document
-            .getElementById(sessionStorage.getItem('npc'))
-            .getAttribute('position')
-        );
+    setTimeout(() => {
+      if (
+        document.querySelector('#livesCounter').getAttribute('value') >= '3'
+      ) {
+        const soundEls = document.querySelectorAll('[sound]');
 
-      document
-        .getElementById('7' + sessionStorage.getItem('char'))
-        ['components'].sound.playSound();
-    }
+        soundEls.forEach(soundEl => {
+          soundEl['components'].sound.stopSound();
+        });
+        document
+          .getElementById('7' + sessionStorage.getItem('char'))
+          .setAttribute(
+            'position',
+            document
+              .getElementById(sessionStorage.getItem('npc'))
+              .getAttribute('position')
+          );
+
+        document
+          .getElementById('7' + sessionStorage.getItem('char'))
+          ['components'].sound.playSound();
+      }
       document
         .getElementById(this.el.id)
         .parentNode.removeChild(document.getElementById(this.el.id));

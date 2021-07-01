@@ -1,4 +1,3 @@
-
 import {ComponentWrapper} from '../essential/aframe-wrapper';
 import {EntityBuilder} from '../essential/entity-builder';
 
@@ -93,7 +92,7 @@ export class soundmanger extends ComponentWrapper<soundmangerSchema> {
 
   pause() {}
 
-  tick() { }
+  tick() {}
 
   remove() {}
 

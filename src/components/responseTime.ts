@@ -18,8 +18,7 @@ export class responseTime extends ComponentWrapper<responseTimeSchema> {
 
   pause() {}
 
-  tick() {
-  }
+  tick() {}
 
   remove() {}
 

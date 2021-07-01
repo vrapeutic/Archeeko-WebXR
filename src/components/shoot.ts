@@ -18,114 +18,108 @@ export class shoot extends ComponentWrapper<shootSchema> {
 
   init() {
     const soundEls = document.querySelectorAll('[sound]');
-    let bulletCounter = parseInt(document
-      .querySelector('#bulletCounter')
-      .getAttribute('value'),10);
+    let bulletCounter = parseInt(
+      document.querySelector('#bulletCounter').getAttribute('value'),
+      10
+    );
     const randomBulletCounter = document
       .querySelector('#bulletCounter')
       .getAttribute('value');
-      sessionStorage.setItem('isCount','true');
+    sessionStorage.setItem('isCount', 'true');
 
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
 
-    document.getElementById('onHand').addEventListener('click', () => {    
-      
-  if(sessionStorage.getItem('isCount')!="false"){
+    document.getElementById('onHand').addEventListener('click', () => {
+      if (sessionStorage.getItem('isCount') != 'false') {
+        console.log('click');
+        const currentBullet = document.createElement('a-gltf-model');
+        currentBullet.setAttribute('src', '#bullet1');
+        currentBullet.setAttribute('id', 'bullet');
+        currentBullet.setAttribute('class', 'bullets');
+        currentBullet.setAttribute(
+          'animation-mixer',
+          'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true'
+        );
 
-console.log("click");
-      const currentBullet = document.createElement('a-gltf-model');
-      currentBullet.setAttribute('src', '#bullet1');
-      currentBullet.setAttribute('id', 'bullet');
-      currentBullet.setAttribute('class', 'bullets');
-      currentBullet.setAttribute(
-        'animation-mixer',
-        'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true'
-      );
-   
-   
-      currentBullet.setAttribute('aabb-collider', 'objects: .boxs');
+        currentBullet.setAttribute('aabb-collider', 'objects: .boxs');
 
-      setTimeout(() => {
-        currentBullet.setAttribute('dynamic-body', 'mass:0.05');
-      }, 2000);
+        setTimeout(() => {
+          currentBullet.setAttribute('dynamic-body', 'mass:0.05');
+        }, 2000);
 
-      document.getElementById('shooter').removeAttribute('animation-mixer');
+        document.getElementById('shooter').removeAttribute('animation-mixer');
 
-      if (bulletCounter > 0) {
-        if (
-          document.getElementById('bullet') == null &&
-          document.getElementById('enemy') == null
-        ) {
-          currentBullet.setAttribute('scale','2 2 2');
-          document.getElementById('shooter').appendChild(currentBullet);
-          sessionStorage.setItem('isCount','false');
+        if (bulletCounter > 0) {
+          if (
+            document.getElementById('bullet') == null &&
+            document.getElementById('enemy') == null
+          ) {
+            currentBullet.setAttribute('scale', '2 2 2');
+            document.getElementById('shooter').appendChild(currentBullet);
+            sessionStorage.setItem('isCount', 'false');
 
-          //isCount=false;
+            //isCount=false;
 
-          console.log(document.querySelector('#bullet'));
-          //document.getElementById('tasktime').setAttr}ibute('value', '0');
-          bulletCounter--;
-          document
-            .querySelector('#bulletCounter')
-            .setAttribute('value', bulletCounter.toString());
-        }
-      
-      } else  {
-        soundEls.forEach(soundEl => {
-          soundEl['components'].sound.stopSound();
-        });
-        document
-          .getElementById('7' + sessionStorage.getItem('char'))
-          .setAttribute(
-            'position',
+            console.log(document.querySelector('#bullet'));
+            //document.getElementById('tasktime').setAttr}ibute('value', '0');
+            bulletCounter--;
             document
-              .getElementById(sessionStorage.getItem('npc'))
-              .getAttribute('position')
-          );
+              .querySelector('#bulletCounter')
+              .setAttribute('value', bulletCounter.toString());
+          }
+        } else {
+          soundEls.forEach(soundEl => {
+            soundEl['components'].sound.stopSound();
+          });
+          document
+            .getElementById('7' + sessionStorage.getItem('char'))
+            .setAttribute(
+              'position',
+              document
+                .getElementById(sessionStorage.getItem('npc'))
+                .getAttribute('position')
+            );
 
-        document
-          .getElementById('7' + sessionStorage.getItem('char'))
-          ['components'].sound.playSound();
+          document
+            .getElementById('7' + sessionStorage.getItem('char'))
+            ['components'].sound.playSound();
           if (document.getElementById('enemy') != null)
-          document
-            .getElementById('enemy')
-            .parentNode.removeChild(document.getElementById('enemy'));
-            setTimeout(() => {
-              
-     
+            document
+              .getElementById('enemy')
+              .parentNode.removeChild(document.getElementById('enemy'));
+          setTimeout(() => {
+            document
+              .getElementById('shooter')
+              .parentNode.removeChild(document.getElementById('shooter'));
+          }, 2000);
+        }
+        currentBullet.addEventListener('body-loaded', e => {
+          ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls);
+        });
+
+        setTimeout(() => {
+          if (document.getElementById('bullet') != null) {
+            document
+              .getElementById('bullet')
+              .parentNode.removeChild(document.getElementById('bullet'));
+          }
+          console.log('tree');
+          sessionStorage.setItem('isCount', 'true');
+          //document.querySelector('#shooter').removeAttribute('animation-mixer');
+        }, 5000);
         document
-          .getElementById('shooter')
-          .parentNode.removeChild(document.getElementById('shooter')); 
-              }, 2000);
+          .getElementById('bullet')
+          .addEventListener('animation-finished', () => {
+            console.log('tree');
+            sessionStorage.setItem('isCount', 'true');
+          });
+        document.getElementById('wall').addEventListener('collide', e => {});
+        document.getElementById('ground').addEventListener('collide', e => {});
+        currentBullet.addEventListener('hitstart', e => {
+          giftHit(e, soundEls);
+        });
       }
-      currentBullet.addEventListener('body-loaded', e => {
-        ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls);
-      });
-
-      setTimeout(() => {
-        if (document.getElementById('bullet') != null) {
-          document
-            .getElementById('bullet')
-            .parentNode.removeChild(document.getElementById('bullet'));
-        }    
-        console.log("tree");
-        sessionStorage.setItem('isCount','true');
-        //document.querySelector('#shooter').removeAttribute('animation-mixer');
-      }, 5000);
-      document.getElementById('bullet').addEventListener('animation-finished',()=>{
-     console.log("tree");
-      sessionStorage.setItem('isCount','true');
-
-    });
-      document.getElementById('wall').addEventListener('collide', e => {
-      });
-      document.getElementById('ground').addEventListener('collide', e => {
-      });
-      currentBullet.addEventListener('hitstart', e => {
-        giftHit(e, soundEls);
-      });
-    }
     });
   }
 
@@ -143,7 +137,6 @@ console.log("click");
 }
 
 new shoot().register();
-
 
 function LoadArrow(bullet: any, bulletCounter: any, soundEls: NodeList) {
   return bulletCounter;
@@ -170,10 +163,10 @@ function giftHit(e: Event, soundEls: NodeList) {
         .getElementById(giftId.id)
         .setAttribute('score-trigger', 'enabled:true');
 
-        var partical = document.createElement('a-entity');
-        partical.setAttribute("gltf-model", "#particals");
+      var partical = document.createElement('a-entity');
+      partical.setAttribute('gltf-model', '#particals');
 
-        partical.setAttribute("animation-mixer", "enabled:true");
+      partical.setAttribute('animation-mixer', 'enabled:true');
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
 
@@ -201,7 +194,6 @@ function giftHit(e: Event, soundEls: NodeList) {
         ball.setAttribute('src', '#ballEnemy');
         ball.setAttribute('id', 'enemy');
         ball.setAttribute('position', currentPosition);
-        
 
         document.getElementById('TheTree').appendChild(ball);
         setTimeout(() => {
@@ -235,8 +227,7 @@ function giftHit(e: Event, soundEls: NodeList) {
           .parentNode.removeChild(document.getElementById(giftId.id));
       }, 2000);
     }
-  } 
-  else if (
+  } else if (
     (<any>e).target.components['aabb-collider']['intersectedEls'][1]
       .className == 'boxs'
   ) {
@@ -256,10 +247,10 @@ function giftHit(e: Event, soundEls: NodeList) {
         .getElementById(giftId.id)
         .setAttribute('score-trigger', 'enabled:true');
 
-        var partical = document.createElement('a-entity');
-        partical.setAttribute("gltf-model", "#particals");
+      var partical = document.createElement('a-entity');
+      partical.setAttribute('gltf-model', '#particals');
 
-        partical.setAttribute("animation-mixer", "enabled:true");
+      partical.setAttribute('animation-mixer', 'enabled:true');
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
 
@@ -287,7 +278,6 @@ function giftHit(e: Event, soundEls: NodeList) {
         ball.setAttribute('src', '#ballEnemy');
         ball.setAttribute('id', 'enemy');
         ball.setAttribute('position', currentPosition);
-        
 
         document.getElementById('TheTree').appendChild(ball);
         setTimeout(() => {
@@ -309,13 +299,11 @@ function giftHit(e: Event, soundEls: NodeList) {
         }, 2500);
 
         ball.setAttribute('create-enemy', 'enabled');
- /* 
-           */
+        /*
+         */
         setTimeout(() => {
           ball.setAttribute('dynamic-body', 'mass:0.05');
 
-        
-       
           ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
         }, 5000);
       }

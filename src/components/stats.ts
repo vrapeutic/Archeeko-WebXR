@@ -7,7 +7,7 @@ interface statsSchema {}
 export class stats extends ComponentWrapper<statsSchema> {
   constructor() {
     super('stats-time', {});
-     }
+  }
 
   init() {
     let startSession = 0;
@@ -17,7 +17,7 @@ export class stats extends ComponentWrapper<statsSchema> {
         .getElementById('session')
         .setAttribute('value', startSession.toString());
 
-    var timeTaken = convertHMS(
+      const timeTaken = convertHMS(
         document.getElementById('session').getAttribute('value')
       );
     }, 1000);
@@ -29,17 +29,14 @@ export class stats extends ComponentWrapper<statsSchema> {
       .addEventListener('sound-ended', () => {
         setTimeout(() => {
           location.reload();
-
-      }, 5000);
+        }, 5000);
       });
     document
       .getElementById('7' + sessionStorage.getItem('char'))
       .addEventListener('sound-ended', () => {
-      
         setTimeout(() => {
           location.reload();
-
-      }, 5000);
+        }, 5000);
       });
   }
   update() {}
@@ -57,6 +54,4 @@ export class stats extends ComponentWrapper<statsSchema> {
 
 new stats().register();
 
-function EndSession( statString: string) {
-}
-
+function EndSession(statString: string) {}

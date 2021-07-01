@@ -88,9 +88,9 @@
         <br>
         <h>Select Distance</h>
         <br>
-        <button class="button button-cls" onclick="set_z(5)">7</button>
-        <button class="button button-cls" onclick="set_z(2)">9</button>
-        <button class="button button-cls" onclick="set_z(0)">11</button>
+        <button class="button button-cls" onclick="set_z(3)">5</button>
+        <button class="button button-cls" onclick="set_z(1)">7</button>
+        <button class="button button-cls" onclick="set_z(-1)">10</button>
         <br>
         <h>Select npc</h>
         <br>
@@ -169,6 +169,7 @@
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
                 <a-box id="CamTrigger" position="0 0 1" scale="0.3 0.3 0.3" visible="true" aabb-collider="objects:#enemy">
                 </a-box>
+                <a-box id="onHand" position="0 2 -4" scale="20 7 0.1" material="opacity: 0.03; transparent: true"></a-box>
 
             </a-camera>
             <a-box id="wall" visible="false" scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
