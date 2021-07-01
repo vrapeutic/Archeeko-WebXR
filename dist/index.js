@@ -12619,18 +12619,20 @@ var enemy = /** @class */function (_super) {
         var pos = ball.getAttribute('position');
         //pos.z += x;
         console.log(y);
-        var ballForce = new CANNON.Vec3(0, 0, 1.5);
+        var ballForce = new CANNON.Vec3(0, 0, 1.2);
+        // var isCounting=true;
+        //pos.z += x;
+        //pos.x = y;
+        // pos.y = document.querySelector('#cam').getAttribute('position').y;
+        setTimeout(function () {
+            ball.setAttribute("animation", "property:position; to:" + y + ' ' + document.querySelector('#cam').getAttribute('position').y + ' ' + pos.z + '; dur:3000;');
+        }, 1000);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
                 var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
-                pos.x = y;
-                // pos.y = document.querySelector('#cam').getAttribute('position').y;
-                setTimeout(function () {
-                    ball.setAttribute('position', pos);
-                }, 2500);
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
@@ -13062,6 +13064,7 @@ function ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls) {
             soundEls.forEach(function (soundEl) {
                 soundEl['components'].sound.stopSound();
             });
+            sessionStorage.setItem('isCount', 'false');
             document.getElementById('5' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
             document.getElementById('5' + sessionStorage.getItem('char'))['components'].sound.playSound();
         }

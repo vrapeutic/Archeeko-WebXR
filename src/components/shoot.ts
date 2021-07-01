@@ -346,7 +346,9 @@ function ShootArrow(
     ) {
       soundEls.forEach(soundEl => {
         soundEl['components'].sound.stopSound();
-      });
+      });  
+          sessionStorage.setItem('isCount', 'false');
+
       document
         .getElementById('5' + sessionStorage.getItem('char'))
         .setAttribute(
