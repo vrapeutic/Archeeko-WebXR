@@ -49,7 +49,7 @@ export class scoretrigger extends ComponentWrapper<ScoreSchema> {
             document
               .getElementById('shooter')
               .parentNode.removeChild(document.getElementById('shooter'));
-        }, 6000);
+        }, 4500);
       }
     }, 1000);
   }

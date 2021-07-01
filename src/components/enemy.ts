@@ -26,10 +26,10 @@ export class enemy extends ComponentWrapper<enemySchema> {
     console.log(y);
     setTimeout(() => {
       pos.x = y;
-      pos.y = document.querySelector('#cam').getAttribute('position').y;
-      ball.setAttribute('position', pos);
-    }, 2000);
-    const ballForce = new CANNON.Vec3(0, 0, 1);
+     pos.y = document.querySelector('#cam').getAttribute('position').y;
+    //  ball.setAttribute('position', pos);
+    }, 4000);
+    const ballForce = new CANNON.Vec3(y, pos.y, 3);
 
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {

@@ -12616,15 +12616,15 @@ var enemy = /** @class */function (_super) {
         var ball = this.el;
         var angle = document.querySelector('#cam').getAttribute('rotation');
         var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
-        var pos = ball.getAttribute("position");
+        var pos = ball.getAttribute('position');
         //pos.z += x;
         console.log(y);
         setTimeout(function () {
             pos.x = y;
             pos.y = document.querySelector('#cam').getAttribute('position').y;
-            ball.setAttribute('position', pos);
-        }, 2000);
-        var ballForce = new CANNON.Vec3(0, 0, 1);
+            //  ball.setAttribute('position', pos);
+        }, 4000);
+        var ballForce = new CANNON.Vec3(y, pos.y, 3);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12830,7 +12830,7 @@ var scoretrigger = /** @class */function (_super) {
                     document.getElementById('8' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
                     document.getElementById('8' + sessionStorage.getItem('char'))['components'].sound.playSound();
                     if (document.getElementById('enemy') != null) document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
-                }, 6000);
+                }, 4500);
             }
         }, 1000);
     };
