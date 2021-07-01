@@ -24,12 +24,8 @@ export class enemy extends ComponentWrapper<enemySchema> {
     const pos = ball.getAttribute('position');
     //pos.z += x;
     console.log(y);
-    setTimeout(() => {
-    //  pos.x = y;
-  //   pos.y = document.querySelector('#cam').getAttribute('position').y;
-    //  ball.setAttribute('position', pos);
-    }, 4000);
-    const ballForce = new CANNON.Vec3(y, document.querySelector('#cam').getAttribute('position').y, 3);
+    
+    const ballForce = new CANNON.Vec3(y, 0, 1.5);
 
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {
@@ -41,7 +37,11 @@ export class enemy extends ComponentWrapper<enemySchema> {
         ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
 
         (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
-
+        setTimeout(() => {
+          pos.x = y;
+          pos.y = document.querySelector('#cam').getAttribute('position').y;
+          //  ball.setAttribute('position', pos);
+          }, 4500);
         //ball.setAttribute("position",camPosition.)
         clearInterval(count);
         if (
