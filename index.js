@@ -12621,8 +12621,9 @@ var enemy = /** @class */function (_super) {
         console.log(y);
         setTimeout(function () {
             pos.x = y;
+            pos.y = document.querySelector('#cam').getAttribute('position').y;
             ball.setAttribute('position', pos);
-        }, 1000);
+        }, 2000);
         var ballForce = new CANNON.Vec3(0, 0, 1);
         var applyForceOnEnemy = function (e) {
             var _this = this;
@@ -12829,7 +12830,7 @@ var scoretrigger = /** @class */function (_super) {
                     document.getElementById('8' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
                     document.getElementById('8' + sessionStorage.getItem('char'))['components'].sound.playSound();
                     if (document.getElementById('enemy') != null) document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
-                }, 4000);
+                }, 6000);
             }
         }, 1000);
     };
@@ -12932,7 +12933,7 @@ var shoot = /** @class */function (_super) {
                     sessionStorage.setItem('isCount', 'true');
                     //document.querySelector('#shooter').removeAttribute('animation-mixer');
                 }, 5000);
-                document.getElementById('bullet').addEventListener('animation-finished', function () {
+                document.getElementById('shooter').addEventListener('animation-finished', function () {
                     console.log('tree');
                     sessionStorage.setItem('isCount', 'true');
                 });
