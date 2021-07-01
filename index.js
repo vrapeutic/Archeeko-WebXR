@@ -12567,8 +12567,8 @@ new selectnpc().register();
 function CurrentNpc() {
     document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
     var npc = document.createElement('a-gltf-model');
-    npc.setAttribute('position', "7 0 2");
-    npc.setAttribute('scale', "2 2 2");
+    npc.setAttribute('position', '7 0 2');
+    npc.setAttribute('scale', '2 2 2');
     npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
     npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
     document.querySelector('#targetTree').appendChild(npc);
@@ -12614,21 +12614,18 @@ var enemy = /** @class */function (_super) {
         var count = -1;
         var timer = parseInt(document.getElementById('dstime').getAttribute('value'), 10);
         var ball = this.el;
-        var angle = document.querySelector("a-camera").getAttribute("rotation");
+        var angle = document.querySelector('#cam').getAttribute('rotation');
         var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
-        var pos = ball.getAttribute("position");
-        console.log(pos.z);
         // var isCounting=true;
-        var ballForce = new CANNON.Vec3(0, 0, 0.8);
+        //pos.z += x;
+        console.log(y);
+        var ballForce = new CANNON.Vec3(y, 0, 0.8);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
                 var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
-                pos.x = y;
-                //pos.z += x;
-                ball.setAttribute("position", pos);
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
@@ -12653,7 +12650,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= "3") {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= '3') {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -12887,8 +12884,8 @@ var shoot = /** @class */function (_super) {
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         document.getElementById('onHand').addEventListener('click', function () {
-            if (sessionStorage.getItem('isCount') != "false") {
-                console.log("click");
+            if (sessionStorage.getItem('isCount') != 'false') {
+                console.log('click');
                 var currentBullet_1 = document.createElement('a-gltf-model');
                 currentBullet_1.setAttribute('src', '#bullet1');
                 currentBullet_1.setAttribute('id', 'bullet');
@@ -12928,12 +12925,12 @@ var shoot = /** @class */function (_super) {
                     if (document.getElementById('bullet') != null) {
                         document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
                     }
-                    console.log("tree");
+                    console.log('tree');
                     sessionStorage.setItem('isCount', 'true');
                     //document.querySelector('#shooter').removeAttribute('animation-mixer');
                 }, 5000);
                 document.getElementById('bullet').addEventListener('animation-finished', function () {
-                    console.log("tree");
+                    console.log('tree');
                     sessionStorage.setItem('isCount', 'true');
                 });
                 document.getElementById('wall').addEventListener('collide', function (e) {});
@@ -12966,8 +12963,8 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_1.id).setAttribute('dynamic-body', 'mass :0.05');
             document.getElementById(giftId_1.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
-            partical.setAttribute("gltf-model", "#particals");
-            partical.setAttribute("animation-mixer", "enabled:true");
+            partical.setAttribute('gltf-model', '#particals');
+            partical.setAttribute('animation-mixer', 'enabled:true');
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_1.id).appendChild(partical);
             //window.isCount=true;
@@ -13010,8 +13007,8 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_2.id).setAttribute('dynamic-body', 'mass :0.05');
             document.getElementById(giftId_2.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
-            partical.setAttribute("gltf-model", "#particals");
-            partical.setAttribute("animation-mixer", "enabled:true");
+            partical.setAttribute('gltf-model', '#particals');
+            partical.setAttribute('animation-mixer', 'enabled:true');
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_2.id).appendChild(partical);
             //window.isCount=true;
@@ -13038,7 +13035,7 @@ function giftHit(e, soundEls) {
                 }, 2500);
                 ball_2.setAttribute('create-enemy', 'enabled');
                 /*
-                          */
+                 */
                 setTimeout(function () {
                     ball_2.setAttribute('dynamic-body', 'mass:0.05');
                     ball_2.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
