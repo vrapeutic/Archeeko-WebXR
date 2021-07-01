@@ -20,7 +20,10 @@ export class enemy extends ComponentWrapper<enemySchema> {
       10
     );
     const ball = this.el;
-
+    var angle =  document.querySelector("a-camera").getAttribute("rotation")
+    var y = 0.1 * Math.sin(angle.y * Math.PI / 180)
+    var pos = ball.getAttribute("position")
+    console.log(pos.z);
     // var isCounting=true;
     const ballForce = new CANNON.Vec3(0, 0, 0.8);
 
@@ -32,21 +35,16 @@ export class enemy extends ComponentWrapper<enemySchema> {
           ballForce
         );
         ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
-      var player = document.querySelector("a-camera");
-
-        (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
-        var angle = player.getAttribute("rotation")
-        var x = 0.1 * Math.cos(angle.y * Math.PI / 180)
-        var y = 0.1 * Math.sin(angle.y * Math.PI / 180)
-        var pos = ball.getAttribute("position")
-        pos.x -= y;
-        // pos.z += x;
-       ball.setAttribute("position", pos);
-    
+  
+        pos.x = y;
+            //pos.z += x;
+          ball.setAttribute("position", pos);
+            (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+           
         //ball.setAttribute("position",camPosition.)
         clearInterval(count);
         if (
-          document.querySelector('#livesCounter').getAttribute('value') < '2'
+          document.querySelector('#livesCounter').getAttribute('value') < '3'
         ) {
           ball.addEventListener('collide', e => {
             if (
@@ -90,7 +88,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     ball.addEventListener('body-loaded', applyForceOnEnemy);
  
     setTimeout(() => { 
-        if( document.querySelector('#livesCounter').getAttribute('value')>="4"){
+        if( document.querySelector('#livesCounter').getAttribute('value')>="3"){
       const soundEls = document.querySelectorAll('[sound]');
 
       soundEls.forEach(soundEl => {

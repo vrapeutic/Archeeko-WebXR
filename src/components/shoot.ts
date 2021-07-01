@@ -309,9 +309,13 @@ function giftHit(e: Event, soundEls: NodeList) {
         }, 2500);
 
         ball.setAttribute('create-enemy', 'enabled');
-
+ /* 
+           */
         setTimeout(() => {
           ball.setAttribute('dynamic-body', 'mass:0.05');
+
+        
+       
           ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
         }, 5000);
       }

@@ -12614,6 +12614,10 @@ var enemy = /** @class */function (_super) {
         var count = -1;
         var timer = parseInt(document.getElementById('dstime').getAttribute('value'), 10);
         var ball = this.el;
+        var angle = document.querySelector("a-camera").getAttribute("rotation");
+        var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
+        var pos = ball.getAttribute("position");
+        console.log(pos.z);
         // var isCounting=true;
         var ballForce = new CANNON.Vec3(0, 0, 0.8);
         var applyForceOnEnemy = function (e) {
@@ -12622,18 +12626,13 @@ var enemy = /** @class */function (_super) {
                 var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
-                var player = document.querySelector("a-camera");
-                e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
-                var angle = player.getAttribute("rotation");
-                var x = 0.1 * Math.cos(angle.y * Math.PI / 180);
-                var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
-                var pos = ball.getAttribute("position");
-                pos.x -= y;
-                // pos.z += x;
+                pos.x = y;
+                //pos.z += x;
                 ball.setAttribute("position", pos);
+                e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
-                if (document.querySelector('#livesCounter').getAttribute('value') < '2') {
+                if (document.querySelector('#livesCounter').getAttribute('value') < '3') {
                     ball.addEventListener('collide', function (e) {
                         if (e.target.components['aabb-collider']['intersectedEls'] != null) {
                             console.log(e.target.components['aabb-collider']['intersectedEls']);
@@ -12654,7 +12653,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= "4") {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= "3") {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -13038,6 +13037,8 @@ function giftHit(e, soundEls) {
                     document.getElementById('9' + sessionStorage.getItem('char'))['components'].sound.playSound();
                 }, 2500);
                 ball_2.setAttribute('create-enemy', 'enabled');
+                /*
+                          */
                 setTimeout(function () {
                     ball_2.setAttribute('dynamic-body', 'mass:0.05');
                     ball_2.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
