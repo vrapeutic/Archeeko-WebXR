@@ -12619,12 +12619,7 @@ var enemy = /** @class */function (_super) {
         var pos = ball.getAttribute('position');
         //pos.z += x;
         console.log(y);
-        setTimeout(function () {
-            //  pos.x = y;
-            //   pos.y = document.querySelector('#cam').getAttribute('position').y;
-            //  ball.setAttribute('position', pos);
-        }, 4000);
-        var ballForce = new CANNON.Vec3(y, document.querySelector('#cam').getAttribute('position').y, 3);
+        var ballForce = new CANNON.Vec3(y, 0, 1.5);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12632,6 +12627,11 @@ var enemy = /** @class */function (_super) {
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+                setTimeout(function () {
+                    pos.x = y;
+                    pos.y = document.querySelector('#cam').getAttribute('position').y;
+                    //  ball.setAttribute('position', pos);
+                }, 4500);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
                 if (document.querySelector('#livesCounter').getAttribute('value') < '3') {
