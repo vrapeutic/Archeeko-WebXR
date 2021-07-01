@@ -12619,19 +12619,19 @@ var enemy = /** @class */function (_super) {
         var pos = ball.getAttribute('position');
         //pos.z += x;
         console.log(y);
-        var ballForce = new CANNON.Vec3(y, 0, 1.5);
+        var ballForce = new CANNON.Vec3(0, 0, 1.5);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
                 var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
                 ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
-                e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
+                pos.x = y;
+                // pos.y = document.querySelector('#cam').getAttribute('position').y;
                 setTimeout(function () {
-                    pos.x = y;
-                    pos.y = document.querySelector('#cam').getAttribute('position').y;
-                    //  ball.setAttribute('position', pos);
-                }, 4500);
+                    ball.setAttribute('position', pos);
+                }, 2500);
+                e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
                 if (document.querySelector('#livesCounter').getAttribute('value') < '3') {
