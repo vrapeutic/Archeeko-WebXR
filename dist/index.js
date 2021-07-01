@@ -12620,11 +12620,11 @@ var enemy = /** @class */function (_super) {
         //pos.z += x;
         console.log(y);
         setTimeout(function () {
-            pos.x = y;
-            pos.y = document.querySelector('#cam').getAttribute('position').y;
+            //  pos.x = y;
+            //   pos.y = document.querySelector('#cam').getAttribute('position').y;
             //  ball.setAttribute('position', pos);
         }, 4000);
-        var ballForce = new CANNON.Vec3(y, pos.y, 3);
+        var ballForce = new CANNON.Vec3(y, document.querySelector('#cam').getAttribute('position').y, 3);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12933,7 +12933,7 @@ var shoot = /** @class */function (_super) {
                     sessionStorage.setItem('isCount', 'true');
                     //document.querySelector('#shooter').removeAttribute('animation-mixer');
                 }, 5000);
-                document.getElementById('shooter').addEventListener('animation-finished', function () {
+                document.getElementById('bullet').addEventListener('animation-finished', function () {
                     console.log('tree');
                     sessionStorage.setItem('isCount', 'true');
                 });

@@ -109,7 +109,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
           //document.querySelector('#shooter').removeAttribute('animation-mixer');
         }, 5000);
         document
-          .getElementById('shooter')
+          .getElementById('bullet')
           .addEventListener('animation-finished', () => {
             console.log('tree');
             sessionStorage.setItem('isCount', 'true');
