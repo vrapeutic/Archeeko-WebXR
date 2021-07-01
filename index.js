@@ -12616,10 +12616,17 @@ var enemy = /** @class */function (_super) {
         var ball = this.el;
         var angle = document.querySelector('#cam').getAttribute('rotation');
         var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
+<<<<<<< HEAD
         var pos = ball.getAttribute('position');
         //pos.z += x;
         console.log(y);
         var ballForce = new CANNON.Vec3(0, 0, 1.5);
+=======
+        // var isCounting=true;
+        //pos.z += x;
+        console.log(y);
+        var ballForce = new CANNON.Vec3(y, 0, 0.8);
+>>>>>>> parent of ae69ad66 (last enemy fix)
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
@@ -12829,8 +12836,14 @@ var scoretrigger = /** @class */function (_super) {
                     });
                     document.getElementById('8' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
                     document.getElementById('8' + sessionStorage.getItem('char'))['components'].sound.playSound();
+<<<<<<< HEAD
                     if (document.getElementById('enemy') != null) document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
                 }, 4500);
+=======
+                    if (document.getElementById('enemy') != null) document.getElementById('enemy').parentNode.removeChild(document.getElementById('enemy'));
+                    document.getElementById('shooter').parentNode.removeChild(document.getElementById('shooter'));
+                }, 2000);
+>>>>>>> parent of ae69ad66 (last enemy fix)
             }
         }, 1000);
     };
