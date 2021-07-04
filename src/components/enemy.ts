@@ -34,7 +34,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
      ball.setAttribute(
       "animation","property:position; to:"+
           y +
-          ' ' +(document.querySelector('#cam').getAttribute('position').y)+
+          ' ' +(document.querySelector('#cam').getAttribute('position').y+0.5)+
           ' ' +
           pos.z +
           '; dur:4000;'
