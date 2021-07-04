@@ -12635,7 +12635,7 @@ var enemy = /** @class */function (_super) {
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
-                if (document.querySelector('#livesCounter').getAttribute('value') < '3') {
+                if (document.querySelector('#livesCounter').getAttribute('value') < '6') {
                     ball.addEventListener('hitstart', function (e) {
                         console.log(lives + 'curlives' + e.target.components["aabb-collider"]["intersectedEls"][0].id);
                         if (e.target.components["aabb-collider"]["intersectedEls"][0].id != 'CamTrigger') {

@@ -55,7 +55,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
         //ball.setAttribute("position",camPosition.)
         clearInterval(count);
         if (
-          document.querySelector('#livesCounter').getAttribute('value') < '3'
+          document.querySelector('#livesCounter').getAttribute('value') < '6'
         ) {
           ball.addEventListener('hitstart', e => {
             console.log(lives+'curlives' + (<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
