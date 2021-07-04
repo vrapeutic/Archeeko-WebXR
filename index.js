@@ -12625,7 +12625,7 @@ var enemy = /** @class */function (_super) {
         //pos.x = y;
         // pos.y = document.querySelector('#cam').getAttribute('position').y;
         setTimeout(function () {
-            ball.setAttribute("animation", "property:position; to:" + y + ' ' + document.querySelector('#cam').getAttribute('position').y + ' ' + pos.z + '; dur:4000;');
+            ball.setAttribute("animation", "property:position; to:" + y + ' ' + (document.querySelector('#cam').getAttribute('position').y + 0.5) + ' ' + pos.z + '; dur:4000;');
         }, 1000);
         var applyForceOnEnemy = function (e) {
             var _this = this;
@@ -12635,7 +12635,7 @@ var enemy = /** @class */function (_super) {
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
-                if (document.querySelector('#livesCounter').getAttribute('value') < '3') {
+                if (document.querySelector('#livesCounter').getAttribute('value') < '6') {
                     ball.addEventListener('hitstart', function (e) {
                         console.log(lives + 'curlives' + e.target.components["aabb-collider"]["intersectedEls"][0].id);
                         if (e.target.components["aabb-collider"]["intersectedEls"][0].id != 'CamTrigger') {
