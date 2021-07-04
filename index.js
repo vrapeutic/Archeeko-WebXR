@@ -12618,38 +12618,35 @@ var enemy = /** @class */function (_super) {
         var y = 0.1 * Math.sin(angle.y * Math.PI / 180);
         var pos = ball.getAttribute('position');
         //pos.z += x;
-        console.log(y);
-        var ballForce = new CANNON.Vec3(0, 0, 1.2);
+        ball.getAttribute('aabb-collider');
+        var ballForce = new CANNON.Vec3(0, 0, 1.5);
         // var isCounting=true;
         //pos.z += x;
         //pos.x = y;
         // pos.y = document.querySelector('#cam').getAttribute('position').y;
         setTimeout(function () {
-            ball.setAttribute("animation", "property:position; to:" + y + ' ' + document.querySelector('#cam').getAttribute('position').y + ' ' + pos.z + '; dur:3000;');
+            ball.setAttribute("animation", "property:position; to:" + y + ' ' + document.querySelector('#cam').getAttribute('position').y + ' ' + pos.z + '; dur:4000;');
         }, 1000);
         var applyForceOnEnemy = function (e) {
             var _this = this;
             setTimeout(function () {
                 var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
-                ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
                 e.detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
                 //ball.setAttribute("position",camPosition.)
                 clearInterval(count);
                 if (document.querySelector('#livesCounter').getAttribute('value') < '3') {
-                    ball.addEventListener('collide', function (e) {
-                        if (e.target.components['aabb-collider']['intersectedEls'] != null) {
-                            console.log(e.target.components['aabb-collider']['intersectedEls']);
-                            if (e.target.components['aabb-collider']['intersectedEls'][0].id != 'CamTrigger') {
-                                console.log('curlives' + lives);
-                            } else {
-                                setTimeout(function () {
-                                    lives++;
-                                    document.querySelector('#livesCounter').setAttribute('value', lives);
-                                    console.log(lives + 'lives: ' + e.target.components['aabb-collider']['intersectedEls'][0].id);
-                                }, 1000);
-                                document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
-                            }
+                    ball.addEventListener('hitstart', function (e) {
+                        console.log(lives + 'curlives' + e.target.components["aabb-collider"]["intersectedEls"][0].id);
+                        if (e.target.components["aabb-collider"]["intersectedEls"][0].id != 'CamTrigger') {
+                            console.log('curlives' + lives);
+                        } else {
+                            setTimeout(function () {
+                                lives++;
+                                document.querySelector('#livesCounter').setAttribute('value', lives);
+                                console.log(lives + 'lives: ');
+                            }, 1000);
+                            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
                         }
                     });
                 }
@@ -12889,7 +12886,7 @@ var shoot = /** @class */function (_super) {
         sessionStorage.setItem('isCount', 'true');
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
-        document.getElementById('onHand').addEventListener('click', function () {
+        document.getElementById("onHand").addEventListener('click', function () {
             if (sessionStorage.getItem('isCount') != 'false') {
                 console.log('click');
                 var currentBullet_1 = document.createElement('a-gltf-model');
@@ -13044,7 +13041,7 @@ function giftHit(e, soundEls) {
                  */
                 setTimeout(function () {
                     ball_2.setAttribute('dynamic-body', 'mass:0.05');
-                    ball_2.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
+                    ball_2.setAttribute('aabb-collider', 'objects: #CamTrigger;');
                 }, 5000);
             }
             setTimeout(function () {
