@@ -23,9 +23,8 @@ export class enemy extends ComponentWrapper<enemySchema> {
     const y = 0.1 * Math.sin((angle.y * Math.PI) / 180);
     const pos = ball.getAttribute('position');
     //pos.z += x;
-    console.log(y);
-
-    const ballForce = new CANNON.Vec3(0, 0, 1.2);
+   ball.getAttribute('aabb-collider');
+    const ballForce = new CANNON.Vec3(0, 0, 1.5);
 
     // var isCounting=true;
     //pos.z += x;
@@ -35,11 +34,12 @@ export class enemy extends ComponentWrapper<enemySchema> {
      ball.setAttribute(
       "animation","property:position; to:"+
           y +
-          ' ' +document.querySelector('#cam').getAttribute('position').y+
+          ' ' +(document.querySelector('#cam').getAttribute('position').y)+
           ' ' +
           pos.z +
-          '; dur:3000;'
+          '; dur:4000;'
       );
+
     }, 1000);
 
     const applyForceOnEnemy = function (e: Event) {
@@ -49,7 +49,6 @@ export class enemy extends ComponentWrapper<enemySchema> {
         const worldVelocity = (<any>e).detail.body.el.body.quaternion.vmult(
           ballForce
         );
-        ball.setAttribute('aabb-collider', 'objects:#CamTrigger');
  
         (<any>e).detail.body.el.body.applyImpulse(worldVelocity, LocalForce);
 
@@ -58,17 +57,13 @@ export class enemy extends ComponentWrapper<enemySchema> {
         if (
           document.querySelector('#livesCounter').getAttribute('value') < '3'
         ) {
-          ball.addEventListener('collide', e => {
-            if (
-              (<any>e).target.components['aabb-collider']['intersectedEls'] !=
-              null
-            ) {
-              console.log(
-                (<any>e).target.components['aabb-collider']['intersectedEls']
-              );
+          ball.addEventListener('hitstart', e => {
+            console.log(lives+'curlives' + (<any>e).target.components["aabb-collider"]["intersectedEls"][0].id);
+
+           
+              
               if (
-                (<any>e).target.components['aabb-collider']['intersectedEls'][0]
-                  .id != 'CamTrigger'
+                (<any>e).target.components["aabb-collider"]["intersectedEls"][0].id != 'CamTrigger'
               ) {
                 console.log('curlives' + lives);
               } else {
@@ -79,17 +74,14 @@ export class enemy extends ComponentWrapper<enemySchema> {
                     .setAttribute('value', lives);
                   console.log(
                     lives +
-                      'lives: ' +
-                      (<any>e).target.components['aabb-collider'][
-                        'intersectedEls'
-                      ][0].id
+                      'lives: ' 
                   );
                 }, 1000);
                 document
                   .getElementById(this.el.id)
                   .parentNode.removeChild(document.getElementById(this.el.id));
               }
-            }
+
           });
         }
       }, 0);

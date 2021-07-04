@@ -30,7 +30,8 @@ export class shoot extends ComponentWrapper<shootSchema> {
     const newforce = new CANNON.Vec3(0, 0, 2);
     const bullet = document.getElementById('bullet');
 
-    document.getElementById('onHand').addEventListener('click', () => {
+    document
+    .getElementById("onHand").addEventListener('click', () => {
       if (sessionStorage.getItem('isCount') != 'false') {
         console.log('click');
         const currentBullet = document.createElement('a-gltf-model');
@@ -303,8 +304,8 @@ function giftHit(e: Event, soundEls: NodeList) {
          */
         setTimeout(() => {
           ball.setAttribute('dynamic-body', 'mass:0.05');
+          ball.setAttribute('aabb-collider', 'objects: #CamTrigger;');
 
-          ball.setAttribute('aabb-collider', 'objects:a-box,#CamTrigger');
         }, 5000);
       }
       setTimeout(() => {
