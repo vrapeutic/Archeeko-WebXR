@@ -101,7 +101,7 @@
     </div>
     <div id="game" style="visibility: hidden;">
 
-        <a-scene physics="debug: false" restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
+        <a-scene physics="iterations:60;" restitutation="0.7" renderer="antialias: true" inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
 
             <a-assets>
                 <a-asset-item id="butterfly" src="https://cdn.glitch.com/5133a850-d5e7-4a97-91c0-7fdb4a51d65e%2FButterfly.glb?v=1607868452056"></a-asset-item>
@@ -167,7 +167,7 @@
             <!--Camera-->
             <a-camera id="cam" position="-2 1.6 30">
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
-                <a-sphere id="CamTrigger" position="0 0 1" scale="0.5 0.5 0.5" visible="true" material="opacity:0.8; transparent: true" aabb-collider="objects:#enemy">
+                <a-sphere id="CamTrigger" position="0 0 1" scale="0.3 0.5 0.3" visible="true" material="opacity:0.8; transparent: true" aabb-collider="objects:#enemy">
                 </a-sphere>
                 <a-box id="onHand" position="0 2 -9" scale="20 7 0.1" material="opacity: 0.03; transparent: true"></a-box>
 

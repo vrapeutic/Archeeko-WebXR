@@ -24,7 +24,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     const pos = ball.getAttribute('position');
     //pos.z += x;
    ball.getAttribute('aabb-collider');
-    const ballForce = new CANNON.Vec3(0, 0, 1.5);
+    const ballForce = new CANNON.Vec3(0, 0, 1.2);
 
     // var isCounting=true;
     //pos.z += x;
