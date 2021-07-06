@@ -13011,7 +13011,7 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_2.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
             partical.setAttribute('gltf-model', '#particals');
-            partical.setAttribute('animation-mixer', 'enabled:true');
+            partical.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:2;clampWhenFinshed:true');
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_2.id).appendChild(partical);
             //window.isCount=true;

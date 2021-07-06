@@ -251,7 +251,7 @@ function giftHit(e: Event, soundEls: NodeList) {
       var partical = document.createElement('a-entity');
       partical.setAttribute('gltf-model', '#particals');
 
-      partical.setAttribute('animation-mixer', 'enabled:true');
+      partical.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:2;clampWhenFinshed:true');
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
 
