@@ -12619,7 +12619,7 @@ var enemy = /** @class */function (_super) {
         var pos = ball.getAttribute('position');
         //pos.z += x;
         ball.getAttribute('aabb-collider');
-        var ballForce = new CANNON.Vec3(0, 0, 1.5);
+        var ballForce = new CANNON.Vec3(0, 0, 1.2);
         // var isCounting=true;
         //pos.z += x;
         //pos.x = y;
@@ -13319,8 +13319,8 @@ var visualDistractorMovenment = /** @class */function (_super) {
             setTimeout(function () {
                 randomPosition++;
                 nextPosition = box[randomPosition].getAttribute('position'); // restor next target for distractor
-                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 3 ' + nextPosition.z + ' dur:5000');
-                if (randomPosition >= box.length - 1) {
+                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 3 ' + nextPosition.z + '; delay:2000;dur:5000');
+                if (randomPosition > box.length - 1) {
                     randomPosition = 0; // Set it back to `0` when it reaches `4`
                 }
                 cycle();
