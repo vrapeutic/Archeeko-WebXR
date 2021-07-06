@@ -12619,13 +12619,13 @@ var enemy = /** @class */function (_super) {
         var pos = ball.getAttribute('position');
         //pos.z += x;
         ball.getAttribute('aabb-collider');
-        var ballForce = new CANNON.Vec3(0, 0, 1.2);
+        var ballForce = new CANNON.Vec3(0, 0, 1.4);
         // var isCounting=true;
         //pos.z += x;
         //pos.x = y;
         // pos.y = document.querySelector('#cam').getAttribute('position').y;
         setTimeout(function () {
-            ball.setAttribute("animation", "property:position; to:" + y + ' ' + (document.querySelector('#cam').getAttribute('position').y + 0.5) + ' ' + pos.z + '; dur:4000;');
+            ball.setAttribute("animation", "property:position; to:" + y + ' ' + (document.querySelector('#cam').getAttribute('position').y + 0.8) + ' ' + pos.z + '; dur:4000;');
         }, 1000);
         var applyForceOnEnemy = function (e) {
             var _this = this;
@@ -12887,7 +12887,7 @@ var shoot = /** @class */function (_super) {
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         document.getElementById("onHand").addEventListener('click', function () {
-            if (sessionStorage.getItem('isCount') != 'false') {
+            if (document.getElementById("enemy") == null) {
                 console.log('click');
                 var currentBullet_1 = document.createElement('a-gltf-model');
                 currentBullet_1.setAttribute('src', '#bullet1');
@@ -13045,6 +13045,7 @@ function giftHit(e, soundEls) {
                 }, 5000);
             }
             setTimeout(function () {
+                document.getElementById(giftId_2.firstElementChild.id).parentNode.removeChild(document.getElementById(giftId_2.firstElementChild.id));
                 document.getElementById(giftId_2.id).parentNode.removeChild(document.getElementById(giftId_2.id));
             }, 2000);
         }

@@ -24,7 +24,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     const pos = ball.getAttribute('position');
     //pos.z += x;
    ball.getAttribute('aabb-collider');
-    const ballForce = new CANNON.Vec3(0, 0, 1.2);
+    const ballForce = new CANNON.Vec3(0, 0, 1.4);
 
     // var isCounting=true;
     //pos.z += x;
@@ -34,7 +34,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
      ball.setAttribute(
       "animation","property:position; to:"+
           y +
-          ' ' +(document.querySelector('#cam').getAttribute('position').y+0.5)+
+          ' ' +(document.querySelector('#cam').getAttribute('position').y+0.8)+
           ' ' +
           pos.z +
           '; dur:4000;'

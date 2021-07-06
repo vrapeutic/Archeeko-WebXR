@@ -32,7 +32,7 @@ export class shoot extends ComponentWrapper<shootSchema> {
 
     document
     .getElementById("onHand").addEventListener('click', () => {
-      if (sessionStorage.getItem('isCount') != 'false') {
+      if (document.getElementById("enemy") ==null) {
         console.log('click');
         const currentBullet = document.createElement('a-gltf-model');
         currentBullet.setAttribute('src', '#bullet1');
@@ -309,6 +309,9 @@ function giftHit(e: Event, soundEls: NodeList) {
         }, 5000);
       }
       setTimeout(() => {
+        document
+        .getElementById(giftId.firstElementChild.id)
+        .parentNode.removeChild(document.getElementById(giftId.firstElementChild.id));
         document
           .getElementById(giftId.id)
           .parentNode.removeChild(document.getElementById(giftId.id));
