@@ -167,9 +167,9 @@
             <!--Camera-->
             <a-camera id="cam" position="-2 1.6 30">
                 <a-entity cursor="rayOrigin: mouse"></a-entity>
-                <a-sphere id="CamTrigger" position="0 0 1" scale="0.4 0.5 0.3" visible="true" material="opacity:0.8; transparent: true" aabb-collider="objects:#enemy">
+                <a-sphere id="CamTrigger" position="0 0 1" scale="0.4 1 0.3" visible="true" material="opacity:0.8; transparent: true" aabb-collider="objects:#enemy">
                 </a-sphere>
-                <a-box id="onHand" position="0 2 -9" scale="20 7 0.1" material="opacity: 0.03; transparent: true"></a-box>
+                <a-box id="onHand" position="0 2 -15" scale="20 7 0.1" material="opacity: 0.03; transparent: true"></a-box>
 
             </a-camera>
             <a-box id="wall" visible="false" scale="1 1 1" position="0 0 -50" aabb-collider="objects:#bullet"></a-box>
@@ -192,9 +192,7 @@
 
 
             <!--Menu-Stats-->
-            <a-text id="livesCounter" value="0" geometry="primitive:plane" visible="true" position="-4.19846 1 1"></a-text>
-            <a-text id="score" value="0" geometry="primitive:plane" visible="true" position="-4.19846 2 1"></a-text>
-            <a-text id="bulletCounter" value="55" geometry="primitive:plane" visible="true" position="-4.19846 3 1"></a-text>
+            <a-text id="bulletCounter" value="45" geometry="primitive:plane" visible="true" position="-4.19846 3 1"></a-text>
             <a-text id="level" value="3" geometry="primitive:plane" visible="true" position="-4.19846 4 1"></a-text>
             <a-text id="session" response-time value="0" geometry="primitive:plane" visible="true" position="4 1 1"></a-text>
             <a-text id="inps" value="0" geometry="primitive:plane" visible="false" position="-3 1 1" inps-counter></a-text>
@@ -232,11 +230,14 @@
                 </a-entity>
                 <a-entity id="gift9" gltf-model="#giftbox" class="boxs" rotation="13.102398859051664 -69.69057549514741 0" position="1.2 7.2 1.2" aabb-collider="objects: #bullet" color="#4CC3D9" lookat="#cam" clickable="" material="" geometry="">
                 </a-entity>
-                <a-box id="onHand" position="0 2 3" scale="20 20 0.1" material="opacity: 0.01; transparent: true" geometry=""></a-box>
 
 
                 <a-entity id="targetTree" aabb-collider="objects:#bullet" class="Box" gltf-model="#target" shadow="receive: true" amimation-mixer="enabled:false" rotation="0 2 1" shadow>
-                    <a-gltf-model id="npc" src="#male" scale="2 2 2" position="7 0 2"></a-gltf-model>
+                    <a-text id="livesCounter" value="0" visible="" scale="" position="3 3.2486 7.29134" text="align: center; alphaTest: 1.27; color: #ffffff; side: front; tabSize: 6.24; whiteSpace: normal; wrapCount: 38.97" rotation="0 0 0"></a-text>
+                    <a-text id="lives" value="Tries :" visible="" scale="" position="2.5 3.2486 7.29134" text="align: center; alphaTest: 1.27; color: #ffffff; side: front; tabSize: 6.24; whiteSpace: normal; wrapCount: 38.97" rotation="0 0 0"></a-text>
+                    <a-text id="score" value="0" visible="" scale="" position="3 2.2486 7.29134" text="align: center; alphaTest: 1.27; color: #ffffff; side: front; tabSize: 6.24; whiteSpace: normal; wrapCount: 38.97" rotation="0 0 0"></a-text>
+                    <a-text id="scoreTxt" value="Score :" visible="" scale="" position="2.5 2.2486 7.29134" text="align: center; alphaTest: 1.27; color: #ffffff; side: front; tabSize: 6.24; whiteSpace: normal; wrapCount: 38.97" rotation="0 0 0"></a-text>
+                    <a-gltf-model id="npc" src="#male" scale="2 2 2" position="-2.5 0 7"></a-gltf-model>
                 </a-entity>
                 <a-sound id="1lisa" src="assets/Reem_English/1lisa hello.mp3" autoplay="false"></a-sound>
                 <a-sound id="2lisa" src="#lisainfo2" autoplay="false"></a-sound>

@@ -12567,7 +12567,7 @@ new selectnpc().register();
 function CurrentNpc() {
     document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
     var npc = document.createElement('a-gltf-model');
-    npc.setAttribute('position', '7 0 2');
+    npc.setAttribute('position', '-2.5 0 7');
     npc.setAttribute('scale', '2 2 2');
     npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
     npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
@@ -12619,7 +12619,7 @@ var enemy = /** @class */function (_super) {
         var pos = ball.getAttribute('position');
         //pos.z += x;
         ball.getAttribute('aabb-collider');
-        var ballForce = new CANNON.Vec3(0, 0, 1.4);
+        var ballForce = new CANNON.Vec3(0, 0, 1.3);
         // var isCounting=true;
         //pos.z += x;
         //pos.x = y;
@@ -12654,7 +12654,7 @@ var enemy = /** @class */function (_super) {
         };
         ball.addEventListener('body-loaded', applyForceOnEnemy);
         setTimeout(function () {
-            if (document.querySelector('#livesCounter').getAttribute('value') >= '3') {
+            if (document.querySelector('#livesCounter').getAttribute('value') >= '4') {
                 var soundEls = document.querySelectorAll('[sound]');
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
@@ -13320,12 +13320,12 @@ var visualDistractorMovenment = /** @class */function (_super) {
             setTimeout(function () {
                 randomPosition++;
                 nextPosition = box[randomPosition].getAttribute('position'); // restor next target for distractor
-                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 3 ' + nextPosition.z + '; delay:2000;dur:5000');
-                if (randomPosition > box.length - 1) {
+                distractor.setAttribute('animation', 'property:position; to:' + nextPosition.x + ' 3 ' + nextPosition.z + 'dur:4000');
+                if (randomPosition >= box.length - 1) {
                     randomPosition = 0; // Set it back to `0` when it reaches `4`
                 }
                 cycle();
-            }, 2000);
+            }, 6000);
         };
         if (document.getElementById('level').getAttribute('value') != '1') startDsMovement();else document.getElementById('butterflymodel').parentNode.removeChild(document.getElementById('butterflymodel'));
     };

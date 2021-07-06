@@ -41,7 +41,7 @@ function CurrentNpc() {
     .getElementById('npc')
     .parentNode.removeChild(document.getElementById('npc'));
   const npc = document.createElement('a-gltf-model');
-  npc.setAttribute('position', '7 0 2');
+  npc.setAttribute('position', '-2.5 0 7');
   npc.setAttribute('scale', '2 2 2');
   npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
   npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));

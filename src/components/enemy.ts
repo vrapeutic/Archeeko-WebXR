@@ -24,7 +24,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
     const pos = ball.getAttribute('position');
     //pos.z += x;
    ball.getAttribute('aabb-collider');
-    const ballForce = new CANNON.Vec3(0, 0, 1.4);
+    const ballForce = new CANNON.Vec3(0, 0, 1.3);
 
     // var isCounting=true;
     //pos.z += x;
@@ -90,7 +90,7 @@ export class enemy extends ComponentWrapper<enemySchema> {
 
     setTimeout(() => {
       if (
-        document.querySelector('#livesCounter').getAttribute('value') >= '3'
+        document.querySelector('#livesCounter').getAttribute('value') >= '4'
       ) {
         const soundEls = document.querySelectorAll('[sound]');
 

@@ -33,14 +33,14 @@ export class visualDistractorMovenment extends ComponentWrapper<visualDistractor
             nextPosition.x +
             ' 3 ' +
             nextPosition.z +
-            '; delay:2000;dur:5000'
+            'dur:4000'
         );
 
-        if (randomPosition > box.length - 1) {
+        if (randomPosition >=( box.length-1) ) {
           randomPosition = 0; // Set it back to `0` when it reaches `4`
         }
         cycle();
-      }, 2000);
+      }, 6000);
     };
     if (document.getElementById('level').getAttribute('value') != '1')
       startDsMovement();
