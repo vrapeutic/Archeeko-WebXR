@@ -41,7 +41,13 @@ export class enemy extends ComponentWrapper<enemySchema> {
       );
 
     }, 1000);
-
+    if(  document
+      .getElementById("particalashalf")
+     !=null){
+    document
+    .getElementById("particalashalf")
+    .parentNode.removeChild(document.getElementById("particalashalf"));
+  }
     const applyForceOnEnemy = function (e: Event) {
       setTimeout(() => {
         const LocalForce = new CANNON.Vec3(0, 0, 0);
@@ -78,8 +84,8 @@ export class enemy extends ComponentWrapper<enemySchema> {
                   );
                 }, 1000);
                 document
-                  .getElementById(this.el.id)
-                  .parentNode.removeChild(document.getElementById(this.el.id));
+                  .getElementById("enemy")
+                  .parentNode.removeChild(document.getElementById("enemy"));
               }
 
           });

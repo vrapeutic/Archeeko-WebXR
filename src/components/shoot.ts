@@ -32,7 +32,13 @@ export class shoot extends ComponentWrapper<shootSchema> {
 
     document
     .getElementById("onHand").addEventListener('click', () => {
-      if (document.getElementById("enemy") ==null) {
+      if (sessionStorage.getItem('isCount')!="false") {
+        if (document.getElementById('bullet') != null) {
+          
+          document
+            .getElementById('bullet')
+            .parentNode.removeChild(document.getElementById('bullet'));
+        }
         console.log('click');
         const currentBullet = document.createElement('a-gltf-model');
         currentBullet.setAttribute('src', '#bullet1');
@@ -166,7 +172,7 @@ function giftHit(e: Event, soundEls: NodeList) {
 
       var partical = document.createElement('a-entity');
       partical.setAttribute('gltf-model', '#particals');
-
+partical.setAttribute("id","particalashalf");
       partical.setAttribute('animation-mixer', 'enabled:true');
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
@@ -177,14 +183,14 @@ function giftHit(e: Event, soundEls: NodeList) {
         soundEls.forEach(soundEl => {
           soundEl['components'].sound.stopSound();
         });
-        document
+      /*  document
           .getElementById('6' + sessionStorage.getItem('char'))
           .setAttribute(
             'position',
             document
               .getElementById(sessionStorage.getItem('npc'))
               .getAttribute('position')
-          );
+          );*/
 
         document
           .getElementById('6' + sessionStorage.getItem('char'))
@@ -201,14 +207,14 @@ function giftHit(e: Event, soundEls: NodeList) {
           soundEls.forEach(soundEl => {
             soundEl['components'].sound.stopSound();
           });
-          document
+         /* document
             .getElementById('9' + sessionStorage.getItem('char'))
             .setAttribute(
               'position',
               document
                 .getElementById(sessionStorage.getItem('npc'))
                 .getAttribute('position')
-            );
+            );*/
 
           document
             .getElementById('9' + sessionStorage.getItem('char'))
@@ -250,11 +256,19 @@ function giftHit(e: Event, soundEls: NodeList) {
 
       var partical = document.createElement('a-entity');
       partical.setAttribute('gltf-model', '#particals');
+      partical.setAttribute("id","particalashalf")
 
-      partical.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:2;clampWhenFinshed:true');
+      partical.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:2;clampWhenFinshed:false');
       //partical.setAttribute("position","1 3 1")
       document.getElementById(giftId.id).appendChild(partical);
-
+  setTimeout(() => {
+        document
+        .getElementById("particalashalf")
+        .parentNode.removeChild(document.getElementById("particalashalf"));
+        document
+          .getElementById(giftId.id)
+          .parentNode.removeChild(document.getElementById(giftId.id));
+      }, 2000);
       //window.isCount=true;
       console.log(document.getElementById('levelTybe').getAttribute('value'));
       setTimeout(() => {
@@ -308,14 +322,7 @@ function giftHit(e: Event, soundEls: NodeList) {
 
         }, 5000);
       }
-      setTimeout(() => {
-        document
-        .getElementById(giftId.firstElementChild.id)
-        .parentNode.removeChild(document.getElementById(giftId.firstElementChild.id));
-        document
-          .getElementById(giftId.id)
-          .parentNode.removeChild(document.getElementById(giftId.id));
-      }, 2000);
+    
     }
   }
 }
@@ -338,7 +345,7 @@ function ShootArrow(
       .querySelector('#shooter')
       .setAttribute(
         'animation-mixer',
-        'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true'
+        'enabled:true;loop:false;repetitions:0;clampWhenFinshed:false'
       );
 
     (<any>e).detail.body.el.body.applyImpulse(worldVelocity, localForce);

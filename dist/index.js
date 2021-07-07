@@ -12567,8 +12567,8 @@ new selectnpc().register();
 function CurrentNpc() {
     document.getElementById('npc').parentNode.removeChild(document.getElementById('npc'));
     var npc = document.createElement('a-gltf-model');
-    npc.setAttribute('position', '-2.5 0 7');
-    npc.setAttribute('scale', '2 2 2');
+    npc.setAttribute('position', '-2.5 0.5 7');
+    npc.setAttribute('scale', '1.5 1.5 1.5');
     npc.setAttribute('id', 'npc' + sessionStorage.getItem('npc'));
     npc.setAttribute('src', '#' + sessionStorage.getItem('npc'));
     document.querySelector('#targetTree').appendChild(npc);
@@ -12627,8 +12627,10 @@ var enemy = /** @class */function (_super) {
         setTimeout(function () {
             ball.setAttribute("animation", "property:position; to:" + y + ' ' + (document.querySelector('#cam').getAttribute('position').y + 0.8) + ' ' + pos.z + '; dur:4000;');
         }, 1000);
+        if (document.getElementById("particalashalf") != null) {
+            document.getElementById("particalashalf").parentNode.removeChild(document.getElementById("particalashalf"));
+        }
         var applyForceOnEnemy = function (e) {
-            var _this = this;
             setTimeout(function () {
                 var LocalForce = new CANNON.Vec3(0, 0, 0);
                 var worldVelocity = e.detail.body.el.body.quaternion.vmult(ballForce);
@@ -12646,7 +12648,7 @@ var enemy = /** @class */function (_super) {
                                 document.querySelector('#livesCounter').setAttribute('value', lives);
                                 console.log(lives + 'lives: ');
                             }, 1000);
-                            document.getElementById(_this.el.id).parentNode.removeChild(document.getElementById(_this.el.id));
+                            document.getElementById("enemy").parentNode.removeChild(document.getElementById("enemy"));
                         }
                     });
                 }
@@ -12887,7 +12889,10 @@ var shoot = /** @class */function (_super) {
         var newforce = new CANNON.Vec3(0, 0, 2);
         var bullet = document.getElementById('bullet');
         document.getElementById("onHand").addEventListener('click', function () {
-            if (document.getElementById("enemy") == null) {
+            if (sessionStorage.getItem('isCount') != "false") {
+                if (document.getElementById('bullet') != null) {
+                    document.getElementById('bullet').parentNode.removeChild(document.getElementById('bullet'));
+                }
                 console.log('click');
                 var currentBullet_1 = document.createElement('a-gltf-model');
                 currentBullet_1.setAttribute('src', '#bullet1');
@@ -12967,6 +12972,7 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_1.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
             partical.setAttribute('gltf-model', '#particals');
+            partical.setAttribute("id", "particalashalf");
             partical.setAttribute('animation-mixer', 'enabled:true');
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_1.id).appendChild(partical);
@@ -12976,7 +12982,14 @@ function giftHit(e, soundEls) {
                 soundEls.forEach(function (soundEl) {
                     soundEl['components'].sound.stopSound();
                 });
-                document.getElementById('6' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                /*  document
+                    .getElementById('6' + sessionStorage.getItem('char'))
+                    .setAttribute(
+                      'position',
+                      document
+                        .getElementById(sessionStorage.getItem('npc'))
+                        .getAttribute('position')
+                    );*/
                 document.getElementById('6' + sessionStorage.getItem('char'))['components'].sound.playSound();
             }, 200);
             if (document.getElementById('level').getAttribute('value') == '3') {
@@ -12989,7 +13002,14 @@ function giftHit(e, soundEls) {
                     soundEls.forEach(function (soundEl) {
                         soundEl['components'].sound.stopSound();
                     });
-                    document.getElementById('9' + sessionStorage.getItem('char')).setAttribute('position', document.getElementById(sessionStorage.getItem('npc')).getAttribute('position'));
+                    /* document
+                       .getElementById('9' + sessionStorage.getItem('char'))
+                       .setAttribute(
+                         'position',
+                         document
+                           .getElementById(sessionStorage.getItem('npc'))
+                           .getAttribute('position')
+                       );*/
                     document.getElementById('9' + sessionStorage.getItem('char'))['components'].sound.playSound();
                 }, 2500);
                 ball_1.setAttribute('create-enemy', 'enabled');
@@ -13011,9 +13031,14 @@ function giftHit(e, soundEls) {
             document.getElementById(giftId_2.id).setAttribute('score-trigger', 'enabled:true');
             var partical = document.createElement('a-entity');
             partical.setAttribute('gltf-model', '#particals');
-            partical.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:2;clampWhenFinshed:true');
+            partical.setAttribute("id", "particalashalf");
+            partical.setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:2;clampWhenFinshed:false');
             //partical.setAttribute("position","1 3 1")
             document.getElementById(giftId_2.id).appendChild(partical);
+            setTimeout(function () {
+                document.getElementById("particalashalf").parentNode.removeChild(document.getElementById("particalashalf"));
+                document.getElementById(giftId_2.id).parentNode.removeChild(document.getElementById(giftId_2.id));
+            }, 2000);
             //window.isCount=true;
             console.log(document.getElementById('levelTybe').getAttribute('value'));
             setTimeout(function () {
@@ -13044,10 +13069,6 @@ function giftHit(e, soundEls) {
                     ball_2.setAttribute('aabb-collider', 'objects: #CamTrigger;');
                 }, 5000);
             }
-            setTimeout(function () {
-                document.getElementById(giftId_2.firstElementChild.id).parentNode.removeChild(document.getElementById(giftId_2.firstElementChild.id));
-                document.getElementById(giftId_2.id).parentNode.removeChild(document.getElementById(giftId_2.id));
-            }, 2000);
         }
     }
 }
@@ -13056,7 +13077,7 @@ function ShootArrow(e, newforce, randomBulletCounter, bulletCounter, soundEls) {
         var localForce = new CANNON.Vec3(0, 0, 0);
         var worldVelocity = e.detail.body.el.body.quaternion.vmult(newforce);
         console.log(randomBulletCounter / 4);
-        document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:true');
+        document.querySelector('#shooter').setAttribute('animation-mixer', 'enabled:true;loop:false;repetitions:0;clampWhenFinshed:false');
         e.detail.body.el.body.applyImpulse(worldVelocity, localForce);
         if (bulletCounter <= 3 || bulletCounter == Math.floor(randomBulletCounter / 2) || bulletCounter == Math.floor(randomBulletCounter / 4)) {
             soundEls.forEach(function (soundEl) {
