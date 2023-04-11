@@ -40,6 +40,9 @@ The score of the player and the number of arrows left should appear at the top c
 
 ### Install and run the project locally using NPMv6
 
+## Art
+- https://drive.google.com/drive/folders/1doKRl26LvE-r0G-St3jb46crKAtCIoCi?usp=share_link
+
 ---
 
 > node v14.17.2
